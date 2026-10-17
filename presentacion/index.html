@@ -122,6 +122,77 @@
 .showcase-note{font-size:12px;line-height:1.6;color:var(--muted);margin:22px 0 0;max-width:900px}
 @media(max-width:1050px){.showcase-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-all{grid-column:span 2}.showcase-card{min-height:285px}}
 @media(max-width:720px){.showcase-grid{grid-template-columns:1fr;gap:13px}.showcase-all{grid-column:auto}.showcase-card{min-height:0;padding:23px 21px 19px}.showcase-card h3{font-size:24px}.showcase-card a{min-height:48px}.showcase .seghead{margin-bottom:22px}}
+
+/* PDF ONLINE FERNANDO: visualización del dossier dentro del navegador, sin descargas. */
+body.pdf-online{margin:0!important;background:#333940!important;color:#172b38}
+body.pdf-online > header,body.pdf-online > main,body.pdf-online > footer{display:none!important}
+body.pdf-online .pdf-reader-view{display:block}
+.pdf-reader-view{display:none;font-family:Arial,Helvetica,sans-serif}
+.pdf-reader-bar{position:sticky;top:0;z-index:120;background:#16293b;color:white;box-shadow:0 3px 16px #101e2b35}
+.pdf-reader-bar-inner{max-width:880px;margin:auto;padding:13px 17px;display:flex;align-items:center;justify-content:space-between;gap:13px}
+.pdf-reader-bar strong{font-size:13px;letter-spacing:.3px;color:#fff}
+.pdf-reader-bar a{color:#fff;font-size:12px;padding:10px 13px;border:1px solid #91a9b6;border-radius:6px;text-decoration:none}
+.pdf-reader-pages{width:min(100%,880px);margin:19px auto 34px;padding:0 14px}
+.pdf-sheet{width:100%;background:#faf9f5;min-height:940px;margin:0 auto 20px;border-radius:2px;box-shadow:0 6px 20px #0003;position:relative;padding:45px 51px 53px;color:#16293b}
+.pdf-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d9dbd3;padding-bottom:14px;margin-bottom:28px;font-weight:800;font-size:12px;letter-spacing:.4px}
+.pdf-head b{background:#2d715d;color:white;width:34px;height:34px;display:inline-grid;place-items:center;border-radius:5px;font:bold 25px Georgia;margin-right:9px;vertical-align:middle}
+.pdf-head small{font:700 10px Arial;color:#537363}
+.pdf-eyebrow{font-size:12px;font-weight:900;color:#2c725e;letter-spacing:1px;text-transform:uppercase}
+.pdf-sheet h1{font-size:clamp(28px,5.4vw,49px);font-weight:900;line-height:1.09;letter-spacing:-1.6px;margin:17px 0 23px}
+.pdf-sheet h1 span{color:#dc814f}
+.pdf-sheet h2{font-size:clamp(24px,4vw,35px);font-weight:900;line-height:1.12;letter-spacing:-1px;margin:14px 0 21px}
+.pdf-sheet h3{font-size:17px;line-height:1.25;margin:6px 0 10px;font-weight:900}
+.pdf-sheet p{font-size:14px;line-height:1.7;color:#56646b}
+.pdf-sheet strong{font-weight:900}
+.pdf-hero-layout{display:grid;grid-template-columns:1.03fr .79fr;gap:29px;align-items:stretch;min-height:425px}
+.pdf-photo-box{background:#16293b;border-radius:16px;padding:10px 10px 59px;position:relative;overflow:hidden;min-height:370px}
+.pdf-photo-box img{width:100%;height:100%;max-height:395px;object-fit:cover;object-position:top center;border-radius:10px;display:block}
+.pdf-photo-box b{display:block;position:absolute;bottom:15px;left:20px;right:20px;background:#e48252;border-radius:5px;padding:8px;text-align:center;font-size:11px;color:#192939}
+.pdf-highlight{font-size:15px!important;font-weight:900;color:#277157!important}
+.pdf-process,.pdf-three,.pdf-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pdf-tile{border:1px solid #d8e0db;padding:20px 15px;border-radius:8px;background:white;min-width:0}
+.pdf-tile small{display:block;font-size:11px;font-weight:900;color:#2a765f;letter-spacing:1px;margin-bottom:8px}
+.pdf-tile p{font-size:12px;line-height:1.55;margin:6px 0 0}
+.pdf-ribbon{background:#16293b;color:white;border-radius:10px;padding:24px 25px;margin-top:23px}
+.pdf-ribbon p{color:#f5e8d7;margin:7px 0 0}
+.pdf-giant-price{font-size:35px;color:#142b39;font-weight:900;margin:14px 0}
+.pdf-gold{background:#f9f3e6;border-color:#eadcc1}
+.pdf-moss{background:#eaf2ec}
+.pdf-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pdf-info{background:#e8f0e8;padding:20px 22px;border-radius:9px;margin:20px 0}
+.pdf-info p{margin:6px 0}
+.pdf-accent-line{height:4px;width:79px;background:#df8050;margin:15px 0 20px}
+.pdf-sheet ul{padding-left:20px;color:#56646b;font-size:13px;line-height:1.9}
+.pdf-examples .pdf-tile{display:flex;flex-direction:column;min-height:260px}
+.pdf-examples a{display:block;background:#192d3c;color:#fff;text-decoration:none;text-align:center;padding:14px 9px;border-radius:6px;margin-top:auto;font-weight:900;font-size:12px}
+.pdf-examples .pdf-tile:nth-child(3){background:#203e35;color:white}
+.pdf-examples .pdf-tile:nth-child(3) p{color:#e3efe8}
+.pdf-examples .pdf-tile:nth-child(3) a{background:#e7c38b;color:#22392f}
+.pdf-page-foot{margin-top:32px;padding-top:12px;border-top:1px solid #d9dfd6;font-size:10px;letter-spacing:.4px;color:#5b6f72;display:flex;justify-content:space-between}
+.pdf-subtitle{max-width:690px;margin:0 0 25px}
+@media(max-width:700px){
+.pdf-reader-bar-inner{padding:10px 12px}
+.pdf-reader-bar strong{font-size:12px}.pdf-reader-bar a{padding:8px;font-size:11px}
+.pdf-reader-pages{padding:0 7px;margin-top:9px}
+.pdf-sheet{padding:25px 18px 28px;min-height:0;margin-bottom:10px}
+.pdf-head{font-size:10px;margin-bottom:16px}
+.pdf-hero-layout{grid-template-columns:minmax(0,1fr) minmax(0,.78fr);gap:12px;min-height:250px}
+.pdf-photo-box{min-height:240px;padding:6px 6px 40px;border-radius:10px}
+.pdf-photo-box img{max-height:250px}.pdf-photo-box b{bottom:9px;left:9px;right:9px;font-size:8px}
+.pdf-sheet h1{font-size:clamp(22px,5.4vw,34px);letter-spacing:-.6px;line-height:1.12}
+.pdf-sheet h2{font-size:26px}
+.pdf-three,.pdf-process,.pdf-examples{grid-template-columns:1fr;gap:9px}
+.pdf-examples .pdf-tile{min-height:0}
+.pdf-features{grid-template-columns:1fr}
+.pdf-tile{padding:13px}
+.pdf-sheet p{font-size:13px}.pdf-ribbon{padding:20px}
+}
+@media print{
+@page{size:A4;margin:0}
+.pdf-reader-bar{display:none!important}
+.pdf-reader-pages{max-width:none;width:100%;margin:0;padding:0}
+.pdf-sheet{box-shadow:none;margin:0;width:210mm;min-height:297mm;padding:14mm;break-after:page}
+}
 </style><script>
 (function(){
   const examples={
@@ -216,4 +287,14 @@ byId('premium').addEventListener('change',()=>{premiumChoice=byId('premium').che
 byId('plan').addEventListener('change',syncPremium);
 ['languages','details','audio','qr'].forEach(id=>byId(id).addEventListener('change',calc));
 syncPremium();
+</script><script>
+(function(){
+ if(new URLSearchParams(window.location.search).get('documento')!=='pdf')return;
+ document.body.classList.add('pdf-online');
+ document.body.insertAdjacentHTML('afterbegin',"<div class=\"pdf-reader-view\" id=\"online-dossier\">\n<div class=\"pdf-reader-bar\"><div class=\"pdf-reader-bar-inner\"><strong>FERNANDO · PROPUESTA COMERCIAL</strong><a href=\"https://fernando-cartas-digitales.onrender.com/\">Volver a la web ↗</a></div></div>\n<div class=\"pdf-reader-pages\">\n<article class=\"pdf-sheet\">\n<div class=\"pdf-head\"><span><b>F</b> FERNANDO · CARTAS DIGITALES</span><small>01 / MANIFIESTO</small></div>\n<div class=\"pdf-hero-layout\"><div><div class=\"pdf-eyebrow\">ROMPE CON LO DE SIEMPRE</div><h1>Esto <span>NO</span> es otra web recargada.<br><br>Esto <span>NO</span> es otra pesada app.<br><br><span style=\"color:#28705c\">¡ESTO ES TU CARTA DIGITAL!</span></h1><p><strong>Sin descargas. Sin complicaciones. Sin tonterías.</strong></p></div><div class=\"pdf-photo-box\"><img id=\"pdf-photo\" alt=\"Fernando, informático y cocinero\"><b>TRATO DIRECTO. SIN APPS.</b></div></div>\n<div class=\"pdf-accent-line\"></div><h3 style=\"color:#267058\">SÉ DE TECNOLOGÍA. Y SÉ LO QUE SE CUECE EN UNA COCINA.</h3><p>Soy Fernando, informático con titulación de Grado Superior y cocinero con más de 10 años de experiencia. Entiendo tu restaurante por dentro. <strong>Tú me dices qué necesitas. Yo me encargo. Y punto.</strong></p>\n<h3>SENCILLO PARA TI. PERSONAL POR MI PARTE.</h3><div class=\"pdf-process\"><div class=\"pdf-tile\"><small>01</small><strong>ME ESCRIBES</strong><p>Platos, precios y fotos por WhatsApp.</p></div><div class=\"pdf-tile\"><small>02</small><strong>YO LO ACTUALIZO</strong><p>Sin paneles difíciles ni complicaciones.</p></div><div class=\"pdf-tile\"><small>03</small><strong>CARTA AL DÍA</strong><p>Tú te ocupas de tus clientes. Yo, de la carta.</p></div></div>\n<div class=\"pdf-ribbon\"><strong>TU CARTA DIGITAL Y PUNTO.</strong><p><strong>30 DÍAS DE PRUEBA GRATIS</strong> · Sin permanencia. WhatsApp: 667 566 047</p></div><div class=\"pdf-page-foot\"><span>FERNANDO · CARTAS DIGITALES PARA RESTAURANTES</span><span>01 / SERVICIO PERSONAL</span></div>\n</article>\n<article class=\"pdf-sheet\"><div class=\"pdf-head\"><span><b>F</b> FERNANDO · CARTAS DIGITALES</span><small>02 / TARIFAS</small></div>\n<div class=\"pdf-eyebrow\">01 / SUSCRIPCIONES</div><h2>Planes claros.</h2><p class=\"pdf-subtitle\">Yo me encargo de los cambios. Elige el ritmo de actualizaciones de tu restaurante.</p><div class=\"pdf-three\">\n<div class=\"pdf-tile pdf-moss\"><small>BÁSICA</small><div class=\"pdf-giant-price\">50 €</div><strong>AL MES</strong><p>1 actualización al mes.<br>Si tu carta cambia poco.</p><p class=\"pdf-highlight\">Estilo Premium +5 €/mes</p></div>\n<div class=\"pdf-tile\"><small>PLATA</small><div class=\"pdf-giant-price\">75 €</div><strong>AL MES</strong><p>1 actualización cada semana.<br>Perfecta para novedades.</p><p class=\"pdf-highlight\">Estilo Premium +5 €/mes</p></div>\n<div class=\"pdf-tile pdf-gold\"><small>ORO</small><div class=\"pdf-giant-price\">100 €</div><strong>AL MES</strong><p>1 actualización cada día.<br>Para cartas muy dinámicas.</p><p class=\"pdf-highlight\">Estilo Premium incluido</p></div></div>\n<div class=\"pdf-info\"><h3>UNA SOLICITUD = TODOS LOS PLATOS</h3><p>Puedes modificar uno o varios platos, precios, fotos o textos en una misma actualización.</p></div>\n<h3>¿NECESITAS OTRA ACTUALIZACIÓN?</h3><p>Fuera de las incluidas en tu plan: <strong>25 € por actualización adicional.</strong></p>\n<div class=\"pdf-ribbon\"><h3>ATENCIÓN PERSONAL POR WHATSAPP</h3><p>Mándame lo que quieres cambiar; me encargo de actualizar la carta.</p></div><div class=\"pdf-page-foot\"><span>FERNANDO · CARTAS DIGITALES PARA RESTAURANTES</span><span>02 / TARIFAS</span></div>\n</article>\n<article class=\"pdf-sheet\"><div class=\"pdf-head\"><span><b>F</b> FERNANDO · CARTAS DIGITALES</span><small>03 / EXTRAS Y PRUEBA</small></div>\n<div class=\"pdf-eyebrow\">02 / FUNCIONALIDADES Y OFERTA</div><h2>Solo pagas por lo que eliges.</h2><p class=\"pdf-subtitle\">Personaliza tu carta con funciones opcionales por un precio mensual sencillo.</p>\n<div class=\"pdf-features\"><div class=\"pdf-tile\"><h3>DETALLES DE PLATOS</h3><strong>+5 €/mes</strong><p>Al pulsar un plato: descripción y detalles.</p></div><div class=\"pdf-tile\"><h3>IDIOMAS</h3><strong>+5 €/idioma/mes</strong><p>Cada idioma adicional disponible.</p></div><div class=\"pdf-tile\"><h3>DESCRIPCIONES CON AUDIO</h3><strong>+5 €/mes</strong><p>Un botón para escuchar la descripción.</p></div><div class=\"pdf-tile\"><h3>ACCESO POR QR</h3><strong>+5 €/mes</strong><p>Para abrir la carta escaneando un código.</p></div></div>\n<div class=\"pdf-info\"><span class=\"pdf-eyebrow\">REGALO AL CONTINUAR</span><h3>¡El QR te lo regalo si te quedas!</h3><p>Después de los 30 días gratis, si contratas un plan, el acceso QR seguirá siendo gratuito mientras mantengas la suscripción sin interrupciones. Si cancelas y vuelves, el QR cuesta 5 €/mes.</p></div>\n<h3>30 DÍAS GRATIS · TU PRUEBA INCLUYE</h3><div class=\"pdf-process\"><div class=\"pdf-tile\"><small>01</small><p>Carta con platos y precios</p></div><div class=\"pdf-tile\"><small>02</small><p>QR + descripciones al pulsar</p></div><div class=\"pdf-tile\"><small>03</small><p>Una tercera función a elegir</p></div></div>\n<p>Peanas QR elegantes para mesas: <strong>15 a 20 € por unidad.</strong> Se venden aparte y no forman parte de la función QR digital gratuita.</p><div class=\"pdf-page-foot\"><span>FERNANDO · CARTAS DIGITALES PARA RESTAURANTES</span><span>03 / EXTRAS Y PRUEBA</span></div>\n</article>\n<article class=\"pdf-sheet\"><div class=\"pdf-head\"><span><b>F</b> FERNANDO · CARTAS DIGITALES</span><small>04 / CONDICIONES</small></div>\n<div class=\"pdf-eyebrow\">03 / CÓMO FUNCIONA</div><h2>Tú llevas tu restaurante.<br>Yo me ocupo de la carta.</h2>\n<div class=\"pdf-process\"><div class=\"pdf-tile\"><small>01</small><h3>ME LO CUENTAS</h3><p>Me envías por WhatsApp lo que quieres añadir o modificar.</p></div><div class=\"pdf-tile\"><small>02</small><h3>LO PREPARO</h3><p>Organizo y aplico los cambios que me hayas pedido.</p></div><div class=\"pdf-tile\"><small>03</small><h3>CARTA AL DÍA</h3><p>El restaurante dispone de su carta digital actualizada.</p></div></div>\n<div class=\"pdf-info\"><span class=\"pdf-eyebrow\">TUS FUERAS DE CARTA</span><h3>¡Publica y retira por un solo cambio!</h3><p>Cuando indiques las fechas de publicación y retirada en la misma solicitud, ambas gestiones cuentan como una única actualización, aunque incluyan varios platos. Fechas programadas solo para «Fuera de carta».</p></div>\n<h3>CONDICIONES SENCILLAS Y TRANSPARENTES</h3><div class=\"pdf-features\"><div class=\"pdf-tile\"><h3>ACTUALIZACIONES A TU GUSTO</h3><p>Una solicitud permite cambiar tantos platos como necesites. Una nueva solicitud posterior cuenta como otra actualización.</p></div><div class=\"pdf-tile\"><h3>PLANES Y CAMBIOS EXTRA</h3><p>Básica: 1 al mes. Plata: 1 por semana. Oro: 1 al día. Cada cambio adicional cuesta 25 €.</p></div><div class=\"pdf-tile\"><h3>PRUEBA Y CONTINUIDAD</h3><p>30 días gratis y sin permanencia. Si contratas tras la prueba, el QR se incluye sin coste mientras sigas suscrito.</p></div><div class=\"pdf-tile\"><h3>SI CANCELAS Y VUELVES</h3><p>Si te suscribes de nuevo y quieres el QR, su precio será 5 €/mes.</p></div></div>\n<p>Importes sin IVA. Complementos opcionales y peanas físicas aparte. Estilo Premium incluido en Oro; en Básica y Plata +5 €/mes.</p><div class=\"pdf-ribbon\"><a style=\"color:#fff;text-decoration:none;font-weight:900\" href=\"https://wa.me/34667566047\">Hablemos por WhatsApp · 667 566 047 ↗</a></div>\n<div class=\"pdf-page-foot\"><span>FERNANDO · CARTAS DIGITALES PARA RESTAURANTES</span><span>04 / CONDICIONES Y CONTACTO</span></div>\n</article>\n<article class=\"pdf-sheet\"><div class=\"pdf-head\"><span><b>F</b> FERNANDO · CARTAS DIGITALES</span><small>05 / EJEMPLOS</small></div>\n<div class=\"pdf-eyebrow\">04 / VER EJEMPLOS</div><h2>Tres ejemplos para elegir<br>cómo presentar tu carta.</h2><p class=\"pdf-subtitle\">Abre estas tres versiones de Con Acento desde tu móvil. La carta es la misma; lo que cambia es la presentación y las funciones que quieras añadir.</p>\n<div class=\"pdf-examples\">\n<div class=\"pdf-tile\"><small>01</small><h3>SIN EXTRAS</h3><p>La carta en su forma más sencilla. Fotografías de platos, nombres y precios. Sin fichas ampliadas, idiomas ni audio.</p><a href=\"https://con-acento-carta.onrender.com/demo-basica/\" target=\"_blank\" rel=\"noopener\">ABRIR ENLACE ↗</a></div>\n<div class=\"pdf-tile pdf-gold\"><small>02</small><h3>CON EXTRA ESTILO PREMIUM</h3><p>El mismo contenido, con una imagen más cuidada. Mantiene las funciones de Sin extras y mejora la presentación visual.</p><a href=\"https://con-acento-carta.onrender.com/demo-premium/\" target=\"_blank\" rel=\"noopener\">ABRIR ENLACE ↗</a></div>\n<div class=\"pdf-tile\"><small>03</small><h3>CON TODOS LOS EXTRAS</h3><p>Diseño Premium, fichas de platos, seis idiomas, audio de descripciones y acceso mediante QR.</p><a href=\"https://con-acento-carta.onrender.com/demo-completa/\" target=\"_blank\" rel=\"noopener\">ABRIR ENLACE ↗</a></div>\n</div><div class=\"pdf-info\"><h3>SON CONFIGURACIONES DE EJEMPLO, NO TRES PLANES.</h3><p>La mensualidad depende del plan de actualizaciones elegido y de los extras contratados. Te asesoro para crear la carta que necesitas.</p></div>\n<div class=\"pdf-page-foot\"><span>FERNANDO · CARTAS DIGITALES PARA RESTAURANTES</span><span>05 / EJEMPLOS</span></div>\n</article></div></div>");
+ const photo=document.querySelector('.photo-hero .corner-photo');
+ const preview=document.getElementById('pdf-photo');
+ if(photo&&preview)preview.src=photo.getAttribute('src');
+ document.title='Propuesta comercial de Fernando · Vista online';
+})();
 </script></body></html>
