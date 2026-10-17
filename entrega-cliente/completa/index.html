@@ -398,6 +398,34 @@ header .top-link{color:#f4dfd1}
 .menu-view-list .product-grid .product:hover .product-media img{
   transform:none!important;
 }
+
+/* Combinacion de extras: en Vista Lista los detalles se leen sin abrir una ventana. */
+.product-inline-details{display:none}
+.menu-view-list.inline-details-active .product-grid .product-inline-details{
+ display:block;margin:3px 0 15px;padding:14px 16px 15px;
+ background:#f7efe7;border:1px solid #eadacf;border-radius:18px;
+}
+.menu-view-list.inline-details-active .product-grid .product-inline-details h4{
+ font:800 12px/1.35 'DM Sans',Arial,sans-serif;
+ color:#674236;margin:0 0 7px;
+}
+.menu-view-list.inline-details-active .product-grid .product-inline-details .product-inline-story{
+ font-size:13px;line-height:1.65;color:#5b514a;
+ margin:0 0 11px;min-height:0;flex:none;
+}
+.menu-view-list.inline-details-active .product-grid .product-inline-details .inline-audio-play{
+ display:inline-flex;align-items:center;gap:7px;justify-content:center;
+ border:1px solid #bfa79c;background:#fffaf5;color:#533c33;
+ border-radius:999px;padding:8px 12px;min-height:36px;
+ font:800 12px/1.2 'DM Sans',Arial,sans-serif;cursor:pointer;
+}
+.menu-view-list.inline-details-active .product-grid .product-inline-details .inline-audio-play:focus-visible{
+ outline:3px solid #bf8c53;outline-offset:3px;
+}
+.menu-view-list.inline-details-active .product-grid .product-more{display:none!important}
+@media(max-width:650px){
+ .menu-view-list.inline-details-active .product-grid .product-inline-details{margin:3px 0 12px;padding:12px 13px;border-radius:15px}
+}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/entrega-cliente/completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/entrega-cliente/completa/"+location.search+location.hash);</script>
 </head><body><div class="delivery-design-bar"><div class="delivery-design-title">Prueba de lanzamiento · Entrega al cliente</div><nav class="delivery-design-nav" aria-label="Elegir diseño para mostrar al cliente"><a href="../normal/">Diseño normal</a><a href="../premium/">Diseño Premium</a><a href="../completa/" aria-current="page">Premium + extras</a></nav></div><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><svg class="emblem" viewBox="0 0 90 96" role="img" aria-label="Mujer con rosas de la identidad de Con'acento"><path fill="#201c1c" d="M45 5C29 5 21 17 21 28c-1 8 1 15-6 23l11 1-8 13 14-5 6-15 15-1 9-16C64 11 55 5 45 5Z"/><path fill="#fff5eb" d="M13 36c3-7 13-12 22-6l4 13-9 8 3 9-9-2-9-8-8 1 7-9Z"/><path fill="none" stroke="#211c1c" stroke-width="2.3" stroke-linecap="round" d="M13 40c8-5 14-2 19 0m-15 6 9 1m-13 11 7 2"/><path fill="#1d1717" d="M9 60q6-3 12 5-8 5-12-5Z"/><path fill="#201c1c" d="M35 7C45-6 58 1 57 8c9-5 18 5 14 12 6 7-1 17-10 20-10-8-16-24-26-33Z"/><g stroke="#fff5e9" fill="none" stroke-width="1.7" stroke-linecap="round"><path d="m41 9 7 7-6 8 5 8m5-21 7 8-5 8 7 8m4-17 5 7-5 6"/></g><g fill="#c1304e" stroke="#7f1530" stroke-width="1.2"><circle cx="65" cy="42" r="13"/><circle cx="53" cy="59" r="14"/><circle cx="66" cy="73" r="12"/></g><g stroke="#ec8b9a" stroke-width="1.9" fill="none"><path d="M59 44q3-9 10-3t-6 10q-6-3 1-8m-17 17q2-10 12-7t-2 12q-8-3 0-9m2 17q8-8 12-1t-7 9q-6-3 0-8"/></g><circle cx="41" cy="67" r="5" stroke="#211b1b" stroke-width="2.7" fill="none"/><circle cx="41" cy="80" r="8" fill="#201a1a"/><circle cx="41" cy="80" r="3" fill="#f8e6df"/></svg><span class="client-brand"><strong>Con'acento</strong><small>Bar de tapas</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
@@ -423,11 +451,21 @@ const locales={es:'es-ES',en:'en-GB',ca:'ca-ES',fr:'fr-FR',zh:'zh-CN',ar:'ar'};
 let lang='es';
 try {const saved=localStorage.getItem('con-acento-language');if(locales[saved])lang=saved;}catch{}
 const OUTSIDE_UI={"Fuera de carta":["Off-menu specials","Fora de carta","Hors carte","限时特色菜","خارج القائمة"],"Especiales y novedades por tiempo limitado.":["Special dishes and seasonal highlights for a limited time.","Plats especials i novetats per temps limitat.","Spécialités et nouveautés pour une durée limitée.","限时供应的特色菜及新品。","أطباق خاصة وجديدة لفترة محدودة."],"Sin novedades activas":["No active specials","Sense novetats actives","Aucune nouveauté en cours","暂无新品","لا توجد عروض خاصة حالياً"],"PRÓXIMAMENTE":["COMING SOON","PRÒXIMAMENT","BIENTÔT","敬请期待","قريباً"],"Aquí aparecerán los platos especiales y las novedades temporales del restaurante.":["Special dishes and temporary restaurant offers will appear here.","Aquí apareixeran els plats especials i les novetats temporals del restaurant.","Les plats spéciaux et les nouveautés temporaires du restaurant apparaîtront ici.","餐厅的限时菜品及新品将在这里展示。","ستظهر هنا أطباق المطعم الخاصة والعروض المؤقتة."]};
+/* Traducciones para los detalles integrados en Vista Lista. */
+UI['Información ampliada']=['More about this dish','Informació ampliada','Informations complémentaires','菜品详情','معلومات إضافية'];
+UI['Escuchar descripción']=['Listen to description','Escoltar la descripció','Écouter la description','收听介绍','استمع إلى الوصف'];
+UI['Escuchar la descripción de este plato']=['Listen to this dish description','Escoltar la descripció d’aquest plat','Écouter la description de ce plat','收听这道菜的介绍','استمع إلى وصف هذا الطبق'];
 const t=s=>lang==='es'?s:(OUTSIDE_UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lang)]??UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lang)]??s);
 const fmt=c=>new Intl.NumberFormat(locales[lang],{style:'currency',currency:'EUR'}).format(c/100);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cats=['Todos','Tapas','Platos','Fuera de carta','Postres'];
 let activeCat='Todos',lastFocus=null,detailId=null;
+/* Activar el detalle integrado solo cuando se contratan detalles y Vista Lista.
+   El audio es un extra independiente. Esta demostracion incluye los tres. */
+const CONTRACTED_FEATURES={details:true,dualView:true,audio:true};
+const INLINE_LIST_DETAILS=CONTRACTED_FEATURES.details&&CONTRACTED_FEATURES.dualView;
+document.body.classList.toggle('inline-details-active',INLINE_LIST_DETAILS);
+
 function menu(){return MENU.map((p,i)=>{const v=TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;}).concat(SPECIALS.map((p,i)=>{const v=SPECIAL_TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;}));}
 // Remember original static text and accessible labels so language changes are reversible.
 const staticText=[];
@@ -442,21 +480,29 @@ function renderTabs(){
  $('tabs').innerHTML=cats.map(c=>`<button type="button" class="tab ${c===activeCat?'active':''}" data-cat="${c}" aria-pressed="${c===activeCat}">${esc(t(c))}</button>`).join('');
  $('tabs').querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCat=b.dataset.cat;renderTabs();renderCatalog();document.getElementById('catalog').scrollIntoView({behavior:'smooth',block:'start'});}));
 }
+function speakDescription(p){
+ if(!('speechSynthesis' in window)){alert('La lectura en voz alta no está disponible en este navegador.');return;}
+ window.speechSynthesis.cancel();
+ const msg=new SpeechSynthesisUtterance(p.name+'. '+p.story+' '+p.desc);
+ msg.lang=locales[lang];msg.rate=.95;
+ window.speechSynthesis.speak(msg);
+}
 function renderCatalog(){
  const match=menu().filter(p=>activeCat==='Todos'||p.category===activeCat);
  const categories=activeCat==='Todos'?cats.slice(1):[activeCat];
  $('catalog').innerHTML=categories.map(cat=>{
   const ps=match.filter(p=>p.category===cat);const outside=cat==='Fuera de carta';if(!ps.length && !outside)return '';
-  return `<section class="${outside?'outside-section':''}" ${outside?'id="fuera-de-carta"':''}><div class="section-heading"><div><h2>${esc(t(outside?'Fuera de carta':cat==='Tapas'?'Tapas con mucho acento':cat))}</h2><p>${esc(t(outside?'Especiales y novedades por tiempo limitado.':cat==='Tapas'?'Pequeños grandes momentos':cat==='Platos'?'Para saborear sin prisa':'El final más dulce'))}</p></div><div class="count">${ps.length?ps.length+' '+esc(t('especialidades')):esc(t('Sin novedades activas'))}</div></div><div class="product-grid">${ps.map(p=>`<article class="product"><button class="product-media-button" type="button" data-detail="${esc(p.id)}" aria-label="${esc(t('Ver imagen y detalles de'))} ${esc(p.name)}">${media(p)}</button><div class="product-body"><h3>${esc(p.name)}</h3><p class="product-description">${esc(p.desc)}</p><div class="product-actions">${prices(p)}${allergenInfo()}<button class="product-more" type="button" data-detail="${esc(p.id)}">${esc(t('Ver foto y detalles →'))}</button></div></div></article>`).join('')}</div>${outside&&!ps.length?`<div class="outside-empty"><strong>${esc(t('PRÓXIMAMENTE'))}</strong><p>${esc(t('Aquí aparecerán los platos especiales y las novedades temporales del restaurante.'))}</p></div>`:''}</section>`;
+  return `<section class="${outside?'outside-section':''}" ${outside?'id="fuera-de-carta"':''}><div class="section-heading"><div><h2>${esc(t(outside?'Fuera de carta':cat==='Tapas'?'Tapas con mucho acento':cat))}</h2><p>${esc(t(outside?'Especiales y novedades por tiempo limitado.':cat==='Tapas'?'Pequeños grandes momentos':cat==='Platos'?'Para saborear sin prisa':'El final más dulce'))}</p></div><div class="count">${ps.length?ps.length+' '+esc(t('especialidades')):esc(t('Sin novedades activas'))}</div></div><div class="product-grid">${ps.map(p=>`<article class="product"><button class="product-media-button" type="button" data-detail="${esc(p.id)}" aria-label="${esc(t('Ver imagen y detalles de'))} ${esc(p.name)}">${media(p)}</button><div class="product-body"><h3>${esc(p.name)}</h3><p class="product-description">${esc(p.desc)}</p>${INLINE_LIST_DETAILS?`<section class="product-inline-details"><h4>${esc(t('Información ampliada'))}</h4><p class="product-inline-story">${esc(p.story)}</p>${CONTRACTED_FEATURES.audio?`<button type="button" class="inline-audio-play" data-speak="${esc(p.id)}" aria-label="${esc(t('Escuchar la descripción de este plato'))}"><span aria-hidden="true">🔊</span><span>${esc(t('Escuchar descripción'))}</span></button>`:''}</section>`:''}<div class="product-actions">${prices(p)}${allergenInfo()}<button class="product-more" type="button" data-detail="${esc(p.id)}">${esc(t('Ver foto y detalles →'))}</button></div></div></article>`).join('')}</div>${outside&&!ps.length?`<div class="outside-empty"><strong>${esc(t('PRÓXIMAMENTE'))}</strong><p>${esc(t('Aquí aparecerán los platos especiales y las novedades temporales del restaurante.'))}</p></div>`:''}</section>`;
  }).join('')||`<div class="nothing">${esc(t('No encontramos platos con esa búsqueda.'))}</div>`;
  $('catalog').querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>openDetail(b.dataset.detail,b)));
+ $('catalog').querySelectorAll('[data-speak]').forEach(b=>b.addEventListener('click',()=>{const p=menu().find(x=>x.id===b.dataset.speak);if(p)speakDescription(p);}));
  $('catalog').insertAdjacentHTML('beforeend',`<p class="fineprint">${esc(t('* En los platos con dos precios se muestran los importes de tapa y ración según la carta original; confirma la disponibilidad y los formatos con el establecimiento. En caso de alergias o intolerancias, consulta siempre con el personal.'))}</p>`);
 }
 function renderDetail(){
  const p=menu().find(x=>x.id===detailId);if(!p)return;
  $('detail-title').textContent=p.name;
  $('detail-body').innerHTML=`<div class="detail-compact-layout"><div class="detail-visual">${media(p,true)}<div class="detail-audio-row"><button type="button" class="audio-play" id="detail-speak" aria-label="Escuchar la descripción de este plato"><span aria-hidden="true">🔊</span><span>Escuchar descripción</span></button></div></div><div class="detail-information"><p class="detail-story">${esc(p.story)}</p><div class="detail-facts"><section class="detail-section detail-ingredients"><h3>${esc(t('Qué lleva'))}</h3><p class="detail-description">${esc(p.desc)}</p></section><section class="detail-section detail-pricing"><h3>${esc(t('Precios'))}</h3>${prices(p)}</section></div><div class="detail-allergen-row"><p><strong>${esc(t('Alérgenos:'))}</strong> ${esc(t('Para información específica sobre ingredientes y alérgenos, pregunta al personal del restaurante antes de realizar tu elección.'))}</p></div></div></div>`;
- $('detail-speak').addEventListener('click',()=>{if(!('speechSynthesis' in window)){alert('La lectura en voz alta no está disponible en este navegador.');return;}window.speechSynthesis.cancel();const msg=new SpeechSynthesisUtterance(p.name+'. '+p.story+' '+p.desc);msg.lang=locales[lang];msg.rate=.95;window.speechSynthesis.speak(msg);});
+ $('detail-speak').addEventListener('click',()=>speakDescription(p));
 }
 function openDetail(id,trigger){detailId=id;lastFocus=trigger||document.activeElement;renderDetail();$('overlay').classList.add('open');$('detail-wrap').classList.add('open');document.body.style.overflow='hidden';$('detail-close').focus();}
 function closeDetail(){if('speechSynthesis' in window)window.speechSynthesis.cancel();detailId=null;$('detail-wrap').classList.remove('open');$('overlay').classList.remove('open');document.body.style.overflow='';if(lastFocus?.isConnected)lastFocus.focus();}
