@@ -21,6 +21,14 @@ jobs:
           node-version: '22'
       - name: Instalar Playwright Core
         run: npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+      - name: Verificar API sin credenciales y estado no enviado
+        shell: bash
+        run: |
+          node --check api-formulario/server.js
+          PORT=17878 node api-formulario/server.js > /tmp/api-formulario-test.log 2>&1 &
+          sleep 2
+          node -e "fetch('http://127.0.0.1:17878/health').then(async r=>{const a=await r.json();if(!r.ok||a.configured!==false)process.exit(1);console.log('API sin clave: correctamente no activada')}).catch(()=>process.exit(1))"
+          node -e "fetch('http://127.0.0.1:17878/send',{method:'POST',headers:{'content-type':'application/json'},body:'{}'}).then(async r=>{const a=await r.json();if(r.status!==503||a.ok!==false)process.exit(1);console.log('API rechaza entrega no configurada')}).catch(()=>process.exit(1))"
       - name: Localizar navegador Chromium
         shell: bash
         run: |
