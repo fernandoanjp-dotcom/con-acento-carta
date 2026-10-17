@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - '.github/workflows/probar-formulario-productos.yml'
+      - '.github/scripts/test-formulario-productos.cjs'
+      - 'gestion-productos/index.html'
   workflow_dispatch:
 permissions:
   contents: read
