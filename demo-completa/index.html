@@ -376,6 +376,24 @@ header{background:#1a302b}
 @media(max-width:650px){
  .menu-view-list.inline-details-active .product-grid .product-inline-details{margin:3px 0 12px;padding:12px 13px;border-radius:15px}
 }
+
+/* Portada compacta: conservar el contenido con aproximadamente media altura. */
+.hero{min-height:0}
+.hero-content{padding:25px 26px 26px}
+.hero .eyebrow{font-size:10px;letter-spacing:.12em}
+.hero h1{font-size:clamp(38px,5vw,60px);line-height:1.05;margin:8px 0 10px}
+.hero p{font-size:13px;line-height:1.48;margin:0 0 14px;max-width:650px}
+.hero-btn{padding:10px 18px;font-size:12px}
+.hero-content .ornament{display:none}
+@media(max-width:720px){
+ .hero{min-height:0}
+ .hero-content{padding:16px 18px 18px}
+ .hero .eyebrow{font-size:9px;letter-spacing:.10em}
+ .hero h1{font-size:clamp(31px,8.1vw,42px);line-height:1.04;margin:7px 0 9px}
+ .hero p{font-size:12px;line-height:1.4;margin:0 0 12px}
+ .hero-btn{padding:9px 15px;font-size:12px}
+}
+
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
