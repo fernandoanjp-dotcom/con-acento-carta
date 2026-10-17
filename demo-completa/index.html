@@ -409,10 +409,11 @@ const fmt=c=>new Intl.NumberFormat(locales[lang],{style:'currency',currency:'EUR
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cats=['Todos','Tapas','Platos','Fuera de carta','Postres'];
 let activeCat='Todos',lastFocus=null,detailId=null;
-/* Activar el detalle integrado solo cuando se contratan detalles y Vista Lista.
-   El audio es un extra independiente. Esta demostracion incluye los tres. */
+/* La vista con datos y audio integrados es exclusiva de la contratación conjunta:
+   ficha detallada + audio + vista dual. En cualquier otra combinación,
+   el enlace abre la ficha emergente tradicional. */
 const CONTRACTED_FEATURES={details:true,dualView:true,audio:true};
-const INLINE_LIST_DETAILS=CONTRACTED_FEATURES.details&&CONTRACTED_FEATURES.dualView;
+const INLINE_LIST_DETAILS=Boolean(CONTRACTED_FEATURES.details&&CONTRACTED_FEATURES.dualView&&CONTRACTED_FEATURES.audio);
 document.body.classList.toggle('inline-details-active',INLINE_LIST_DETAILS);
 
 function menu(){return MENU.map((p,i)=>{const v=TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;}).concat(SPECIALS.map((p,i)=>{const v=SPECIAL_TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;}));}
