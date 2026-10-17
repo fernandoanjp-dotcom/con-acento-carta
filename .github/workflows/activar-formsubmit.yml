@@ -1,0 +1,28 @@
+name: Activacion inicial de FormSubmit
+on:
+  push:
+    paths:
+      - '.github/workflows/activar-formsubmit.yml'
+permissions:
+  contents: read
+jobs:
+  solicitar-activacion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Enviar solicitud de activacion de prueba
+        shell: bash
+        run: |
+          set -eu
+          curl --location --silent --show-error --max-time 45 \
+            --output formsubmit-respuesta.html \
+            --write-out 'HTTP FormSubmit: %{http_code}\n' \
+            --data-urlencode 'name=Cartas Digitales (configuracion inicial)' \
+            --data-urlencode 'email=fernandoanjp@gmail.com' \
+            --data-urlencode 'message=Solicitud de activacion de FormSubmit para el formulario de gestion de productos de Cartas Digitales. Esta es una prueba tecnica, no una solicitud real de un restaurante.' \
+            --data-urlencode '_url=https://con-acento-carta.onrender.com/gestion-productos/' \
+            --data-urlencode '_subject=Activacion inicial del formulario Cartas Digitales' \
+            --data-urlencode '_captcha=false' \
+            https://formsubmit.co/fernandoanjp@gmail.com
+          head -c 600 formsubmit-respuesta.html | tr '\n' ' '
+          echo
