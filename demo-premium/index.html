@@ -90,7 +90,17 @@ header .brand-emblem{border-color:#a88759;color:#f7e8d2}
 .about{background:#e9ded0}
 footer{background:#231c1a}
 @media(max-width:720px){.hero{min-height:335px;background-position:center,right center}.hero-content{padding:54px 19px 52px}.hero h1{font-size:clamp(43px,10vw,60px)}.product-body h3{font-size:18px}.product-media{aspect-ratio:1.08}}
-</style>
+
+/* TUS FUERAS DE CARTA: apartado propio, siempre antes de Postres. */
+.outside-section{margin:32px 0 49px;padding:25px 28px 30px;border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:15px;background:var(--white)}
+.outside-section .section-heading{margin:0 0 18px}
+.outside-section .section-heading h2{font-size:clamp(29px,3.6vw,42px);text-transform:uppercase;letter-spacing:-.04em}
+.outside-section .section-heading p{font-size:13px;line-height:1.6}
+.outside-empty{border:1px dashed var(--line);border-radius:10px;padding:26px 24px;background:var(--cream);min-height:105px}
+.outside-empty strong{font-size:12px;letter-spacing:.13em;font-weight:900;color:var(--wine)}
+.outside-empty p{font-size:14px;color:var(--muted);line-height:1.6;max-width:610px;margin:8px 0 0}
+@media(max-width:720px){.outside-section{padding:22px 17px;margin:28px 0 36px}.outside-empty{padding:20px 17px}.outside-section .section-heading{align-items:start;flex-direction:column}.outside-section .section-heading h2{font-size:28px}}
+.outside-section{border:1px solid #b8a084;border-left:5px solid #c19a60;background:#2c2522;border-radius:16px;color:#f9e8d1;box-shadow:0 18px 46px #392c2026}.outside-section .section-heading h2{color:#f2d7aa}.outside-section .section-heading p,.outside-section .count{color:#d2c0a9}.outside-empty{background:#3d332b;border-color:#8e785b}.outside-empty strong{color:#e8c78b}.outside-empty p{color:#eee0ce}</style>
 </head><body><div class="demo-strip"><div><strong>CON ACENTO · DEMO BÁSICA PREMIUM</strong><small> · Mismas funciones · Diseño Premium (+5 €/mes)</small></div><nav class="demo-tabs" aria-label="Comparar versiones"><a href="../demo-basica/">Básica</a><a href="../demo-premium/" aria-current="page">Premium</a><a href="../demo-completa/">Completa</a></nav></div>
 <header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span></div></div></header>
 <main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
@@ -111,10 +121,11 @@ const $=id=>document.getElementById(id);
 const locales={es:'es-ES',en:'en-GB',ca:'ca-ES',fr:'fr-FR',zh:'zh-CN',ar:'ar'};
 let lang='es';
 // Esta demo solo ofrece la carta en español; idiomas no contratados.
-const t=s=>lang==='es'?s:(UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lang)]??s);
+const OUTSIDE_UI={"Fuera de carta":["Off-menu specials","Fora de carta","Hors carte","限时特色菜","خارج القائمة"],"TUS FUERAS DE CARTA":["TODAY'S SPECIALS","ELS TEUS FORA DE CARTA","VOS SUGGESTIONS HORS CARTE","期间限定","أطباق خارج القائمة"],"Especiales y novedades por tiempo limitado.":["Special dishes and seasonal highlights for a limited time.","Plats especials i novetats per temps limitat.","Spécialités et nouveautés pour une durée limitée.","限时供应的特色菜及新品。","أطباق خاصة وجديدة لفترة محدودة."],"Sin novedades activas":["No active specials","Sense novetats actives","Aucune nouveauté en cours","暂无新品","لا توجد عروض خاصة حالياً"],"PRÓXIMAMENTE":["COMING SOON","PRÒXIMAMENT","BIENTÔT","敬请期待","قريباً"],"Aquí aparecerán los platos especiales y las novedades temporales del restaurante.":["Special dishes and temporary restaurant offers will appear here.","Aquí apareixeran els plats especials i les novetats temporals del restaurant.","Les plats spéciaux et les nouveautés temporaires du restaurant apparaîtront ici.","餐厅的限时菜品及新品将在这里展示。","ستظهر هنا أطباق المطعم الخاصة والعروض المؤقتة."]};
+const t=s=>lang==='es'?s:(OUTSIDE_UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lang)]??UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lang)]??s);
 const fmt=c=>new Intl.NumberFormat(locales[lang],{style:'currency',currency:'EUR'}).format(c/100);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const cats=['Todos','Tapas','Platos','Postres'];
+const cats=['Todos','Tapas','Platos','Fuera de carta','Postres'];
 let activeCat='Todos',search='',lastFocus=null,detailId=null;
 const fold=s=>s.toLocaleLowerCase(locales[lang]).normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function menu(){return MENU.map((p,i)=>{const v=TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;});}
@@ -135,8 +146,8 @@ function renderCatalog(){
  const match=menu().filter(p=>(activeCat==='Todos'||p.category===activeCat)&&fold(p.name).includes(fold(search)));
  const categories=activeCat==='Todos'?cats.slice(1):[activeCat];
  $('catalog').innerHTML=categories.map(cat=>{
-  const ps=match.filter(p=>p.category===cat);if(!ps.length)return '';
-  return `<section><div class="section-heading"><div><h2>${esc(t(cat==='Tapas'?'Tapas con mucho acento':cat))}</h2><p>${esc(t(cat==='Tapas'?'Pequeños grandes momentos':cat==='Platos'?'Para saborear sin prisa':'El final más dulce'))}</p></div><div class="count">${ps.length} ${esc(t('especialidades'))}</div></div><div class="product-grid">${ps.map(p=>`<article class="product">${media(p)}<div class="product-body"><h3>${esc(p.name)}</h3><div class="product-actions">${prices(p)}</div></div></article>`).join('')}</div></section>`;
+  const ps=match.filter(p=>p.category===cat);const outside=cat==='Fuera de carta';if(!ps.length && !(outside && !search))return '';
+  return `<section class="${outside?'outside-section':''}" ${outside?'id="fuera-de-carta"':''}><div class="section-heading"><div><h2>${esc(t(outside?'TUS FUERAS DE CARTA':cat==='Tapas'?'Tapas con mucho acento':cat))}</h2><p>${esc(t(outside?'Especiales y novedades por tiempo limitado.':cat==='Tapas'?'Pequeños grandes momentos':cat==='Platos'?'Para saborear sin prisa':'El final más dulce'))}</p></div><div class="count">${ps.length?ps.length+' '+esc(t('especialidades')):esc(t('Sin novedades activas'))}</div></div><div class="product-grid">${ps.map(p=>`<article class="product">${media(p)}<div class="product-body"><h3>${esc(p.name)}</h3><div class="product-actions">${prices(p)}</div></div></article>`).join('')}</div>${outside&&!ps.length?`<div class="outside-empty"><strong>${esc(t('PRÓXIMAMENTE'))}</strong><p>${esc(t('Aquí aparecerán los platos especiales y las novedades temporales del restaurante.'))}</p></div>`:''}</section>`;
  }).join('')||`<div class="nothing">${esc(t('No encontramos platos con esa búsqueda.'))}</div>`;
  $('catalog').querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>openDetail(b.dataset.detail,b)));
  $('catalog').insertAdjacentHTML('beforeend',`<p class="fineprint">${esc(t('* En los platos con dos precios se muestran los importes de tapa y ración según la carta original; confirma la disponibilidad y los formatos con el establecimiento. En caso de alergias o intolerancias, consulta siempre con el personal.'))}</p>`);
