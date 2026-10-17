@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Activar correo de solicitudes · Cartas Digitales</title>
+<meta name="theme-color" content="#173c33">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#f5f4f0;color:#23382f;font:15px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:#173c33;color:white;padding:18px max(18px,calc((100% - 800px)/2));font-weight:800;font-size:19px;letter-spacing:-.03em}
+main{width:min(650px,calc(100% - 28px));margin:45px auto;background:white;border:1px solid #dce1d8;border-radius:8px;padding:clamp(20px,4vw,35px)}
+small{color:#a26e50;font-weight:800;letter-spacing:.15em;text-transform:uppercase}h1{font:normal clamp(29px,5vw,41px)/1.14 Georgia,serif;letter-spacing:-.035em;margin:12px 0 15px}p{color:#596960}strong{color:#23382f}ol{padding-left:23px}li{margin:0 0 13px}button{border:0;width:100%;padding:15px 22px;font-weight:800;border-radius:5px;background:#173c33;color:white;font-size:15px;cursor:pointer}button:disabled{background:#8a9890;cursor:wait}
+.note{background:#fbf6e9;border-left:3px solid #b97b52;padding:12px 14px;font-size:13px;margin:22px 0}
+a{color:#214f42}.meta{font-size:12px;color:#718179;margin-top:19px}
+</style></head>
+<body><header>Cartas Digitales <span style="color:#c3d1c7;font-weight:400">/ Activación del correo</span></header>
+<main>
+<small>Configuración del propietario</small>
+<h1>Activar la recepción de solicitudes</h1>
+<p>Este paso es necesario para que los clientes puedan enviar los cambios de su carta al correo <strong>fernandoanjp@gmail.com</strong> a través de FormSubmit.</p>
+<ol><li>Pulsa <strong>Solicitar activación</strong>.</li><li>Si FormSubmit solicita verificar que eres una persona, completa esa pantalla.</li><li>Revisa Gmail, incluidas las carpetas de spam y promociones, y abre el mensaje de FormSubmit.</li><li>Pulsa el enlace de confirmación del proveedor. Cuando termine, vuelve al <a href="../gestion-productos/">formulario de productos</a> y envía una prueba real.</li></ol>
+<div class="note">El botón envía una solicitud técnica de prueba a FormSubmit, no modifica tu carta. El servicio puede pedir verificación adicional. Si no llega el correo, comprueba las carpetas de Gmail y vuelve a solicitarlo.</div>
+<form action="https://formsubmit.co/fernandoanjp@gmail.com" method="POST" id="activation">
+<input type="hidden" name="name" value="Cartas Digitales · activación">
+<input type="hidden" name="email" value="fernandoanjp@gmail.com">
+<input type="hidden" name="message" value="Solicitud técnica para activar el envío de formularios al correo fernandoanjp@gmail.com. No es un pedido ni cambio real de un restaurante.">
+<input type="hidden" name="_subject" value="Activación del formulario de Cartas Digitales">
+<input type="hidden" name="_url" value="https://con-acento-carta.onrender.com/activar-formsubmit/">
+<button type="submit" id="send">Solicitar activación <span aria-hidden="true">↗</span></button>
+</form>
+<p id="sending" role="status" style="display:none">Abriendo el servicio de verificación de FormSubmit…</p>
+<p class="meta">La activación solo se considera completada cuando se confirma el enlace de correo y se recibe correctamente una solicitud de prueba.</p>
+</main>
+<script>document.getElementById('activation').addEventListener('submit',()=>{const b=document.getElementById('send');b.disabled=true;b.textContent='Abriendo verificación…';document.getElementById('sending').style.display='block';setTimeout(()=>{b.disabled=false;b.textContent='Reintentar solicitud';},15000)});</script>
+</body></html>
