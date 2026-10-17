@@ -52,6 +52,24 @@ header{position:sticky;top:0;z-index:30;background:#fffcf5f2;backdrop-filter:blu
 @media(max-width:720px){.detail-story{font-size:14px;line-height:1.8}}
 .language-picker{display:flex;align-items:center;gap:7px;color:var(--wine);font-size:12px;font-weight:700}.language-picker select{max-width:125px;border:1px solid #ddcbbd;border-radius:20px;background:#fffaf4;color:var(--wine);padding:9px 10px;min-height:42px;cursor:pointer}@media(max-width:720px){.head-label{display:none}.language-picker>span{display:none}.head{gap:8px}.head-actions{gap:5px}.brand small{letter-spacing:.12em}.language-picker select{max-width:108px;padding:8px;font-size:12px}}@media(max-width:360px){.brand-emblem{display:none}}
 html[lang="ar"]{font-family:Tahoma,Arial,sans-serif}html[lang="ar"] .serif,html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3{font-family:Tahoma,Arial,sans-serif;letter-spacing:normal}html[lang="ar"] .eyebrow,html[lang="ar"] .brand small{letter-spacing:normal}html[dir="rtl"] .product-media-button{text-align:right}html[dir="rtl"] .price-line strong{direction:ltr;unicode-bidi:isolate}html[dir="rtl"] .brand strong{direction:ltr;unicode-bidi:isolate}html[dir="rtl"] .category-tabs{margin-right:0}html[lang="zh-Hans"]{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}html[lang="zh-Hans"] h1,html[lang="zh-Hans"] h2,html[lang="zh-Hans"] h3{font-family:inherit}
+
+/* Portada compacta: conservar el contenido con aproximadamente media altura. */
+.hero{min-height:0}
+.hero-content{padding:25px 26px 26px}
+.hero .eyebrow{font-size:10px;letter-spacing:.12em}
+.hero h1{font-size:clamp(38px,5vw,60px);line-height:1.05;margin:8px 0 10px}
+.hero p{font-size:13px;line-height:1.48;margin:0 0 14px;max-width:650px}
+.hero-btn{padding:10px 18px;font-size:12px}
+.hero-content .ornament{display:none}
+@media(max-width:720px){
+ .hero{min-height:0}
+ .hero-content{padding:16px 18px 18px}
+ .hero .eyebrow{font-size:9px;letter-spacing:.10em}
+ .hero h1{font-size:clamp(31px,8.1vw,42px);line-height:1.04;margin:7px 0 9px}
+ .hero p{font-size:12px;line-height:1.4;margin:0 0 12px}
+ .hero-btn{padding:9px 15px;font-size:12px}
+}
+
 </style>
 </head><body>
 <header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
