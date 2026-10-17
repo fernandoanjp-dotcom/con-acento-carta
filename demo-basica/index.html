@@ -101,16 +101,16 @@ footer{background:#263c40}
 .page.toolbar{position:sticky;top:78px;z-index:29;background:var(--cream);padding-top:10px;padding-bottom:10px;border-bottom:1px solid var(--line);box-shadow:0 5px 14px rgba(25,30,25,.06)}
 .category-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;width:100%;white-space:normal;overflow:visible;padding:0;margin:0}
 .category-tabs .tab{min-width:0;width:100%;min-height:45px;padding:10px 7px;white-space:normal;overflow-wrap:anywhere;text-align:center;line-height:1.2}
-.search-row{padding-top:19px;padding-bottom:1px}
-.search-row .search-box{margin:0;max-width:410px;width:100%}
+
+
 #catalog{scroll-margin-top:165px}
 @media(max-width:720px){
 .page.toolbar{top:68px;padding:9px 17px 10px;margin-right:auto;margin-left:auto}
 .category-tabs{grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin:0}
 .category-tabs .tab{grid-column:span 2;min-height:43px;padding:7px 4px;font-size:clamp(11px,2.75vw,13px);line-height:1.15;white-space:normal;border-radius:10px}
 .category-tabs .tab:nth-child(4),.category-tabs .tab:nth-child(5){grid-column:span 3}
-.search-row{padding-top:14px}
-.search-row .search-box{max-width:none}
+
+
 #catalog{scroll-margin-top:184px}
 }
 @media(max-width:380px){.category-tabs{gap:5px}.category-tabs .tab{padding:7px 2px;font-size:11px;min-height:42px}}
@@ -118,7 +118,7 @@ footer{background:#263c40}
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-basica/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-basica/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span></div></div></header>
 <main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
-<section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div></section><div class="page search-row"><label class="search-box"><span aria-hidden="true">⌕ &nbsp;</span><input type="search" id="search" placeholder="Buscar un plato..." aria-label="Buscar platos"></label></div>
+<section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div></section>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
 <section class="about"><div class="page about-inner"><div><h2>Con mucho acento, con mucho cariño.</h2><p>Descubre nuestras especialidades, consulta sus precios y explora sus fotografías. Una carta sencilla para elegir a tu gusto.</p></div><div class="about-stamp">✳</div></div></section></main>
@@ -142,8 +142,7 @@ const t=s=>lang==='es'?s:(OUTSIDE_UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lan
 const fmt=c=>new Intl.NumberFormat(locales[lang],{style:'currency',currency:'EUR'}).format(c/100);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cats=['Todos','Tapas','Platos','Fuera de carta','Postres'];
-let activeCat='Todos',search='',lastFocus=null,detailId=null;
-const fold=s=>s.toLocaleLowerCase(locales[lang]).normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+let activeCat='Todos',lastFocus=null,detailId=null;
 function menu(){return MENU.map((p,i)=>{const v=TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;}).concat(SPECIALS.map((p,i)=>{const v=SPECIAL_TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;}));}
 // Remember original static text and accessible labels so language changes are reversible.
 const staticText=[];
@@ -159,10 +158,10 @@ function renderTabs(){
  $('tabs').querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCat=b.dataset.cat;renderTabs();renderCatalog();document.getElementById('catalog').scrollIntoView({behavior:'smooth',block:'start'});}));
 }
 function renderCatalog(){
- const match=menu().filter(p=>(activeCat==='Todos'||p.category===activeCat)&&fold(p.name).includes(fold(search)));
+ const match=menu().filter(p=>activeCat==='Todos'||p.category===activeCat);
  const categories=activeCat==='Todos'?cats.slice(1):[activeCat];
  $('catalog').innerHTML=categories.map(cat=>{
-  const ps=match.filter(p=>p.category===cat);const outside=cat==='Fuera de carta';if(!ps.length && !(outside && !search))return '';
+  const ps=match.filter(p=>p.category===cat);const outside=cat==='Fuera de carta';if(!ps.length && !outside)return '';
   return `<section class="${outside?'outside-section':''}" ${outside?'id="fuera-de-carta"':''}><div class="section-heading"><div><h2>${esc(t(outside?'Fuera de carta':cat==='Tapas'?'Tapas con mucho acento':cat))}</h2><p>${esc(t(outside?'Especiales y novedades por tiempo limitado.':cat==='Tapas'?'Pequeños grandes momentos':cat==='Platos'?'Para saborear sin prisa':'El final más dulce'))}</p></div><div class="count">${ps.length?ps.length+' '+esc(t('especialidades')):esc(t('Sin novedades activas'))}</div></div><div class="product-grid">${ps.map(p=>`<article class="product">${media(p)}<div class="product-body"><h3>${esc(p.name)}</h3><div class="product-actions">${prices(p)}</div></div></article>`).join('')}</div>${outside&&!ps.length?`<div class="outside-empty"><strong>${esc(t('PRÓXIMAMENTE'))}</strong><p>${esc(t('Aquí aparecerán los platos especiales y las novedades temporales del restaurante.'))}</p></div>`:''}</section>`;
  }).join('')||`<div class="nothing">${esc(t('No encontramos platos con esa búsqueda.'))}</div>`;
  $('catalog').querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>openDetail(b.dataset.detail,b)));
@@ -182,7 +181,7 @@ function setLanguage(next){
  renderTabs();renderCatalog();if(detailId)renderDetail();
 }
 
-$('search').addEventListener('input',e=>{search=e.target.value.trim();renderCatalog();});
+
 $('overlay').addEventListener('click',closeDetail);$('detail-close').addEventListener('click',closeDetail);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
 setLanguage(lang);
