@@ -221,11 +221,23 @@ header{background:#1a302b}
 .modal{border-radius:24px}
 .detail-image{border-radius:18px;overflow:hidden}
 @media(max-width:720px){.product{border-radius:19px}.modal{border-radius:20px}}
+
+/* Extra demostrable: Vista dual Lista + Cuadrícula (contratación independiente). */
+.dual-view-switch{display:flex;justify-content:flex-end;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 0 0}
+.dual-view-switch .view-choice{padding:10px 14px;border:1px solid #c9b9a2;border-radius:999px;background:#fffaf4;color:#443126;font-size:12px;font-weight:800;cursor:pointer}
+.dual-view-switch .view-choice[aria-pressed="true"]{background:#443126;color:#fff;border-color:#443126}
+.menu-view-list .product-grid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+.menu-view-list .product-grid .product{display:grid!important;grid-template-columns:155px minmax(0,1fr);min-height:150px;border-radius:18px}
+.menu-view-list .product-grid .product-media-button{width:155px;height:100%;min-height:150px;align-self:stretch}
+.menu-view-list .product-grid .product-media{height:100%;aspect-ratio:auto!important}
+.menu-view-list .product-grid .product-media img{height:100%;object-fit:cover}
+.menu-view-list .product-grid .product-body{padding:12px 16px!important;min-width:0}
+@media(max-width:650px){.dual-view-switch{justify-content:flex-start}.menu-view-list .product-grid .product{grid-template-columns:98px minmax(0,1fr);min-height:115px}.menu-view-list .product-grid .product-media-button{width:98px;min-height:115px}.menu-view-list .product-grid .product-body{padding:10px 12px!important}.menu-view-list .product-grid .product-body h3{font-size:17px!important}}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
 <main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a></div></section>
-<section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div></section>
+<section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div><div class="dual-view-switch" role="group" aria-label="Vista dual: presentación de platos"><button class="view-choice" type="button" data-view="grid" aria-pressed="true">▦ Cuadrícula</button><button class="view-choice" type="button" data-view="list" aria-pressed="false">☷ Lista</button></div></section>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
 <section class="about"><div class="page about-inner"><div><h2>Con mucho acento, con mucho cariño.</h2><p>Descubre nuestras especialidades, consulta sus precios y explora sus fotografías. Una carta sencilla para elegir a tu gusto.</p></div><div class="about-stamp">✳</div></div></section></main>
@@ -310,4 +322,28 @@ renderQR();
 
 setLanguage(lang);
 </script>
-</body></html>
+<script>
+/* Vista dual: únicamente una opción funcional de la demostración, no gratuita con Oro. */
+(function(){
+ const buttons=Array.from(document.querySelectorAll('.dual-view-switch .view-choice'));
+ if(buttons.length!==2)return;
+ buttons.forEach(b=>b.addEventListener('click',()=>{
+   const selected=b.dataset.view;
+   document.body.classList.toggle('menu-view-list',selected==='list');
+   buttons.forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.view===selected)));
+ }));
+ const labels={
+ es:['Cuadrícula','Lista'],en:['Grid','List'],ca:['Quadrícula','Llista'],
+ fr:['Grille','Liste'],zh:['网格','列表'],ar:['شبكة','قائمة']
+ };
+ function translate(){
+  const lang=(document.documentElement.lang||'es').toLowerCase();
+  const key=lang.startsWith('zh')?'zh':lang.slice(0,2);
+  const a=labels[key]||labels.es;
+  buttons[0].textContent='▦ '+a[0];
+  buttons[1].textContent='☷ '+a[1];
+ }
+ new MutationObserver(translate).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+ translate();
+})();
+</script></body></html>
