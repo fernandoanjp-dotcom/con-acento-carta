@@ -114,7 +114,25 @@ footer{background:#263c40}
 #catalog{scroll-margin-top:184px}
 }
 @media(max-width:380px){.category-tabs{gap:5px}.category-tabs .tab{padding:7px 2px;font-size:11px;min-height:42px}}
-.hero{background:linear-gradient(100deg,#eef4f1,#f9fbf8);min-height:330px;color:#20393d}.hero-content{padding:61px 26px}.hero h1 em{color:#317774}.product{border:1px solid #d9e5df;border-radius:10px;box-shadow:0 5px 17px #234c4e11!important}.product-media{aspect-ratio:1.42}.product-body{padding:16px}@media(max-width:720px){.hero-content{padding:52px 17px}.product-body{padding:13px}.product-media{aspect-ratio:1.28}}</style>
+.hero{background:linear-gradient(100deg,#eef4f1,#f9fbf8);min-height:330px;color:#20393d}.hero-content{padding:61px 26px}.hero h1 em{color:#317774}.product{border:1px solid #d9e5df;border-radius:10px;box-shadow:0 5px 17px #234c4e11!important}.product-media{aspect-ratio:1.42}.product-body{padding:16px}@media(max-width:720px){.hero-content{padding:52px 17px}.product-body{padding:13px}.product-media{aspect-ratio:1.28}}
+/* Portada compacta: conservar el contenido con aproximadamente media altura. */
+.hero{min-height:0}
+.hero-content{padding:25px 26px 26px}
+.hero .eyebrow{font-size:10px;letter-spacing:.12em}
+.hero h1{font-size:clamp(38px,5vw,60px);line-height:1.05;margin:8px 0 10px}
+.hero p{font-size:13px;line-height:1.48;margin:0 0 14px;max-width:650px}
+.hero-btn{padding:10px 18px;font-size:12px}
+.hero-content .ornament{display:none}
+@media(max-width:720px){
+ .hero{min-height:0}
+ .hero-content{padding:16px 18px 18px}
+ .hero .eyebrow{font-size:9px;letter-spacing:.10em}
+ .hero h1{font-size:clamp(31px,8.1vw,42px);line-height:1.04;margin:7px 0 9px}
+ .hero p{font-size:12px;line-height:1.4;margin:0 0 12px}
+ .hero-btn{padding:9px 15px;font-size:12px}
+}
+
+</style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-basica/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-basica/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span></div></div></header>
 <main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
