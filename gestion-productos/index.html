@@ -150,7 +150,7 @@ function emailDetails(data){
 const out=['SOLICITUD DE CAMBIOS EN CARTA DIGITAL','Restaurante: '+data.restaurant,'Persona de contacto: '+data.contact,'Correo de respuesta: '+data.email,'Teléfono: '+(data.phone||'No facilitado'),'Notas: '+(data.comments||'Sin notas'),'','OPERACIONES ('+data.changes.length+')'];
 for(const p of data.changes){out.push('',p.numero+'. '+p.operation.toUpperCase()+' · '+p.category+' · '+p.current);
 if(p.rename)out.push('Nuevo nombre: '+p.rename);
-if(p.price!=='')out.push('Precio indicado: '+p.price+' EUR');
+if(p.price!=null&&p.price!=='')out.push('Precio indicado: '+p.price+' EUR');
 if(p.description)out.push('Descripción: '+p.description);
 if(p.details)out.push('Instrucciones: '+p.details);
 if(p.allergenStatus)out.push('Estado de alérgenos: '+p.allergenStatus);
