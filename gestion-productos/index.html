@@ -66,7 +66,7 @@ footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-wi
 <div class="field" data-wrap="other"><label>Nombre de otra categoría *</label><input data-key="otherCategory" maxlength="95" placeholder="Ej. Coctelería" disabled></div>
 <div class="field" data-wrap="current"><label data-current-label>Nombre del producto *</label><input data-key="current" required maxlength="140" placeholder="Ej. Croquetas de setas"></div>
 <div class="field" data-wrap="rename"><label>Nuevo nombre (si cambia)</label><input data-key="rename" maxlength="140" placeholder="Déjalo vacío si no cambia"></div>
-<div class="field" data-wrap="price"><label>Precio (€) *</label><input data-key="price" type="number" inputmode="decimal" min="0" max="99999" step="0.01" placeholder="Ej. 9.50" required></div>
+<div class="field" data-wrap="price"><label data-price-label>Precio (€) *</label><input data-key="price" type="number" inputmode="decimal" min="0" max="99999" step="0.01" placeholder="Ej. 9.50" required></div>
 <div class="field" data-wrap="description"><label>Descripción / elaboración</label><textarea data-key="description" rows="2" maxlength="900" placeholder="Ingredientes principales, sabor, presentación…"></textarea></div>
 <div class="field wide" data-wrap="details"><label>Instrucciones del cambio</label><textarea data-key="details" rows="2" maxlength="1000" placeholder="En una modificación, indica qué campos deben cambiarse. Si el precio o la descripción no cambian, puedes dejarlos vacíos."></textarea></div>
 <div class="field wide" data-wrap="allergens"><label>Información sobre alérgenos</label><select data-key="allergenStatus"><option value="Pendientes de verificar">Pendientes de verificar: no publicar información nueva</option><option value="Revisados por el restaurante">Alérgenos revisados por el restaurante</option><option value="Ninguno declarado por el restaurante">El restaurante declara ninguno de los 14 alérgenos</option><option value="Sin cambios">Sin cambios respecto a la carta existente</option></select><div class="allergens" data-allergen-list>
@@ -91,7 +91,7 @@ function updateItem(el){const op=one('[data-op]:checked',el).value,cat=one('[dat
 const showing={other:cat==='Otra',current:true,rename:op==='Modificar',price:op!=='Eliminar',description:op!=='Eliminar',details:op!=='Añadir',allergens:op!=='Eliminar',photo:op!=='Eliminar'};
 Object.entries(showing).forEach(([k,flag])=>{const b=one('[data-wrap="'+k+'"]',el);b.hidden=!flag});
 one('[data-key="otherCategory"]',el).disabled=cat!=='Otra';one('[data-key="otherCategory"]',el).required=cat==='Otra';
-one('[data-key="price"]',el).required=op==='Añadir';one('[data-current-label]',el).textContent=op==='Añadir'?'Nombre del nuevo producto *':'Nombre actual del producto *';
+one('[data-key="price"]',el).required=op==='Añadir';one('[data-price-label]',el).textContent=op==='Añadir'?'Precio (€) *':'Nuevo precio (€), si cambia';one('[data-current-label]',el).textContent=op==='Añadir'?'Nombre del nuevo producto *':'Nombre actual del producto *';
 one('[data-schedule]',el).hidden=cat!=='Fuera de carta';one('[data-start-wrap]',el).hidden=op==='Eliminar';one('[data-schedule-hint]',el).textContent=op==='Eliminar'?'Puedes solicitar la retirada para una fecha concreta. Sin fecha, se solicita la baja habitual.':'Indica ambas fechas para tramitar una publicación con retirada programada en la misma solicitud.';
 let chk=one('[data-key="allergenStatus"]',el).value==='Revisados por el restaurante';
 all('[data-allergen-list] input',el).forEach(c=>{c.disabled=!chk;if(!chk)c.checked=false});
@@ -116,7 +116,7 @@ if(p.operation==='Añadir'&&(p.price===''||!Number.isFinite(Number(p.price))||Nu
 if(p.operation==='Modificar'&&p.price!==''&&(!Number.isFinite(Number(p.price))||Number(p.price)<0)){say('El nuevo precio de la operación '+(i+1)+' no es válido.','error');focus('price').focus();return null}
 if(p.category==='Fuera de carta'&&p.operation!=='Eliminar'&&Boolean(p.start)!==Boolean(p.end)){say('En Fuera de carta, indica ambas fechas o ninguna en la operación '+(i+1)+'.','error');focus('start').focus();return null}
 if(p.category==='Fuera de carta'&&p.start&&p.end&&p.end<p.start){say('La fecha de retirada es anterior al inicio en la operación '+(i+1)+'.','error');focus('end').focus();return null}
-if(p._file)total+=p._file.size;
+if(p.operation!=='Eliminar'&&p.allergenStatus==='Revisados por el restaurante'&&!p.allergens.length){say('Selecciona los alérgenos verificados o marca otra situación en la operación '+(i+1)+'.','error');focus('allergenStatus').focus();return null}\nif(p._file)total+=p._file.size;
 }
 if(total>MAXALL){say('Las fotografías superan 65 MB. Divide la entrega en varias solicitudes.','error');return null}
 return data}
