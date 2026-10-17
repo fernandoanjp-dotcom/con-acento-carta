@@ -588,7 +588,7 @@ function findFemaleNarrator(locale){
    if(/natural|neural|premium|enhanced|high.quality|hd.voice/i.test(name))s+=48;
    if(/google|microsoft|siri|apple/i.test(name))s+=18;
    if(/online|cloud/i.test(name))s+=12;
-   if(/male|masculina|hombre|man.voice|jorge|pablo|alvaro|[áa]lvaro|raul|ra[uú]l/i.test(lowered))s-=130;
+   if(/\bmale\b|masculina|hombre|man.voice|jorge|pablo|alvaro|[áa]lvaro|raul|ra[uú]l/i.test(lowered))s-=130;
    return s;
  };
  return suitable.slice().sort((a,b)=>score(b)-score(a))[0];
