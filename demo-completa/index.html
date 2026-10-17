@@ -431,19 +431,55 @@ header{background:#1a302b}
  .hero-brand-row .head-actions{width:100%;justify-content:flex-start}
 }
 
-/* Idioma visible arriba, pegado a la derecha, sin cabecera redundante. */
-.hero-content{position:relative}
-.demo-upper-language{position:absolute;top:12px;right:18px;z-index:5;display:flex;justify-content:flex-end}
-.demo-upper-language .language-picker{display:flex;align-items:center;margin:0}
-.demo-upper-language .language-picker>span{display:none}
-.demo-upper-language .language-picker select{display:block;width:118px;max-width:118px;min-height:34px;padding:6px 10px;border-radius:999px;border:1px solid #c9b7a7;background:#fffaf4;color:#3e3029;font:800 11px Arial,sans-serif}
-.hero-brand-row{padding-right:125px}
 .hero p{margin-bottom:0}
-@media(max-width:720px){.demo-upper-language{top:10px;right:14px}.demo-upper-language .language-picker select{width:108px;max-width:108px;min-height:33px;padding:5px 6px;font-size:10px}.hero-brand-row{padding-right:114px}.hero-brand-row .head-actions{width:100%;justify-content:flex-start}.hero p{margin-bottom:0}}
+
+/* QR e idiomas, uno junto al otro, en la esquina superior derecha del bloque del logo. */
+.hero-brand-row{
+ display:flex;flex-wrap:nowrap!important;align-items:center;justify-content:space-between;
+ gap:8px;min-width:0;padding-right:0!important;margin-right:-10px
+}
+.hero-brand-row .brand{flex:0 1 auto;min-width:0}
+.hero-brand-row .head-actions{
+ display:flex;flex-direction:row;flex-wrap:nowrap!important;align-items:center;
+ justify-content:flex-end!important;gap:5px;flex:0 0 auto;width:auto!important;
+ margin-left:auto;min-width:0
+}
+.hero-brand-row .head-actions .qr-trigger{
+ display:inline-flex;align-items:center;justify-content:center;gap:3px;
+ min-height:36px;padding:7px 10px;border-radius:999px;white-space:nowrap
+}
+.hero-brand-row .head-actions .language-picker{
+ display:flex;align-items:center;flex:0 0 auto;margin:0;
+}
+.hero-brand-row .head-actions .language-picker>span{display:none}
+.hero-brand-row .head-actions .language-picker select{
+ display:block;max-width:110px;width:110px;min-height:36px;
+ padding:7px 8px;border:1px solid #c9b7a7;border-radius:999px;
+ background:#fffaf4;color:#3e3029;font:800 11px Arial,sans-serif
+}
+@media(max-width:600px){
+ .hero-brand-row{margin-right:-7px;gap:5px}
+ .hero-brand-row .head-actions .qr-trigger{width:37px;min-width:37px;min-height:34px;padding:6px}
+ .hero-brand-row .head-actions .qr-word{display:none}
+ .hero-brand-row .head-actions .language-picker select{width:99px;max-width:99px;min-height:34px;padding:5px;font-size:10px}
+ .hero-brand-row .brand{gap:5px}
+ .hero-brand-row .emblem{width:38px;height:42px;flex:0 0 38px}
+ .hero-brand-row .client-brand strong{font-size:clamp(17px,5vw,20px)}
+ .hero-brand-row .client-brand small{font-size:8px;letter-spacing:.09em}
+ .hero-brand-row .brand strong{font-size:clamp(15px,4.7vw,18px)}
+ .hero-brand-row .brand small{font-size:8px;letter-spacing:.07em}
+}
+@media(max-width:355px){
+ .hero-brand-row .head-actions .language-picker select{width:89px;max-width:89px}
+ .hero-brand-row .head-actions .qr-trigger{width:33px;min-width:33px}
+ .hero-brand-row .client-brand strong{font-size:16px}
+ .hero-brand-row .brand strong{font-size:15px}
+ .hero-brand-row .emblem{width:33px;height:37px;flex-basis:33px}
+}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body>
-<main id="inicio"><section class="hero"><div class="hero-content"><div class="demo-upper-language"><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div><div class="hero-brand-row"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button></div></div><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p></div></section>
+<main id="inicio"><section class="hero"><div class="hero-content"><div class="hero-brand-row"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración"><span aria-hidden="true">▦</span><span class="qr-word"> Ver QR</span></button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p></div></section>
 <section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div><div class="dual-view-switch" role="group" aria-label="Vista dual: presentación de platos"><button class="view-choice" type="button" data-view="grid" aria-pressed="true">▦ Cuadrícula</button><button class="view-choice" type="button" data-view="list" aria-pressed="false">☷ Lista</button></div></section>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
