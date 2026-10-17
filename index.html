@@ -223,7 +223,7 @@ function naturalFemaleVoice(locale){
    +(/natural|neural|premium|enhanced|high.quality/i.test(n)?48:0)
    +(/google|microsoft|siri|apple/i.test(n)?18:0)
    +(/online|cloud/i.test(n)?12:0)
-   -(/male|masculina|hombre|jorge|pablo|[áa]lvaro|ra[uú]l/i.test(ln)?130:0);
+   -(/\bmale\b|masculina|hombre|jorge|pablo|[áa]lvaro|ra[uú]l/i.test(ln)?130:0);
  };
  return candidates.slice().sort((a,b)=>score(b)-score(a))[0];
 }
