@@ -218,12 +218,12 @@ $('search').addEventListener('input',e=>{search=e.target.value.trim();renderCata
 $('overlay').addEventListener('click',closeDetail);$('detail-close').addEventListener('click',closeDetail);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
 
-const demoFullUrl='https://fernandoanjp-dotcom.github.io/con-acento-carta/demo-completa/';
-const qrBits='0,0,0,0,1fce6ec47f0,10525e9d410,175f27c75d0,17531f9b5d0,174627a95d0,1046a51c410,1fd555557f0,110145000,105f250ace0,1bae89e6be0,17e04943e30,88e3445090,18d4d223690,1fa4efab280,104da8467b0,5082d222e0,176e52bcd50,19128dabae0,770adb3490,5248341c90,a51ea3ed40,1d0066e6940,174f345bfb0,1623b1847b0,25e1eb3630,122d98ab280,10fac95b6b0,119d61562f0,14494d5dff0,1eff2d100,1fc522e1510,1047ec47130,174cf2aff60,174a1c24c90,1745fa41070,10448341510,1fda3117690,0,0,0,0'.split(',');
+const demoFullUrl='https://con-acento-carta.onrender.com/demo-completa/';
+const qrBits='1fda84c1c97f,104d865f3241,174e7302625d,175529e9435d,175b9dfcd75d,10581b163041,1fd55555557f,1a7d128d00,1173d9f2cff9,1e96e73669fc,1dc4726438f2,63450c356f0,11537d97183a,a02b3dd8b5b,1753d8948a4f,1a37833110d5,18c9c624d484,1abcfedf25,4c476abcd30,17bd4c4c4d2a,1df149facbff,f16a712e11e,7538951775a,191c41126310,1bf045f43ff9,402ac579966,2d41cfc8a0e,1c2c7f4d93b8,17df2510dbb1,d0a5abe5aa5,6eee6233830,1f1fef9f5d7a,6d238cb182f,5b4eb21d24b,16dd9c0741f,f1fa862a075,134693f675f4,14eb1cdf1e,1fd99d58cd5a,104db3128111,175d11fac7f8,1744c23461c8,174ce76d398c,104e192f5320,1fde21eb3e71'.split(',');
 function renderQR(){
  let squares='';
  for(let y=0;y<qrBits.length;y++){let row=BigInt('0x'+(qrBits[y]||'0'));for(let x=0;x<45;x++){if((row & (1n << BigInt(44-x))) !== 0n)squares+='<rect x="'+x+'" y="'+y+'" width="1" height="1"/>';}}
- $('qr-visual').innerHTML='<svg viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escanea el QR para visitar la carta completa"><rect width="45" height="45" fill="#fff"/><g fill="#172e26">'+squares+'</g></svg>';
+ $('qr-visual').innerHTML='<svg viewBox="-4 -4 53 53" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escanea el QR para visitar la carta completa"><rect x="-4" y="-4" width="53" height="53" fill="#fff"/><g fill="#172e26">'+squares+'</g></svg>';
 }
 function closeQR(){ $('qr-panel').hidden=true; }
 $('qr-open').addEventListener('click',()=>{ $('qr-panel').hidden=false; $('qr-close').focus(); });
