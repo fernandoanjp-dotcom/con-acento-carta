@@ -70,10 +70,15 @@ html[lang="ar"]{font-family:Tahoma,Arial,sans-serif}html[lang="ar"] .serif,html[
  .hero-btn{padding:9px 15px;font-size:12px}
 }
 
+
+/* Idioma en el extremo derecho, sin accesos redundantes. */
+.head-actions{margin-left:auto}.head-actions .language-picker{margin-left:auto}
+.hero p{margin-bottom:0}
+@media(max-width:720px){.hero p{margin-bottom:0}}
 </style>
 </head><body>
-<header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
-<main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
+<header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><span class="head-label">CARTA DIGITAL</span><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
+<main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
 <section class="page toolbar" id="carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div></section>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
