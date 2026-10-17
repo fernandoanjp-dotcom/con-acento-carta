@@ -1,0 +1,34 @@
+name: Prueba automática de formulario de productos
+on:
+  push:
+    paths:
+      - '.github/workflows/probar-formulario-productos.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  formulario:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar Playwright Core
+        run: npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+      - name: Localizar navegador Chromium
+        shell: bash
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "BROWSER_BIN=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "BROWSER_BIN=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium --with-deps
+            echo "BROWSER_BIN=$(find "$HOME/.cache/ms-playwright" -name chrome -type f | head -n 1)" >> "$GITHUB_ENV"
+          fi
+      - name: Rellenar y comprobar envío del formulario en Render
+        run: node .github/scripts/test-formulario-productos.cjs
