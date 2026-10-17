@@ -116,7 +116,8 @@ if(p.operation==='Añadir'&&(p.price===''||!Number.isFinite(Number(p.price))||Nu
 if(p.operation==='Modificar'&&p.price!==''&&(!Number.isFinite(Number(p.price))||Number(p.price)<0)){say('El nuevo precio de la operación '+(i+1)+' no es válido.','error');focus('price').focus();return null}
 if(p.category==='Fuera de carta'&&p.operation!=='Eliminar'&&Boolean(p.start)!==Boolean(p.end)){say('En Fuera de carta, indica ambas fechas o ninguna en la operación '+(i+1)+'.','error');focus('start').focus();return null}
 if(p.category==='Fuera de carta'&&p.start&&p.end&&p.end<p.start){say('La fecha de retirada es anterior al inicio en la operación '+(i+1)+'.','error');focus('end').focus();return null}
-if(p.operation!=='Eliminar'&&p.allergenStatus==='Revisados por el restaurante'&&!p.allergens.length){say('Selecciona los alérgenos verificados o marca otra situación en la operación '+(i+1)+'.','error');focus('allergenStatus').focus();return null}\nif(p._file)total+=p._file.size;
+if(p.operation!=='Eliminar'&&p.allergenStatus==='Revisados por el restaurante'&&!p.allergens.length){say('Selecciona los alérgenos verificados o marca otra situación en la operación '+(i+1)+'.','error');focus('allergenStatus').focus();return null}
+if(p._file)total+=p._file.size;
 }
 if(total>MAXALL){say('Las fotografías superan 65 MB. Divide la entrega en varias solicitudes.','error');return null}
 return data}
