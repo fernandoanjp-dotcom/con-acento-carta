@@ -24,6 +24,15 @@ h2{margin:0 0 17px;font-size:18px;letter-spacing:-.025em}.step{font-size:12px;co
 footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-width:750px}
 @media(max-width:880px){.layout{grid-template-columns:1fr}.sidebar{position:static}}
 @media(max-width:520px){header>div{padding:14px 16px}.brand{font-size:21px}.header-side{font-size:9px}main{padding:23px 13px 50px}h1{font-size:34px}.section{padding:19px 15px}.cols{grid-template-columns:1fr}.item{padding:15px 12px}.allergens{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{padding:20px}}
+
+.send-progress{background:#f0f5f1;border:1px solid #afc7b8;border-radius:5px;padding:14px;margin:12px 0;color:#173c33}
+.send-progress strong{font-size:13px}
+.send-progress .row-progress{display:flex;align-items:center;gap:10px}
+.send-progress p{font-size:12px;line-height:1.6;margin:7px 0 0}
+.spinner{display:inline-block;border:3px solid #d0dfd4;border-top-color:#173c33;border-radius:50%;width:24px;height:24px;flex:0 0 24px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spinner{animation:none;border-color:#173c33}}
+.button:disabled{opacity:.65;cursor:wait}
 </style></head>
 <body>
 <header><div><div class="brand">Cartas<span>Digitales</span></div><div class="header-side">Gestión de productos · Área de clientes</div></div></header>
@@ -47,12 +56,13 @@ footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-wi
 <div class="counts" id="counts">1 alta · 0 modificaciones · 0 bajas</div>
 <ol><li><strong>Selecciona la operación</strong> para cada producto.</li><li><strong>Completa los datos</strong> y adjunta las fotos disponibles.</li><li><strong>Envía la solicitud</strong> y sus fotografías al correo de Cartas Digitales desde el formulario.</li></ol>
 <label class="agree"><input type="checkbox" id="verified"><span>Confirmo que la información está revisada por el restaurante y autorizo el envío de los datos de contacto, productos y fotografías al correo de Cartas Digitales mediante FormSubmit.</span></label>
-<div class="field" style="margin:12px 0"><label>Correo de recepción</label><div style="font-weight:800;font-size:13px;overflow-wrap:anywhere">fernandoanjp@gmail.com</div></div><button class="button primary" type="button" id="share">Enviar <span aria-hidden="true">↗</span></button>
+<div class="field" style="margin:12px 0"><label>Correo de recepción</label><div style="font-weight:800;font-size:13px;overflow-wrap:anywhere">fernandoanjp@gmail.com</div></div><div id="sending-panel" class="send-progress" role="status" aria-live="polite" hidden><div class="row-progress"><span class="spinner" aria-hidden="true"></span><strong id="sending-title">Preparando solicitud</strong></div><p id="send-stage">Revisando los datos y preparando las fotografías…</p></div>
+<button class="button primary" type="button" id="share">Enviar <span aria-hidden="true">↗</span></button>
 <button class="button secondary" type="button" id="download">Descargar ZIP</button>
 <button class="button secondary" type="button" id="draft">Guardar borrador aquí</button>
 <button class="button secondary" type="button" id="restore">Recuperar borrador</button>
 <div id="status" class="status" role="status" aria-live="polite"></div>
-<p class="helper">La entrega por correo se realiza con FormSubmit, un proveedor externo, y puede pedir completar un CAPTCHA. Admite hasta 10 MB de archivos; para garantizar margen, este formulario admite un ZIP máximo de 9 MB por envío. No hay confirmación de entrega hasta completar los pasos de FormSubmit y activar el correo receptor. El borrador solo se guarda en este navegador y no conserva fotografías.</p>
+<p class="helper">Al enviar, se abre una pestaña de FormSubmit para que completes la verificación si la solicita. No cierres esa pestaña hasta ver el resultado. El ZIP adjunto no puede superar 9 MB. Si la pestaña no avanza, puedes descargar una copia y enviarla por correo. El borrador local no guarda las fotos.</p>
 </aside></div>
 </main>
 <template id="template"><article class="item" data-item data-operation="Añadir">
@@ -151,31 +161,62 @@ if(p.filename)out.push('Fotografía: '+p.filename)}
 out.push('','El ZIP adjunto contiene la solicitud en JSON, CSV y las fotografías proporcionadas.','Esta comunicación no publica cambios automáticamente.');return out.join('\n')}
 function emailInput(form,name,value,type='hidden'){
 const e=document.createElement('input');e.type=type;e.name=name;e.value=value;form.append(e);return e}
+function setSending(isSending,title,description){
+const panel=one('#sending-panel'),btn=one('#share');
+panel.hidden=!isSending;
+one('#sending-title').textContent=title||'Preparando solicitud';
+one('#send-stage').textContent=description||'Preparando los datos…';
+btn.disabled=isSending;btn.textContent=isSending?'Preparando envío…':'Enviar ↗';
+}
 async function deliver(share){
 if(!share){try{say('Preparando copia de la solicitud…');const result=await build();if(!result)return;download(result.blob,result.file);say('Copia ZIP descargada correctamente. No se ha enviado ningún correo.','success')}catch(e){say('No se ha podido preparar la copia ZIP.','error')}return}
+if(one('#share').disabled)return;
+const checked=collect(true);if(!checked)return;
+const target='cartas_digitales_envio_'+Date.now();
+let popup;
 try{
-say('Preparando el envío…');
-const result=await build();if(!result)return;
-if(result.blob.size>MAX_EMAIL_BYTES){say('La solicitud supera los 9 MB permitidos para el envío directo. Reduce el tamaño de las fotografías o divide los productos en varias solicitudes. Puedes descargar una copia ZIP sin enviarla.','error');return}
-if(typeof DataTransfer==='undefined'){say('Este navegador no permite adjuntar el ZIP automáticamente. Usa otro navegador o descarga la copia ZIP para enviarla manualmente a '+EMAIL_DEST+'.','error');return}
-const data=collect(false);
-const form=document.createElement('form');
-form.method='POST';form.action='https://formsubmit.co/'+EMAIL_DEST;form.enctype='multipart/form-data';form.style.display='none';
-emailInput(form,'_subject','Solicitud de carta digital · '+data.restaurant.slice(0,80));
-emailInput(form,'_template','table');
-emailInput(form,'_url','https://con-acento-carta.onrender.com/gestion-productos/');
-emailInput(form,'_honey','');
-emailInput(form,'name',data.restaurant);
-emailInput(form,'email',data.email,'email');
-const message=document.createElement('textarea');message.name='message';message.value=emailDetails(data);form.append(message);
-const inp=document.createElement('input');inp.name='attachment';inp.type='file';inp.accept='.zip,application/zip';
-const file=new File([result.blob],result.file,{type:'application/zip'});
-const dt=new DataTransfer();dt.items.add(file);inp.files=dt.files;
-if(inp.files.length!==1){say('No se pudo adjuntar el ZIP al formulario de correo. Descarga una copia y envíala manualmente.','error');return}
-form.append(inp);document.body.append(form);
-say('Abriendo el envío seguro. Completa la verificación que aparezca en pantalla. El correo todavía no consta como entregado.');
-form.submit();
-}catch(e){say('No se pudo iniciar el envío por correo. Los datos siguen en el formulario. Puedes descargar el ZIP como respaldo.','error')}
+ popup=window.open('',target);
+ if(!popup){say('El navegador ha bloqueado la ventana para completar el envío. Permite las ventanas emergentes en esta página o descarga el ZIP como alternativa.','error');return}
+ popup.document.open();
+ popup.document.write('<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Enviando solicitud · Cartas Digitales</title><style>body{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0;background:#f5f4f0;color:#173c33;font:15px system-ui,sans-serif;text-align:center;padding:20px}h1{font:normal 30px Georgia,serif;margin:20px 0 7px}.spinner{width:38px;height:38px;border:4px solid #d4e1d8;border-top-color:#173c33;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}p{max-width:360px;color:#637568;line-height:1.6}</style></head><body><div class="spinner" aria-hidden="true"></div><h1>Preparando tu solicitud…</h1><p>Estamos reuniendo los datos y las fotografías. A continuación, FormSubmit podrá pedirte una verificación para completar el envío.</p></body></html>');
+ popup.document.close();
+ setSending(true,'Preparando solicitud','Reuniendo información, comprobando las fotografías y creando el archivo adjunto…');
+ popup.focus();
+ await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+ const result=await build();
+ if(!result){if(!popup.closed)popup.close();setSending(false);return}
+ if(result.blob.size>MAX_EMAIL_BYTES){if(!popup.closed)popup.close();setSending(false);say('El envío supera el límite de 9 MB. Reduce fotografías o divide los cambios en dos solicitudes; puedes descargar una copia ZIP.','error');return}
+ if(typeof DataTransfer==='undefined'){if(!popup.closed)popup.close();setSending(false);say('Este navegador no admite adjuntar el ZIP automáticamente. Descarga una copia y envíala a '+EMAIL_DEST+'.','error');return}
+ const data=collect(false);
+ const form=document.createElement('form');
+ form.method='POST';
+ form.action='https://formsubmit.co/'+EMAIL_DEST;
+ form.enctype='multipart/form-data';
+ form.target=target;
+ form.style.cssText='position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden';
+ emailInput(form,'_subject','Solicitud de carta digital · '+data.restaurant.slice(0,80));
+ emailInput(form,'_template','table');
+ emailInput(form,'_url','https://con-acento-carta.onrender.com/gestion-productos/');
+ emailInput(form,'_honey','');
+ emailInput(form,'name',data.restaurant);
+ emailInput(form,'email',data.email,'email');
+ const message=document.createElement('textarea');message.name='message';message.value=emailDetails(data);form.append(message);
+ const inp=document.createElement('input');inp.name='attachment';inp.type='file';inp.accept='.zip,application/zip';
+ const file=new File([result.blob],result.file,{type:'application/zip'});
+ const dt=new DataTransfer();dt.items.add(file);inp.files=dt.files;
+ if(inp.files.length!==1){if(!popup.closed)popup.close();setSending(false);say('No se pudo adjuntar el ZIP. Descarga una copia para enviarla manualmente.','error');return}
+ form.append(inp);document.body.append(form);
+ setSending(true,'Conectando con FormSubmit','La solicitud está preparada. Se está abriendo el servicio de recepción en otra pestaña; completa allí la verificación y comprueba el resultado.');
+ form.submit();
+ form.remove();
+ say('El proceso de envío se ha iniciado en una pestaña nueva. Hasta que FormSubmit lo confirme y el correo llegue, no se considera entregado. Si muestra un error, puedes descargar el ZIP y enviarlo a '+EMAIL_DEST+'.');
+ setSending(false);
+ one('#sending-panel').hidden=false;
+ one('#sending-title').textContent='Continúa en la pestaña de envío';
+ one('#send-stage').textContent='Completa las comprobaciones de FormSubmit y verifica que indique que la solicitud se ha procesado. Si esa página se bloquea o falla, conserva los datos aquí y usa «Descargar ZIP».';
+ if(popup&&!popup.closed)popup.focus();
+}catch(e){try{if(popup&&!popup.closed)popup.close()}catch(_){}
+setSending(false);say('No se ha podido completar la preparación. Se han conservado los datos; puedes reintentar o descargar el ZIP.','error')}
 }
 function save(){try{const data=collect(false);data.changes.forEach(p=>{delete p._file});localStorage.setItem(KEY,JSON.stringify(data));say('Borrador guardado en este navegador. Las fotos deben volver a adjuntarse.','success')}catch(e){say('No se ha podido guardar el borrador en este navegador.','error')}}
 function restore(){try{const raw=localStorage.getItem(KEY);if(!raw){say('No se encontró ningún borrador guardado en este navegador.','error');return}const data=JSON.parse(raw);if(!Array.isArray(data.changes)){say('El borrador no es válido.','error');return}one('#restaurant').value=data.restaurant||'';one('#person').value=data.contact||'';one('#email').value=data.email||'';one('#phone').value=data.phone||'';one('#comments').value=data.comments||'';items.replaceChildren();data.changes.slice(0,MAX).forEach(makeItem);if(!items.children.length)makeItem();one('#verified').checked=false;say('Borrador recuperado. Revisa los datos y vuelve a adjuntar las fotografías.','success')}catch(e){say('No se pudo recuperar el borrador.','error')}}
