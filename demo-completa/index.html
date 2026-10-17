@@ -322,6 +322,32 @@ header{background:#1a302b}
  .price-list,.product .price-list,.detail-section .price-list,
  #detail-body .detail-pricing .price-list{border-radius:20px}
 }
+
+/* Vista Lista: adaptar cada fotografía a su proporción original, sin marcos de relación fija ni recortes. */
+.menu-view-list .product-grid .product-media{
+  aspect-ratio:auto!important;
+  height:auto!important;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+}
+.menu-view-list .product-grid .product-media img{
+  display:block;
+  width:auto!important;
+  max-width:100%!important;
+  height:auto!important;
+  max-height:min(85vh,780px);
+  object-fit:contain!important;
+  object-position:center;
+  flex:none;
+  margin-inline:auto;
+  transform:none!important;
+}
+.menu-view-list .product-grid .product:hover .product-media img{
+  transform:none!important;
+}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
