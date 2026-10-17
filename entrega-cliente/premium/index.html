@@ -95,11 +95,25 @@ button:focus-visible,a:focus-visible{outline:3px solid #c23d60;outline-offset:3p
 /* Precios Premium con bordes redondeados en carta y ficha. */
 .prices,.detail-prices{border-radius:24px;overflow:hidden}
 @media(max-width:650px){.prices,.detail-prices{border-radius:20px}}
+
+/* Encabezado unificado de prueba y selector de diseños. */
+.delivery-design-bar{background:#291b21;color:#f8e8dc;padding:12px 18px 15px;border-bottom:1px solid #633b4b}
+.delivery-design-title{font:800 10.5px/1.45 'DM Sans',Arial,sans-serif;letter-spacing:.115em;text-transform:uppercase;text-align:center}
+.delivery-design-nav{max-width:860px;margin:10px auto 0;display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap;gap:8px}
+.delivery-design-nav a{display:inline-flex;justify-content:center;align-items:center;min-height:39px;padding:9px 17px;border:1px solid #bc9ca0;background:#fff8f0;color:#4a2d34;text-decoration:none;border-radius:999px;text-align:center;font:800 12px/1.32 'DM Sans',Arial,sans-serif;white-space:normal}
+.delivery-design-nav a[aria-current="page"]{background:#852a47;border-color:#c27d90;color:#fff}
+.delivery-design-nav a:focus-visible{outline:3px solid #f1c785;outline-offset:3px}
+@media(max-width:620px){
+ .delivery-design-bar{padding:12px 15px 14px}
+ .delivery-design-title{font-size:10px;letter-spacing:.09em}
+ .delivery-design-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .delivery-design-nav a{min-height:42px;padding:8px 9px;font-size:11px}
+ .delivery-design-nav a:last-child{grid-column:1/-1}
+}
 </style></head><body>
-<div class="topnote">Prueba de lanzamiento · Entrega a cliente</div>
+<div class="delivery-design-bar"><div class="delivery-design-title">Prueba de lanzamiento · Entrega al cliente</div><nav class="delivery-design-nav" aria-label="Elegir diseño para mostrar al cliente"><a href="../normal/">Diseño normal</a><a href="../premium/" aria-current="page">Diseño Premium</a><a href="../completa/">Diseño Premium con todos los extras</a></nav></div>
 <header class="header"><div class="wrap header-inner"><a class="logo" href="#inicio" aria-label="Con'acento, bar de tapas, inicio"><svg class="emblem" viewBox="0 0 90 96" role="img" aria-label="Mujer con rosas de la identidad de Con'acento"><path fill="#201c1c" d="M45 5C29 5 21 17 21 28c-1 8 1 15-6 23l11 1-8 13 14-5 6-15 15-1 9-16C64 11 55 5 45 5Z"/><path fill="#fff5eb" d="M13 36c3-7 13-12 22-6l4 13-9 8 3 9-9-2-9-8-8 1 7-9Z"/><path fill="none" stroke="#211c1c" stroke-width="2.3" stroke-linecap="round" d="M13 40c8-5 14-2 19 0m-15 6 9 1m-13 11 7 2"/><path fill="#1d1717" d="M9 60q6-3 12 5-8 5-12-5Z"/><path fill="#201c1c" d="M35 7C45-6 58 1 57 8c9-5 18 5 14 12 6 7-1 17-10 20-10-8-16-24-26-33Z"/><g stroke="#fff5e9" fill="none" stroke-width="1.7" stroke-linecap="round"><path d="m41 9 7 7-6 8 5 8m5-21 7 8-5 8 7 8m4-17 5 7-5 6"/></g><g fill="#c1304e" stroke="#7f1530" stroke-width="1.2"><circle cx="65" cy="42" r="13"/><circle cx="53" cy="59" r="14"/><circle cx="66" cy="73" r="12"/></g><g stroke="#ec8b9a" stroke-width="1.9" fill="none"><path d="M59 44q3-9 10-3t-6 10q-6-3 1-8m-17 17q2-10 12-7t-2 12q-8-3 0-9m2 17q8-8 12-1t-7 9q-6-3 0-8"/></g><circle cx="41" cy="67" r="5" stroke="#211b1b" stroke-width="2.7" fill="none"/><circle cx="41" cy="80" r="8" fill="#201a1a"/><circle cx="41" cy="80" r="3" fill="#f8e6df"/></svg><span class="logo-type"><b>Con'acento</b><small>Bar de tapas</small></span></a><a class="header-link" href="#carta">Ver carta ↓</a></div></header>
 <main id="inicio">
-<div class="features-band"><div class="wrap features-inner"><span>Con'acento · Diseño Premium + descripciones</span><div class="version-links"><a href="../normal/">Ver diseño normal ↗</a><a href="../completa/">Ver Diseño Premium con todos los extras ↗</a></div></div></div>
 <section class="hero"><div class="wrap hero-inner"><div class="eyebrow">Tapas · Sabor · Buenos momentos</div><h1>Sabores con<br><em>mucho acento.</em></h1><p>Tapas que cuentan historias. Productos de nuestra tierra y ganas de compartir.</p><a class="hero-action" href="#carta">Descubre nuestra carta <span aria-hidden="true">↗</span></a></div></section>
 
 <div class="categories-wrap" id="carta"><nav class="wrap categories" id="cats" aria-label="Categorías de platos"></nav></div>
