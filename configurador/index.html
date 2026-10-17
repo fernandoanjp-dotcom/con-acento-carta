@@ -34,7 +34,6 @@ h1{font-size:clamp(27px,3vw,40px);letter-spacing:-.035em;line-height:1.07;margin
 .suboption label{display:flex;gap:7px;align-items:flex-start}
 .suboption input{accent-color:var(--green);margin:1px 0 0}
 #languages{margin-top:7px}
-.columns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .result{background:var(--green);color:#fff;padding:27px 25px;min-width:0;position:sticky;top:15px}
 .result-label{font-size:11px;font-weight:850;letter-spacing:.8px;color:#d9ecdf}
 .amount{font-weight:900;font-size:clamp(44px,4.8vw,59px);line-height:1;margin:9px 0 5px;letter-spacing:-2px}
@@ -42,7 +41,6 @@ h1{font-size:clamp(27px,3vw,40px);letter-spacing:-.035em;line-height:1.07;margin
 .subtle{margin:0 0 12px;color:#dcece4;font-size:11px}
 .rowline{display:flex;align-items:baseline;justify-content:space-between;gap:11px;padding:8px 0;border-top:1px solid #ffffff40;font-size:12px}
 .rowline b{white-space:nowrap}
-.total-extra{border-top:2px solid #ffffff7a;padding-top:11px;font-weight:800}
 .message{background:#ffffff1c;border-radius:5px;font-size:11px;line-height:1.4;padding:9px;margin-top:10px}
 .notice,.demo-terms{font-size:10px;line-height:1.45;color:#e1eee8;margin:10px 0}
 .primary{display:block;width:100%;text-align:center;min-height:44px;background:var(--gold);color:var(--ink);border:0;border-radius:5px;padding:11px 12px;font-size:12px;font-weight:900;text-decoration:none}
@@ -72,14 +70,12 @@ h1{font-size:clamp(27px,3vw,40px);letter-spacing:-.035em;line-height:1.07;margin
  .hint{font-size:10px;line-height:1.25;margin:4px 0 0}
  .suboption{font-size:10px;padding:6px 7px;margin:4px 0}
  #languages{margin-top:5px}
- .columns{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
  .result{position:static;border:0;padding:13px 14px}
  .result-label{font-size:10px;letter-spacing:.7px}
  .amount{font-size:34px;margin:5px 0 3px;letter-spacing:-1px}
  .amount small{font-size:12px}
  .subtle{font-size:10px;margin-bottom:7px}
  .rowline{font-size:11px;padding:5px 0}
- .total-extra{padding-top:6px}
  .message{font-size:10px;padding:6px 8px;margin:6px 0}
  .notice,.demo-terms{font-size:10px;line-height:1.28;margin:7px 0}
  .results-btn{min-height:41px;font-size:12px;padding:10px;margin:10px 0 7px;border-radius:7px}
@@ -101,9 +97,8 @@ h1{font-size:clamp(27px,3vw,40px);letter-spacing:-.035em;line-height:1.07;margin
 <label class="option"><input type="checkbox" id="qr"><span class="option-icon option-icon--qr"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3v-3ZM20 14v3M18 20h3M14 20h2"/></svg></span><span>Código QR</span><b>+5 €/mes*</b></label>
 <div class="suboption" id="qr-note" hidden><label><input id="qrfree" type="checkbox"> QR gratis tras la prueba, manteniendo la suscripción sin interrupciones.</label></div>
 <div class="field"><label for="languages">Idiomas extra (español incluido)</label><select id="languages"><option value="0">Ninguno · 0 €</option><option value="1">1 idioma · +5 €/mes</option><option value="2">2 idiomas · +10 €/mes</option><option value="3">3 idiomas · +15 €/mes</option><option value="4">4 idiomas · +20 €/mes</option><option value="5">5 idiomas · +25 €/mes</option></select></div><p class="hint">Con detalles + audio + vista dual, la lista muestra las funciones juntas.</p></fieldset>
-<fieldset class="group"><legend>03 · Costes puntuales (opcionales)</legend><div class="columns"><div class="field"><label for="updates">Cambios extra · 25 €/solicitud</label><input id="updates" type="number" min="0" max="999" step="1" value="0"></div><div class="field"><label for="stands">Peanas QR · 15–20 €/ud.</label><input id="stands" type="number" min="0" max="999" step="1" value="0"></div></div><p class="hint">Un cambio puede incluir varios platos. Precio final de peanas a confirmar.</p></fieldset>
 </form>
-<aside class="result" aria-live="polite"><div class="result-label">TU CUOTA MENSUAL ESTIMADA</div><div class="amount" id="amount">50 € <small>/mes</small></div><p class="subtle">Sin IVA · Sin permanencia</p><div id="breakdown"></div><div class="rowline total-extra"><span>Costes puntuales</span><b id="onetime">0 €</b></div><div class="message" id="bonus" hidden></div><p class="notice">* QR gratis al continuar tras los 30 días de prueba sin interrupción. Tras cancelar y volver: +5 €/mes. Peanas aparte.</p>
+<aside class="result" aria-live="polite"><div class="result-label">TU CUOTA MENSUAL ESTIMADA</div><div class="amount" id="amount">50 € <small>/mes</small></div><p class="subtle">Sin IVA · Sin permanencia</p><div id="breakdown"></div><div class="message" id="bonus" hidden></div><p class="notice">* QR gratis al continuar tras los 30 días de prueba sin interrupción. Tras cancelar y volver: +5 €/mes.</p>
 <button type="submit" form="config" class="primary results-btn">Ver resultados del presupuesto →</button>
 <p class="demo-terms">Ejemplo orientativo, no contractual. La demostración utiliza platos de muestra.</p>
 </aside></div>
@@ -116,13 +111,12 @@ var prices={basica:50,plata:75,oro:100};
 var titles={basica:'Básica',plata:'Plata',oro:'Oro'};
 var previewUrl='';
 function number(id){var n=Number($(id).value);return Number.isFinite(n)?Math.min(999,Math.max(0,Math.floor(n))):0}
-function getConfig(){var p=$('plan').value;if(!Object.prototype.hasOwnProperty.call(prices,p))p='basica';return{p:p,d:$('details').checked,a:$('audio').checked,v:$('views').checked,q:$('qr').checked,c:$('qr').checked&&$('qrfree').checked,l:Math.min(5,number('languages')),u:number('updates'),s:number('stands')}}
+function getConfig(){var p=$('plan').value;if(!Object.prototype.hasOwnProperty.call(prices,p))p='basica';return{p:p,d:$('details').checked,a:$('audio').checked,v:$('views').checked,q:$('qr').checked,c:$('qr').checked&&$('qrfree').checked,l:Math.min(5,number('languages'))}}
 function euro(x){return x.toLocaleString('es-ES')+' €'}
-function setInitial(){var x=new URLSearchParams(location.search);if(prices[x.get('p')])$('plan').value=x.get('p');['d','a','v','q','c'].forEach(function(k){var id={d:'details',a:'audio',v:'views',q:'qr',c:'qrfree'}[k];if(x.has(k))$(id).checked=x.get(k)==='1'});['l','u','s'].forEach(function(k){var id={l:'languages',u:'updates',s:'stands'}[k];if(x.has(k))$(id).value=String(Math.min(k==='l'?5:999,Math.max(0,Number(x.get(k))||0)))});$('qr-note').hidden=!$('qr').checked}
+function setInitial(){var x=new URLSearchParams(location.search);if(prices[x.get('p')])$('plan').value=x.get('p');['d','a','v','q','c'].forEach(function(k){var id={d:'details',a:'audio',v:'views',q:'qr',c:'qrfree'}[k];if(x.has(k))$(id).checked=x.get(k)==='1'});if(x.has('l'))$('languages').value=String(Math.min(5,Math.max(0,Number(x.get('l'))||0)));$('qr-note').hidden=!$('qr').checked}
 function refreshBudget(){var z=getConfig();var list=[['Plan '+titles[z.p],prices[z.p]]];if(z.d)list.push(['Detalles de platos',5]);if(z.a)list.push(['Audio',5]);if(z.v)list.push(['Vista dual',5]);if(z.q)list.push(['Acceso QR',z.c?0:5]);if(z.l)list.push([z.l+' idioma(s) adicional(es)',z.l*5]);var total=list.reduce(function(sum,r){return sum+r[1]},0);
 $('amount').innerHTML=euro(total)+' <small>/mes</small>';
 $('breakdown').replaceChildren();list.forEach(function(row){var el=document.createElement('div');el.className='rowline';var a=document.createElement('span');a.textContent=row[0];var b=document.createElement('b');b.textContent=row[1]===0?'Gratis':euro(row[1]);el.append(a,b);$('breakdown').append(el)});
-var low=z.u*25+z.s*15;var high=z.u*25+z.s*20;$('onetime').textContent=low===high?euro(low):euro(low)+' – '+euro(high);
 $('bonus').hidden=!(z.d&&z.a&&z.v);$('bonus').textContent='Ventaja conjunta: en vista de lista se muestran la descripción y el audio sin abrir una ficha adicional.';
 var q=new URLSearchParams();Object.entries(z).forEach(function(a){q.set(a[0],typeof a[1]==='boolean'?(a[1]?'1':'0'):String(a[1]))});var link=new URL('../vista-previa/',location.href);link.search=q.toString();previewUrl=link.href;
 }
