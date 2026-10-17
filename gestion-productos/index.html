@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173c33"><title>Solicitud de productos | Cartas Digitales</title>
+<meta name="description" content="Solicita altas, modificaciones y bajas de platos, precios y fueras de carta en una entrega organizada.">
+<style>
+:root{--ink:#20332d;--pine:#173c33;--soft:#f5f4f0;--line:#d8ded5;--copper:#bb744b;--muted:#65716b;--red:#a94242;--green:#34785e}
+*{box-sizing:border-box}body{margin:0;background:var(--soft);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #d89b68;outline-offset:2px}[hidden]{display:none!important}
+header{background:var(--pine);color:#fff}header>div{max-width:1140px;margin:auto;padding:17px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px}.brand{font-size:22px;font-weight:850;letter-spacing:-.05em}.brand span{color:#e8b495}.header-side{font-size:11px;color:#d2e0d7;text-transform:uppercase;letter-spacing:.12em;text-align:right;font-weight:750}
+main{max-width:1140px;margin:auto;padding:33px 22px 75px}.eyebrow{font-size:11px;color:var(--copper);text-transform:uppercase;font-weight:850;letter-spacing:.15em}h1{font:600 clamp(30px,4vw,48px)/1.1 Georgia,serif;letter-spacing:-.04em;margin:7px 0 11px}.intro{font-size:14px;line-height:1.65;color:var(--muted);max-width:780px;margin:0 0 25px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 294px;gap:18px;align-items:start}.sheet,.sidebar{background:#fff;border:1px solid var(--line);border-radius:7px}.section{padding:22px 24px;border-bottom:1px solid var(--line)}.section:last-child{border:0}
+h2{margin:0 0 17px;font-size:18px;letter-spacing:-.025em}.step{font-size:12px;color:var(--copper);margin-right:9px;font-weight:850}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{min-width:0}.wide{grid-column:1/-1}
+.field label,.blocklabel{display:block;font-weight:750;font-size:12px;margin-bottom:5px}
+.field input:not([type=file]),.field select,.field textarea{width:100%;min-width:0;min-height:43px;border:1px solid #cbd4cb;border-radius:4px;background:#fff;color:var(--ink);padding:10px 11px}
+.field textarea{min-height:76px;resize:vertical}.helper{font-size:11px;color:var(--muted);margin:6px 0 0;line-height:1.5}
+.item{border:1px solid var(--line);border-left:4px solid var(--green);border-radius:5px;margin:0 0 13px;padding:18px;background:#fff}.item[data-operation="Modificar"]{border-left-color:#b77c32}.item[data-operation="Eliminar"]{border-left-color:var(--red)}
+.item-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 16px}.item-header h3{margin:0;font-size:15px}.remove{border:0;background:transparent;color:var(--red);font-size:12px;font-weight:750;padding:6px}.remove:disabled{color:#b3b9b3;cursor:default}
+.operation-tabs{display:flex;gap:6px;margin:0 0 15px}.operation-tabs label{flex:1;min-width:0}.operation-tabs input{position:absolute;opacity:0;pointer-events:none}.operation-tabs span{display:block;padding:9px 6px;border:1px solid var(--line);border-radius:3px;text-align:center;font-size:12px;font-weight:750;cursor:pointer}.operation-tabs input:checked+span{background:var(--pine);color:#fff;border-color:var(--pine)}.operation-tabs input:focus-visible+span{outline:3px solid #d89b68;outline-offset:2px}
+.allergens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;border:1px solid var(--line);border-radius:4px;padding:13px;margin-top:9px}.allergens label{display:flex;gap:7px;align-items:flex-start;font-size:11px;line-height:1.3;cursor:pointer}.allergens input{margin:0;accent-color:var(--pine)}
+.photos{display:flex;gap:13px;align-items:center}.photobox{height:75px;width:75px;flex:0 0 75px;display:grid;place-items:center;background:#f1f5f0;border:1px dashed #aab8ab;font-size:11px;text-align:center;color:var(--muted);overflow:hidden}.photobox img{width:100%;height:100%;object-fit:cover}.photos input{max-width:100%;font-size:11px}
+.schedule{padding:13px;background:#fbf9f5;border:1px dashed #d8bb9d;border-radius:4px;margin-top:15px}
+.btn-add{border:1px solid #9bb0a2;border-radius:4px;background:#fff;color:var(--pine);padding:10px 17px;font-size:13px;font-weight:800}
+.sidebar{position:sticky;top:18px;padding:22px}.sidebar h2{font:600 26px/1.1 Georgia,serif;margin-bottom:12px}.counts{font-size:12px;color:var(--muted);line-height:1.8;border-bottom:1px solid var(--line);padding:0 0 12px;margin-bottom:13px}.sidebar ol{padding-left:19px;color:var(--muted);font-size:12px;line-height:1.55}.sidebar li{margin-bottom:10px}.sidebar li strong{color:var(--ink)}.agree{display:flex;align-items:flex-start;gap:8px;font-size:11px;line-height:1.5;margin:16px 0}.agree input{margin:2px 0 0;flex:none;accent-color:var(--pine)}.button{display:block;width:100%;border-radius:4px;padding:12px;text-align:center;font-size:12px;font-weight:800}.button.primary{background:var(--pine);color:#fff;border:1px solid var(--pine)}.button.secondary{background:white;color:var(--pine);border:1px solid #9db2a5;margin-top:9px}.status{font-size:11px;line-height:1.5;color:var(--muted);margin-top:12px}.status.error{color:var(--red)}.status.success{color:var(--green)}
+footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-width:750px}
+@media(max-width:880px){.layout{grid-template-columns:1fr}.sidebar{position:static}}
+@media(max-width:520px){header>div{padding:14px 16px}.brand{font-size:21px}.header-side{font-size:9px}main{padding:23px 13px 50px}h1{font-size:34px}.section{padding:19px 15px}.cols{grid-template-columns:1fr}.item{padding:15px 12px}.allergens{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{padding:20px}}
+</style></head>
+<body>
+<header><div><div class="brand">Cartas<span>Digitales</span></div><div class="header-side">Gestión de productos · Área de clientes</div></div></header>
+<main><span class="eyebrow">Solicitudes de actualización</span><h1>Tu carta, siempre al día</h1>
+<p class="intro">Solicita <strong>altas, modificaciones y bajas</strong> de productos, tanto de las categorías habituales como de <strong>Fuera de carta</strong>. Puedes agrupar varios cambios en una solicitud y compartir la información con Cartas Digitales para su revisión.</p>
+<div class="layout"><div>
+<form id="form" class="sheet" novalidate>
+<section class="section"><h2><span class="step">01</span>Identifica tu restaurante</h2>
+<div class="cols">
+<div class="field"><label for="restaurant">Restaurante *</label><input id="restaurant" required maxlength="120" placeholder="Nombre del establecimiento"></div>
+<div class="field"><label for="person">Persona de contacto *</label><input id="person" required maxlength="100" placeholder="Nombre de contacto"></div>
+<div class="field"><label for="email">Correo electrónico *</label><input type="email" id="email" required maxlength="150" placeholder="nombre@restaurante.es"></div>
+<div class="field"><label for="phone">Teléfono (opcional)</label><input id="phone" type="tel" maxlength="40" placeholder="+34 …"></div>
+<div class="field wide"><label for="comments">Indicaciones generales</label><textarea id="comments" rows="2" maxlength="1600" placeholder="Detalles que debamos tener en cuenta al tramitar la solicitud"></textarea></div>
+</div></section>
+<section class="section"><h2><span class="step">02</span>Indica los cambios</h2><div id="items"></div><button id="add" type="button" class="btn-add">+ Añadir otra operación</button><p class="helper">Hasta 50 operaciones por solicitud. Cada una puede ser un alta, una modificación o una baja.</p></section>
+</form>
+<footer>Este formulario prepara una solicitud para enviar, no modifica una carta online ni guarda fotografías en un servidor. La publicación se realizará tras revisión. Los alérgenos deben verificarse con el establecimiento antes de mostrarse al público. Las fechas programadas solo se aplican a «Fuera de carta».</footer>
+</div>
+<aside class="sidebar"><h2>Prepara la entrega</h2>
+<div class="counts" id="counts">1 alta · 0 modificaciones · 0 bajas</div>
+<ol><li><strong>Selecciona la operación</strong> para cada producto.</li><li><strong>Completa los datos</strong> y adjunta las fotos disponibles.</li><li><strong>Comparte el ZIP</strong> con los cambios y las imágenes a través del canal habitual.</li></ol>
+<label class="agree"><input type="checkbox" id="verified"><span>Confirmo que la información facilitada está revisada por el restaurante y tengo autorización para compartir las imágenes.</span></label>
+<button class="button primary" type="button" id="share">Compartir solicitud</button>
+<button class="button secondary" type="button" id="download">Descargar ZIP</button>
+<button class="button secondary" type="button" id="draft">Guardar borrador aquí</button>
+<button class="button secondary" type="button" id="restore">Recuperar borrador</button>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+<p class="helper">El borrador se guarda solo en este navegador y no incluye las fotografías. Si compartir no está disponible, se descargará el archivo para enviarlo manualmente.</p>
+</aside></div>
+</main>
+<template id="template"><article class="item" data-item data-operation="Añadir">
+<div class="item-header"><h3>Operación <span data-number></span></h3><button class="remove" type="button" data-remove>Eliminar esta operación</button></div>
+<div class="operation-tabs" role="group" aria-label="Tipo de operación">
+<label><input type="radio" data-op value="Añadir" checked><span>+ Añadir</span></label>
+<label><input type="radio" data-op value="Modificar"><span>✎ Modificar</span></label>
+<label><input type="radio" data-op value="Eliminar"><span>× Dar de baja</span></label></div>
+<div class="cols">
+<div class="field"><label>Sección de la carta *</label><select data-key="category" required><option value="">Selecciona categoría</option><option>Tapas</option><option>Platos</option><option>Postres</option><option>Entrantes</option><option>Raciones</option><option>Bebidas</option><option>Fuera de carta</option><option value="Otra">Otra categoría</option></select></div>
+<div class="field" data-wrap="other"><label>Nombre de otra categoría *</label><input data-key="otherCategory" maxlength="95" placeholder="Ej. Coctelería" disabled></div>
+<div class="field" data-wrap="current"><label data-current-label>Nombre del producto *</label><input data-key="current" required maxlength="140" placeholder="Ej. Croquetas de setas"></div>
+<div class="field" data-wrap="rename"><label>Nuevo nombre (si cambia)</label><input data-key="rename" maxlength="140" placeholder="Déjalo vacío si no cambia"></div>
+<div class="field" data-wrap="price"><label>Precio (€) *</label><input data-key="price" type="number" inputmode="decimal" min="0" max="99999" step="0.01" placeholder="Ej. 9.50" required></div>
+<div class="field" data-wrap="description"><label>Descripción / elaboración</label><textarea data-key="description" rows="2" maxlength="900" placeholder="Ingredientes principales, sabor, presentación…"></textarea></div>
+<div class="field wide" data-wrap="details"><label>Instrucciones del cambio</label><textarea data-key="details" rows="2" maxlength="1000" placeholder="En una modificación, indica qué campos deben cambiarse. Si el precio o la descripción no cambian, puedes dejarlos vacíos."></textarea></div>
+<div class="field wide" data-wrap="allergens"><label>Información sobre alérgenos</label><select data-key="allergenStatus"><option value="Pendientes de verificar">Pendientes de verificar: no publicar información nueva</option><option value="Revisados por el restaurante">Alérgenos revisados por el restaurante</option><option value="Ninguno declarado por el restaurante">El restaurante declara ninguno de los 14 alérgenos</option><option value="Sin cambios">Sin cambios respecto a la carta existente</option></select><div class="allergens" data-allergen-list>
+<label><input type="checkbox" value="Gluten">Gluten</label><label><input type="checkbox" value="Crustáceos">Crustáceos</label><label><input type="checkbox" value="Huevos">Huevos</label><label><input type="checkbox" value="Pescado">Pescado</label><label><input type="checkbox" value="Cacahuetes">Cacahuetes</label><label><input type="checkbox" value="Soja">Soja</label><label><input type="checkbox" value="Leche">Leche</label><label><input type="checkbox" value="Frutos de cáscara">Frutos de cáscara</label><label><input type="checkbox" value="Apio">Apio</label><label><input type="checkbox" value="Mostaza">Mostaza</label><label><input type="checkbox" value="Sésamo">Sésamo</label><label><input type="checkbox" value="Sulfitos">Sulfitos</label><label><input type="checkbox" value="Altramuces">Altramuces</label><label><input type="checkbox" value="Moluscos">Moluscos</label></div><p class="helper">Solo declara lo que haya sido comprobado. La ausencia marcada debe estar verificada.</p></div>
+<div class="field wide" data-wrap="photo"><label>Fotografía nueva o de sustitución (opcional)</label><div class="photos"><div data-preview class="photobox">Sin foto</div><div><input type="file" data-photo accept="image/jpeg,image/png,image/webp"><p class="helper">JPG, PNG o WEBP · Máximo 12 MB</p></div></div></div>
+</div>
+<div class="schedule" data-schedule hidden><strong style="font-size:12px">Programación de Fuera de carta</strong><div class="cols" style="margin-top:9px">
+<div class="field" data-start-wrap><label>Fecha de publicación (opcional)</label><input type="date" data-key="start"></div>
+<div class="field"><label>Fecha de retirada (opcional)</label><input type="date" data-key="end"></div></div>
+<p class="helper" data-schedule-hint>Indica ambas fechas si quieres que el alta y la retirada se gestionen conjuntamente.</p>
+</div>
+</article></template>
+<script>
+(function(){
+'use strict';
+const MAX=50,MAXFILE=12*1024*1024,MAXALL=65*1024*1024,KEY='cartas-digitales-gestion-productos-v2';
+const one=(s,b=document)=>b.querySelector(s),all=(s,b=document)=>Array.from(b.querySelectorAll(s)),items=one('#items'),status=one('#status');
+let sequence=0;
+function say(text,kind=''){status.textContent=text;status.className='status '+kind}
+function refreshCount(){const els=all('[data-item]',items),counts={Añadir:0,Modificar:0,Eliminar:0};els.forEach((e,i)=>{one('[data-number]',e).textContent=i+1;counts[e.dataset.operation]++;one('[data-remove]',e).disabled=els.length===1});one('#counts').textContent=counts.Añadir+' altas · '+counts.Modificar+' modificaciones · '+counts.Eliminar+' bajas';one('#add').disabled=els.length>=MAX}
+function updateItem(el){const op=one('[data-op]:checked',el).value,cat=one('[data-key="category"]',el).value;el.dataset.operation=op;
+const showing={other:cat==='Otra',current:true,rename:op==='Modificar',price:op!=='Eliminar',description:op!=='Eliminar',details:op!=='Añadir',allergens:op!=='Eliminar',photo:op!=='Eliminar'};
+Object.entries(showing).forEach(([k,flag])=>{const b=one('[data-wrap="'+k+'"]',el);b.hidden=!flag});
+one('[data-key="otherCategory"]',el).disabled=cat!=='Otra';one('[data-key="otherCategory"]',el).required=cat==='Otra';
+one('[data-key="price"]',el).required=op==='Añadir';one('[data-current-label]',el).textContent=op==='Añadir'?'Nombre del nuevo producto *':'Nombre actual del producto *';
+one('[data-schedule]',el).hidden=cat!=='Fuera de carta';one('[data-start-wrap]',el).hidden=op==='Eliminar';one('[data-schedule-hint]',el).textContent=op==='Eliminar'?'Puedes solicitar la retirada para una fecha concreta. Sin fecha, se solicita la baja habitual.':'Indica ambas fechas para tramitar una publicación con retirada programada en la misma solicitud.';
+let chk=one('[data-key="allergenStatus"]',el).value==='Revisados por el restaurante';
+all('[data-allergen-list] input',el).forEach(c=>{c.disabled=!chk;if(!chk)c.checked=false});
+refreshCount()}
+function makeItem(data){if(all('[data-item]',items).length>=MAX)return;const el=one('#template').content.firstElementChild.cloneNode(true);const id='op-'+(++sequence);all('[data-op]',el).forEach(e=>e.name=id);
+items.append(el);
+el.addEventListener('change',e=>{if(e.target.matches('[data-op], [data-key="category"], [data-key="allergenStatus"]'))updateItem(el);if(e.target.matches('[data-photo]'))imageChanged(el)});
+one('[data-remove]',el).addEventListener('click',()=>{if(all('[data-item]',items).length<=1)return;if(el.dataset.objecturl)URL.revokeObjectURL(el.dataset.objecturl);el.remove();refreshCount()});
+if(data){const op=all('[data-op]',el).find(x=>x.value===data.operation);if(op)op.checked=true;all('[data-key]',el).forEach(inp=>{if(Object.prototype.hasOwnProperty.call(data,inp.dataset.key))inp.value=data[inp.dataset.key]??''});}
+updateItem(el);
+if(data&&data.allergens&&data.allergenStatus==='Revisados por el restaurante')all('[data-allergen-list] input',el).forEach(c=>c.checked=data.allergens.includes(c.value));refreshCount()}
+function imageChanged(el){const f=one('[data-photo]',el).files[0],prev=one('[data-preview]',el);if(el.dataset.objecturl){URL.revokeObjectURL(el.dataset.objecturl);delete el.dataset.objecturl}prev.replaceChildren();if(!f){prev.textContent='Sin foto';return}if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>MAXFILE){one('[data-photo]',el).value='';prev.textContent='Sin foto';say('Usa una fotografía JPG, PNG o WEBP de hasta 12 MB.','error');return}const url=URL.createObjectURL(f);el.dataset.objecturl=url;const img=document.createElement('img');img.src=url;img.alt='Foto adjunta';prev.append(img);say('Fotografía añadida a la solicitud.','success')}
+function values(){return all('[data-item]',items).map((el,i)=>{const v={numero:i+1,operation:el.dataset.operation};all('[data-key]',el).forEach(input=>v[input.dataset.key]=input.value.trim());v.category=v.category==='Otra'?v.otherCategory:v.category;delete v.otherCategory;v.allergens=all('[data-allergen-list] input:checked',el).map(x=>x.value);if(v.operation==='Eliminar'){delete v.rename;delete v.price;delete v.description;delete v.allergenStatus;delete v.allergens}if(v.category!=='Fuera de carta'){delete v.start;delete v.end}if(v.operation==='Eliminar'){delete v.start}v._file=v.operation!=='Eliminar'?one('[data-photo]',el).files[0]||null:null;return v})}
+function collect(check){const data={formVersion:'2.0',createdAt:new Date().toISOString(),restaurant:one('#restaurant').value.trim(),contact:one('#person').value.trim(),email:one('#email').value.trim(),phone:one('#phone').value.trim(),comments:one('#comments').value.trim(),changes:values(),notice:'Solicitud pendiente de revisión. No publicada automáticamente.'};
+if(!check)return data;
+for(const e of [one('#restaurant'),one('#person'),one('#email')]){if(!e.checkValidity()||!e.value.trim()){say('Completa restaurante, contacto y correo electrónico.','error');e.focus();return null}}
+if(!one('#verified').checked){say('Confirma la revisión de la información y la autorización de las fotografías.','error');one('#verified').focus();return null}
+let total=0;
+for(let i=0;i<data.changes.length;i++){const p=data.changes[i],el=all('[data-item]',items)[i],focus=key=>one('[data-key="'+key+'"]',el);
+if(!p.category||!p.current|| (one('[data-key="category"]',el).value==='Otra'&&!p.category)){say('Completa la categoría y el nombre del producto en la operación '+(i+1)+'.','error');focus(!p.category?'category':'current').focus();return null}
+if(p.operation==='Añadir'&&(p.price===''||!Number.isFinite(Number(p.price))||Number(p.price)<0)){say('Introduce un precio válido en el alta '+(i+1)+'.','error');focus('price').focus();return null}
+if(p.operation==='Modificar'&&p.price!==''&&(!Number.isFinite(Number(p.price))||Number(p.price)<0)){say('El nuevo precio de la operación '+(i+1)+' no es válido.','error');focus('price').focus();return null}
+if(p.category==='Fuera de carta'&&p.operation!=='Eliminar'&&Boolean(p.start)!==Boolean(p.end)){say('En Fuera de carta, indica ambas fechas o ninguna en la operación '+(i+1)+'.','error');focus('start').focus();return null}
+if(p.category==='Fuera de carta'&&p.start&&p.end&&p.end<p.start){say('La fecha de retirada es anterior al inicio en la operación '+(i+1)+'.','error');focus('end').focus();return null}
+if(p._file)total+=p._file.size;
+}
+if(total>MAXALL){say('Las fotografías superan 65 MB. Divide la entrega en varias solicitudes.','error');return null}
+return data}
+function slug(value){return(value||'restaurante').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,55)||'restaurante'}
+const textenc=new TextEncoder();
+function u16(d,o,n){d.setUint16(o,n,true)}function u32(d,o,n){d.setUint32(o,n>>>0,true)}
+let crcTable;function crc32(bytes){if(!crcTable){crcTable=new Uint32Array(256);for(let i=0;i<256;i++){let x=i;for(let j=0;j<8;j++)x=x&1?0xedb88320^(x>>>1):x>>>1;crcTable[i]=x>>>0}}let x=0xffffffff;for(const b of bytes)x=crcTable[(x^b)&255]^(x>>>8);return(x^0xffffffff)>>>0}
+function pack(entries){const locals=[],dirs=[];let offset=0,centralLength=0;const date=new Date(),time=(date.getHours()<<11)|(date.getMinutes()<<5)|(date.getSeconds()>>1),day=((date.getFullYear()-1980)<<9)|((date.getMonth()+1)<<5)|date.getDate();
+for(const entry of entries){const name=textenc.encode(entry.name),data=entry.bytes,crc=crc32(data),local=new Uint8Array(30+name.length),lh=new DataView(local.buffer);u32(lh,0,0x04034b50);u16(lh,4,20);u16(lh,6,0x800);u16(lh,8,0);u16(lh,10,time);u16(lh,12,day);u32(lh,14,crc);u32(lh,18,data.length);u32(lh,22,data.length);u16(lh,26,name.length);local.set(name,30);locals.push(local,data);
+const dir=new Uint8Array(46+name.length),dh=new DataView(dir.buffer);u32(dh,0,0x02014b50);u16(dh,4,20);u16(dh,6,20);u16(dh,8,0x800);u16(dh,10,0);u16(dh,12,time);u16(dh,14,day);u32(dh,16,crc);u32(dh,20,data.length);u32(dh,24,data.length);u16(dh,28,name.length);u32(dh,42,offset);dir.set(name,46);dirs.push(dir);centralLength+=dir.length;offset+=local.length+data.length}
+const end=new Uint8Array(22),view=new DataView(end.buffer);u32(view,0,0x06054b50);u16(view,8,entries.length);u16(view,10,entries.length);u32(view,12,centralLength);u32(view,16,offset);return new Blob([...locals,...dirs,end],{type:'application/zip'})}
+function csv(rows){const fields=['numero','operation','category','current','rename','price','description','details','allergenStatus','allergens','start','end','filename'];const quote=v=>'"'+String(Array.isArray(v)?v.join(' | '):(v??'')).replace(/"/g,'""')+'"';return '\ufeff'+[fields.join(';'),...rows.map(r=>fields.map(f=>quote(r[f])).join(';'))].join('\r\n')}
+async function build(){const data=collect(true);if(!data)return null;const files=[],entries=[];for(const p of data.changes){if(p._file){const ext=p._file.type==='image/png'?'png':p._file.type==='image/webp'?'webp':'jpg';p.filename='fotos/'+String(p.numero).padStart(2,'0')+'-'+slug(p.current)+'.'+ext;entries.push({name:p.filename,bytes:new Uint8Array(await p._file.arrayBuffer())})}else p.filename='';delete p._file}
+entries.unshift({name:'solicitud.json',bytes:textenc.encode(JSON.stringify(data,null,2))},{name:'productos.csv',bytes:textenc.encode(csv(data.changes))},{name:'LEEME.txt',bytes:textenc.encode('Cartas Digitales · Solicitud de cambios de productos\n\nEste ZIP contiene altas, modificaciones y bajas solicitadas por el restaurante.\nLos cambios NO se publican automaticamente y requieren revision.\nLas fechas programadas solo son validas para Fuera de carta.\n\nArchivos: solicitud.json, productos.csv y carpeta fotos cuando proceda.\n')});
+const blob=pack(entries),file='solicitud-'+slug(data.restaurant)+'-'+new Date().toISOString().slice(0,10)+'.zip';return {blob,file}}
+function download(b,name){const url=URL.createObjectURL(b),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
+async function deliver(share){try{say('Preparando la solicitud…');const result=await build();if(!result)return;if(share&&navigator.share&&navigator.canShare){const file=new File([result.blob],result.file,{type:'application/zip'});if(navigator.canShare({files:[file]})){try{await navigator.share({title:'Solicitud de cambios Cartas Digitales',files:[file]});say('Se ha abierto el menú para compartir. Comprueba que el destinatario recibe el archivo.','success');return}catch(e){if(e.name==='AbortError'){say('Has cancelado el envío. Los datos siguen en el formulario.');return}}}}
+download(result.blob,result.file);say('ZIP descargado. Adjunta el archivo en tu correo o WhatsApp para enviarlo. No se ha enviado automáticamente.','success')
+}catch(e){say('No se pudo preparar el ZIP en este navegador. Comprueba las fotografías o prueba otro navegador.','error')}}
+function save(){try{const data=collect(false);data.changes.forEach(p=>{delete p._file});localStorage.setItem(KEY,JSON.stringify(data));say('Borrador guardado en este navegador. Las fotos deben volver a adjuntarse.','success')}catch(e){say('No se ha podido guardar el borrador en este navegador.','error')}}
+function restore(){try{const raw=localStorage.getItem(KEY);if(!raw){say('No se encontró ningún borrador guardado en este navegador.','error');return}const data=JSON.parse(raw);if(!Array.isArray(data.changes)){say('El borrador no es válido.','error');return}one('#restaurant').value=data.restaurant||'';one('#person').value=data.contact||'';one('#email').value=data.email||'';one('#phone').value=data.phone||'';one('#comments').value=data.comments||'';items.replaceChildren();data.changes.slice(0,MAX).forEach(makeItem);if(!items.children.length)makeItem();one('#verified').checked=false;say('Borrador recuperado. Revisa los datos y vuelve a adjuntar las fotografías.','success')}catch(e){say('No se pudo recuperar el borrador.','error')}}
+one('#add').addEventListener('click',()=>makeItem());one('#download').addEventListener('click',()=>deliver(false));one('#share').addEventListener('click',()=>deliver(true));one('#draft').addEventListener('click',save);one('#restore').addEventListener('click',restore);
+makeItem();
+})();
+</script></body></html>
