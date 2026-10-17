@@ -146,7 +146,47 @@ function bound(k,max){var n=Number(params.get(k));return Number.isFinite(n)?Math
 function euro(n){return n.toLocaleString('es-ES',{minimumFractionDigits:0,maximumFractionDigits:2})+' €'}
 function node(el,className,text){var x=document.createElement(el);if(className)x.className=className;if(text!==undefined)x.textContent=text;return x}
 function btn(txt,fn,variant){var b=node('button','btn'+(variant?' outline':''),txt);b.type='button';b.addEventListener('click',fn);return b}
-function speak(item){if(!opt.a)return;if(!('speechSynthesis' in window)){alert('Tu navegador no permite reproducir esta narración.');return}window.speechSynthesis.cancel();var v=item.t[language]||item.t.es;var u=new SpeechSynthesisUtterance(v[0]+'. '+v[1]);u.lang={es:'es-ES',en:'en-GB',fr:'fr-FR',it:'it-IT',de:'de-DE',pt:'pt-PT'}[language];u.rate=.9;window.speechSynthesis.speak(u)}
+/* Preferir una narradora natural en el idioma seleccionado, si está instalada. */
+const NATURAL_FEMALE_VOICE_HINTS={
+ es:/elvira|helena|luc[ií]a|mar[ií]a|m[oó]nica|dalia|paula|ximena|paloma|isabela|google espa[nñ]ol/i,
+ en:/jenny|aria|samantha|serena|victoria|karen|moira|emma|ava|libby|joanna|amy|natasha/i,
+ ca:/joana|laia|montserrat/i,fr:/denise|julie|am[eé]lie|hortense|c[eé]line|audrey/i,
+ zh:/xiaoxiao|xiaoyi|xiaoyou|huihui|tingting|yaoyao/i,ar:/salma|zariyah|hoda|layla/i,
+ it:/elsa|isabella|bianca|alice/i,de:/katja|vicki|anika|petra/i,pt:/francisca|in[eê]s|camila|helena/i
+};
+let naturalVoices=[];
+function refreshNaturalVoices(){
+ if(!('speechSynthesis' in window))return [];
+ const list=window.speechSynthesis.getVoices();
+ if(list.length)naturalVoices=list;
+ return naturalVoices;
+}
+if('speechSynthesis' in window){
+ refreshNaturalVoices();
+ window.speechSynthesis.addEventListener('voiceschanged',refreshNaturalVoices);
+}
+function naturalFemaleVoice(locale){
+ const full=String(locale||'es-ES').replace('_','-').toLowerCase(),base=full.split('-')[0];
+ const candidates=refreshNaturalVoices().filter(v=>String(v.lang||'').replace('_','-').toLowerCase().split('-')[0]===base);
+ if(!candidates.length)return null;
+ const score=v=>{
+  const n=String(v.name||''),ln=n.toLowerCase();
+  return (String(v.lang||'').replace('_','-').toLowerCase()===full?28:0)
+   +(NATURAL_FEMALE_VOICE_HINTS[base]?.test(n)?95:0)
+   +(/female|mujer|femenina|woman/i.test(n)?75:0)
+   +(/natural|neural|premium|enhanced|high.quality/i.test(n)?48:0)
+   +(/google|microsoft|siri|apple/i.test(n)?18:0)
+   +(/online|cloud/i.test(n)?12:0)
+   -(/male|masculina|hombre|jorge|pablo|[áa]lvaro|ra[uú]l/i.test(ln)?130:0);
+ };
+ return candidates.slice().sort((a,b)=>score(b)-score(a))[0];
+}
+function useNaturalNarrator(utter,locale){
+ utter.lang=locale||'es-ES';
+ const chosen=naturalFemaleVoice(utter.lang);if(chosen)utter.voice=chosen;
+ utter.rate=.98;utter.pitch=1.03;return utter;
+}
+function speak(item){if(!opt.a)return;if(!('speechSynthesis' in window)){alert('Tu navegador no permite reproducir esta narración.');return}window.speechSynthesis.cancel();var v=item.t[language]||item.t.es;var locale={es:'es-ES',en:'en-GB',fr:'fr-FR',it:'it-IT',de:'de-DE',pt:'pt-PT'}[language]||'es-ES';var u=useNaturalNarrator(new SpeechSynthesisUtterance(v[0]+'. '+v[1]),locale);window.speechSynthesis.speak(u)}
 function openDetail(item){current=item;var t=item.t[language]||item.t.es;$('modal-title').textContent=t[0]+' · '+euro(item.price);$('modal-description').textContent=t[1];$('modal-audio').hidden=!opt.a;$('details').showModal()}
 function render(){var integrated=opt.d&&opt.a&&opt.v&&view==='list';$('items').className='items'+(view==='list'?' list':'');$('grid-button').setAttribute('aria-pressed',String(view==='grid'));$('list-button').setAttribute('aria-pressed',String(view==='list'));$('items').replaceChildren();dishes.forEach(function(it){var t=it.t[language]||it.t.es;var card=node('article','dish'),photo=node('div','photo'),body=node('div','dishbody'),head=node('div','dishhead'),title=node('h3','',t[0]),cost=node('strong','price',euro(it.price));var img=node('img','');img.src=it.image;img.alt='Fotografía de '+t[0];img.loading='lazy';photo.append(img);head.append(title,cost);body.append(head);if(integrated){var info=node('div','integrated');info.append(node('p','',t[1]),btn('▶ Escuchar descripción',function(){speak(it)}));body.append(info)}else{var actions=node('div','actionrow');if(opt.d)actions.append(btn('Ver detalles del plato',function(){openDetail(it)}));if(opt.a&&!opt.d)actions.append(btn('▶ Escuchar',function(){speak(it)},true));body.append(actions)}card.append(photo,body);$('items').append(card)})}
 if(opt.p==='oro')$('screen').classList.add('premium');
