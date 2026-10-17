@@ -56,7 +56,7 @@ html[lang="ar"]{font-family:Tahoma,Arial,sans-serif}html[lang="ar"] .serif,html[
 </head><body>
 <header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
 <main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
-<section class="page toolbar" id="carta"><div class="toolbar-top"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div><label class="search-box"><span aria-hidden="true">⌕ &nbsp;</span><input type="search" id="search" placeholder="Buscar un plato..." aria-label="Buscar platos"></label></div></section>
+<section class="page toolbar" id="carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div></section>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
 <section class="about"><div class="page about-inner"><div><h2>Con mucho acento, con mucho cariño.</h2><p>Descubre nuestras especialidades, consulta sus precios y explora sus fotografías. Una carta sencilla para elegir a tu gusto.</p></div><div class="about-stamp">✳</div></div></section></main>
@@ -77,8 +77,7 @@ const t=s=>lang==='es'?s:(UI[s]?.[['en','ca','fr','zh','ar'].indexOf(lang)]??s);
 const fmt=c=>new Intl.NumberFormat(locales[lang],{style:'currency',currency:'EUR'}).format(c/100);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cats=['Todos','Tapas','Platos','Postres'];
-let activeCat='Todos',search='',lastFocus=null,detailId=null;
-const fold=s=>s.toLocaleLowerCase(locales[lang]).normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+let activeCat='Todos',lastFocus=null,detailId=null;
 function menu(){return MENU.map((p,i)=>{const v=TRANSLATIONS[lang]?.[i];return v?{...p,name:v[0],desc:v[1],story:v[2]}:p;});}
 // Remember original static text and accessible labels so language changes are reversible.
 const staticText=[];
@@ -94,7 +93,7 @@ function renderTabs(){
  $('tabs').querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCat=b.dataset.cat;renderTabs();renderCatalog();}));
 }
 function renderCatalog(){
- const match=menu().filter(p=>(activeCat==='Todos'||p.category===activeCat)&&fold(p.name+' '+p.desc).includes(fold(search)));
+ const match=menu().filter(p=>activeCat==='Todos'||p.category===activeCat);
  const categories=activeCat==='Todos'?cats.slice(1):[activeCat];
  $('catalog').innerHTML=categories.map(cat=>{
   const ps=match.filter(p=>p.category===cat);if(!ps.length)return '';
@@ -117,7 +116,7 @@ function setLanguage(next){
  renderTabs();renderCatalog();if(detailId)renderDetail();
 }
 $('language').addEventListener('change',e=>setLanguage(e.target.value));
-$('search').addEventListener('input',e=>{search=e.target.value.trim();renderCatalog();});
+
 $('overlay').addEventListener('click',closeDetail);$('detail-close').addEventListener('click',closeDetail);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail();});
 setLanguage(lang);
