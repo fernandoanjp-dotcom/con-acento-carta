@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#501f2b">
-<title>Con Acento · Diseño Premium · Con todos los extras</title>
+<title>Con Acento · Diseño Premium con todos los extras</title>
 <meta name="description" content="La carta de Con Acento. Consulta las tapas, platos y postres de Con Acento con fotos, descripciones, precios e información sobre alérgenos.">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiM1MDFmMmIiLz48dGV4dCB4PSIxMSIgeT0iNDciIGZvbnQtZmFtaWx5PSJHZW9yZ2lhIiBmb250LXNpemU9IjQ2IiBmaWxsPSIjZmZmMGRkIj5DPC90ZXh0PjxjaXJjbGUgY3g9IjQ2IiBjeT0iMTciIHI9IjYiIGZpbGw9IiNkYWE5OTkiLz48L3N2Zz4=" type="image/svg+xml">
 <style>
@@ -214,6 +214,13 @@ header{background:#1a302b}
  #detail-body .detail-section h3{font-size:14px}
  #detail-body .detail-pricing .price-line{display:flex;flex-wrap:wrap}
 }
+
+/* Diseño Premium: misma identidad de bordes suaves en Premium y Premium con todos los extras. */
+.product{border-radius:24px;overflow:hidden}
+.tab,.hero-btn,.opt,.demo-tabs a{border-radius:999px}
+.modal{border-radius:24px}
+.detail-image{border-radius:18px;overflow:hidden}
+@media(max-width:720px){.product{border-radius:19px}.modal{border-radius:20px}}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
@@ -276,7 +283,7 @@ function renderDetail(){
 function openDetail(id,trigger){detailId=id;lastFocus=trigger||document.activeElement;renderDetail();$('overlay').classList.add('open');$('detail-wrap').classList.add('open');document.body.style.overflow='hidden';$('detail-close').focus();}
 function closeDetail(){if('speechSynthesis' in window)window.speechSynthesis.cancel();detailId=null;$('detail-wrap').classList.remove('open');$('overlay').classList.remove('open');document.body.style.overflow='';if(lastFocus?.isConnected)lastFocus.focus();}
 function setLanguage(next){
- if(!locales[next])return;lang=next;document.documentElement.lang=lang==='zh'?'zh-Hans':lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('Con Acento · Carta digital')+' · Con todos los extras';$('language').value=lang;
+ if(!locales[next])return;lang=next;document.documentElement.lang=lang==='zh'?'zh-Hans':lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('Con Acento · Carta digital')+' · Diseño Premium con todos los extras';$('language').value=lang;
  staticText.forEach(([node,key])=>node.nodeValue=t(key));staticAttrs.forEach(([el,attr,key])=>el.setAttribute(attr,t(key)));
  try{localStorage.setItem('con-acento-language',lang);}catch{}
  renderTabs();renderCatalog();if(detailId)renderDetail();

@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#501f2b">
-<title>Con Acento · Con extra diseño Premium</title>
+<title>Con Acento · Diseño Premium</title>
 <meta name="description" content="La carta de Con Acento. Consulta las tapas, platos y postres de Con Acento con fotos, descripciones, precios e información sobre alérgenos.">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiM1MDFmMmIiLz48dGV4dCB4PSIxMSIgeT0iNDciIGZvbnQtZmFtaWx5PSJHZW9yZ2lhIiBmb250LXNpemU9IjQ2IiBmaWxsPSIjZmZmMGRkIj5DPC90ZXh0PjxjaXJjbGUgY3g9IjQ2IiBjeT0iMTciIHI9IjYiIGZpbGw9IiNkYWE5OTkiLz48L3N2Zz4=" type="image/svg+xml">
 <style>
@@ -118,7 +118,14 @@ footer{background:#231c1a}
 #catalog{scroll-margin-top:184px}
 }
 @media(max-width:380px){.category-tabs{gap:5px}.category-tabs .tab{padding:7px 2px;font-size:11px;min-height:42px}}
-.hero{min-height:510px;background:linear-gradient(90deg,#171013fa,#25181bde 52%,#2d1c1930),url('../assets/17.jpg') center/cover}.hero-content{padding:103px 29px 96px}.hero h1{font-size:clamp(60px,8vw,99px);letter-spacing:-.045em}.hero h1 em{color:#ecd0a1}.hero-btn{box-shadow:0 12px 26px #100a063d;border-radius:5px}.product{border-radius:12px;box-shadow:0 13px 31px #392b2022!important}.product-media{aspect-ratio:1.06}.product-body{padding:22px 20px 25px}.product-body h3{font-size:23px}.section-heading h2{font-size:clamp(37px,4vw,51px)}@media(max-width:720px){.hero{min-height:386px}.hero-content{padding:70px 19px 65px}.hero h1{font-size:clamp(48px,11vw,70px)}.product-body{padding:15px}.product-media{aspect-ratio:1.14}}</style>
+.hero{min-height:510px;background:linear-gradient(90deg,#171013fa,#25181bde 52%,#2d1c1930),url('../assets/17.jpg') center/cover}.hero-content{padding:103px 29px 96px}.hero h1{font-size:clamp(60px,8vw,99px);letter-spacing:-.045em}.hero h1 em{color:#ecd0a1}.hero-btn{box-shadow:0 12px 26px #100a063d;border-radius:5px}.product{border-radius:12px;box-shadow:0 13px 31px #392b2022!important}.product-media{aspect-ratio:1.06}.product-body{padding:22px 20px 25px}.product-body h3{font-size:23px}.section-heading h2{font-size:clamp(37px,4vw,51px)}@media(max-width:720px){.hero{min-height:386px}.hero-content{padding:70px 19px 65px}.hero h1{font-size:clamp(48px,11vw,70px)}.product-body{padding:15px}.product-media{aspect-ratio:1.14}}
+/* Diseño Premium: misma identidad de bordes suaves en Premium y Premium con todos los extras. */
+.product{border-radius:24px;overflow:hidden}
+.tab,.hero-btn,.opt,.demo-tabs a{border-radius:999px}
+.modal{border-radius:24px}
+.detail-image{border-radius:18px;overflow:hidden}
+@media(max-width:720px){.product{border-radius:19px}.modal{border-radius:20px}}
+</style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-premium/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-premium/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><span class="head-label">CARTA DIGITAL</span></div></div></header>
 <main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="ornament" style="margin-top:25px">✦ · ✦ · ✦</div></div></section>
@@ -179,7 +186,7 @@ function renderDetail(){
 function openDetail(id,trigger){detailId=id;lastFocus=trigger||document.activeElement;renderDetail();$('overlay').classList.add('open');$('detail-wrap').classList.add('open');document.body.style.overflow='hidden';$('detail-close').focus();}
 function closeDetail(){detailId=null;$('detail-wrap').classList.remove('open');$('overlay').classList.remove('open');document.body.style.overflow='';if(lastFocus?.isConnected)lastFocus.focus();}
 function setLanguage(next){
- if(!locales[next])return;lang=next;document.documentElement.lang=lang==='zh'?'zh-Hans':lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('Con Acento · Carta digital')+' · Con extra diseño Premium';
+ if(!locales[next])return;lang=next;document.documentElement.lang=lang==='zh'?'zh-Hans':lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('Con Acento · Carta digital')+' · Diseño Premium';
  staticText.forEach(([node,key])=>node.nodeValue=t(key));staticAttrs.forEach(([el,attr,key])=>el.setAttribute(attr,t(key)));
  try{localStorage.setItem('con-acento-language',lang);}catch{}
  renderTabs();renderCatalog();if(detailId)renderDetail();
