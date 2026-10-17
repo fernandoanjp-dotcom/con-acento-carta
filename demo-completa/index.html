@@ -146,10 +146,20 @@ header{background:#1a302b}
 #catalog{scroll-margin-top:184px}
 }
 @media(max-width:380px){.category-tabs{gap:5px}.category-tabs .tab{padding:7px 2px;font-size:11px;min-height:42px}}
+
+/* Ficha de platos: control de voz debajo de la fotografía, sin superposiciones. */
+#detail-body .detail-audio-row{display:flex;align-items:center;justify-content:center;clear:both;width:100%;margin:4px 0 23px;position:relative}
+#detail-body .detail-audio-row .audio-play{display:inline-flex;align-items:center;justify-content:center;gap:10px;position:static;transform:none;float:none;z-index:auto;margin:0;min-height:48px;max-width:100%;box-sizing:border-box;padding:12px 20px;line-height:1.35;white-space:normal;text-align:center;cursor:pointer}
+#detail-body .detail-audio-row .audio-play span{display:inline-block}
+#detail-body .detail-audio-row .audio-play:focus-visible{outline:3px solid #cd975a;outline-offset:3px}
+@media(max-width:720px){
+#detail-body .detail-audio-row{margin:4px 0 20px}
+#detail-body .detail-audio-row .audio-play{width:100%;padding:13px 12px;font-size:14px;min-height:48px}
+}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
-<main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a><div class="full-features" aria-label="Funciones activas"><span>✦ Diseño Premium</span><span>✓ Fichas de platos</span><span>♬ Audio</span><span>◎ 6 idiomas</span><span>▦ QR</span></div></div></section>
+<main id="inicio"><section class="hero"><div class="hero-content"><span class="eyebrow">Bienvenidos a nuestra mesa</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>Tapas para descubrir, platos para compartir y postres para quedarse un poquito más.</p><a href="#carta" class="hero-btn">Descubrir la carta ↓</a></div></section>
 <section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div></section><div class="page search-row"><label class="search-box"><span aria-hidden="true">⌕ &nbsp;</span><input type="search" id="search" placeholder="Buscar un plato..." aria-label="Buscar platos"></label></div>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
@@ -203,7 +213,7 @@ function renderCatalog(){
 function renderDetail(){
  const p=menu().find(x=>x.id===detailId);if(!p)return;
  $('detail-title').textContent=p.name;
- $('detail-body').innerHTML=`<button type="button" class="audio-play" id="detail-speak">🔊 Escuchar descripción</button>${media(p,true)}<p class="detail-story">${esc(p.story)}</p><div class="detail-section"><h3>${esc(t('Qué lleva'))}</h3><p class="detail-description">${esc(p.desc)}</p></div><div class="detail-section"><h3>${esc(t('Precios'))}</h3>${prices(p)}</div><div class="detail-section">${allergenInfo()}<p class="detail-help">${esc(t('Para información específica sobre ingredientes y alérgenos, pregunta al personal del restaurante antes de realizar tu elección.'))}</p></div>`;
+ $('detail-body').innerHTML=`${media(p,true)}<div class="detail-audio-row"><button type="button" class="audio-play" id="detail-speak" aria-label="Escuchar la descripción de este plato"><span aria-hidden="true">🔊</span><span>Escuchar descripción</span></button></div><p class="detail-story">${esc(p.story)}</p><div class="detail-section"><h3>${esc(t('Qué lleva'))}</h3><p class="detail-description">${esc(p.desc)}</p></div><div class="detail-section"><h3>${esc(t('Precios'))}</h3>${prices(p)}</div><div class="detail-section">${allergenInfo()}<p class="detail-help">${esc(t('Para información específica sobre ingredientes y alérgenos, pregunta al personal del restaurante antes de realizar tu elección.'))}</p></div>`;
  $('detail-speak').addEventListener('click',()=>{if(!('speechSynthesis' in window)){alert('La lectura en voz alta no está disponible en este navegador.');return;}window.speechSynthesis.cancel();const msg=new SpeechSynthesisUtterance(p.name+'. '+p.story+' '+p.desc);msg.lang=locales[lang];msg.rate=.95;window.speechSynthesis.speak(msg);});
 }
 function openDetail(id,trigger){detailId=id;lastFocus=trigger||document.activeElement;renderDetail();$('overlay').classList.add('open');$('detail-wrap').classList.add('open');document.body.style.overflow='hidden';$('detail-close').focus();}
