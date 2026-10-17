@@ -313,6 +313,16 @@ header{background:#1a302b}
  .detail-image,#detail-body .detail-visual .detail-image{border-radius:25px}
  .outside-section,.outside-empty,.info-allergens-inner{border-radius:24px}
 }
+
+/* Precios Premium: recuadros curvos como las tarjetas, tambien en el detalle. */
+.price-list,.product .price-list,.detail-section .price-list,
+#detail-body .detail-pricing .price-list{
+ border-radius:24px;overflow:hidden;
+}
+@media(max-width:720px){
+ .price-list,.product .price-list,.detail-section .price-list,
+ #detail-body .detail-pricing .price-list{border-radius:20px}
+}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
 </head><body><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><span class="brand-emblem">C<span style="font-size:15px">✦</span></span><span><strong>CON ACENTO</strong><small>Gastronomía con alma</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
