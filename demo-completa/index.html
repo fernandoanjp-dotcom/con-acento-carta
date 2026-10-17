@@ -2,7 +2,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#501f2b">
-<title>Con Acento · Todos los extras</title>
+<title>Con Acento · Con todos los extras</title>
 <meta name="description" content="La carta de Con Acento. Consulta las tapas, platos y postres de Con Acento con fotos, descripciones, precios e información sobre alérgenos.">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiM1MDFmMmIiLz48dGV4dCB4PSIxMSIgeT0iNDciIGZvbnQtZmFtaWx5PSJHZW9yZ2lhIiBmb250LXNpemU9IjQ2IiBmaWxsPSIjZmZmMGRkIj5DPC90ZXh0PjxjaXJjbGUgY3g9IjQ2IiBjeT0iMTciIHI9IjYiIGZpbGw9IiNkYWE5OTkiLz48L3N2Zz4=" type="image/svg+xml">
 <style>
@@ -208,7 +208,7 @@ function renderDetail(){
 function openDetail(id,trigger){detailId=id;lastFocus=trigger||document.activeElement;renderDetail();$('overlay').classList.add('open');$('detail-wrap').classList.add('open');document.body.style.overflow='hidden';$('detail-close').focus();}
 function closeDetail(){if('speechSynthesis' in window)window.speechSynthesis.cancel();detailId=null;$('detail-wrap').classList.remove('open');$('overlay').classList.remove('open');document.body.style.overflow='';if(lastFocus?.isConnected)lastFocus.focus();}
 function setLanguage(next){
- if(!locales[next])return;lang=next;document.documentElement.lang=lang==='zh'?'zh-Hans':lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('Con Acento · Carta digital')+' · Todos los extras';$('language').value=lang;
+ if(!locales[next])return;lang=next;document.documentElement.lang=lang==='zh'?'zh-Hans':lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.title=t('Con Acento · Carta digital')+' · Con todos los extras';$('language').value=lang;
  staticText.forEach(([node,key])=>node.nodeValue=t(key));staticAttrs.forEach(([el,attr,key])=>el.setAttribute(attr,t(key)));
  try{localStorage.setItem('con-acento-language',lang);}catch{}
  renderTabs();renderCatalog();if(detailId)renderDetail();
