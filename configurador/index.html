@@ -41,7 +41,7 @@ main{max-width:1180px;padding-top:45px}
 .result .subtle,.result .notice{color:#e2f0e8}
 .result .rowline{font-size:13px}
 .primary{border-radius:4px}.secondary{border-radius:4px}
-.calculate-btn{background:var(--ink);color:white}
+.results-btn{background:var(--ink);color:white}
 .actions .primary{background:#ffcb70;color:#18283a}.actions .secondary{border-color:#ffffff80}
 .mini{line-height:1.7}
 @media(max-width:900px){.sales-hero{grid-template-columns:1fr}.food-preview{height:280px}.layout{grid-template-columns:1fr}.result{position:static}.paper{padding:24px}.head{padding:14px 20px}}
@@ -52,7 +52,7 @@ main{max-width:1180px;padding-top:45px}
 <section class="sales-hero">
  <div class="sales-heading"><div class="eyebrow">06 / HAZ NÚMEROS · CALCULADORA INDEPENDIENTE</div>
  <h1>Calcula tu carta.<br><em>Y mira cómo queda.</em></h1>
- <p class="intro">Como en la web comercial: elige tu plan y los extras que necesites. Obtendrás un presupuesto claro y una demostración personalizada con las funciones seleccionadas.</p>
+ <p class="intro">Como en la web comercial: elige tu plan y los extras que necesites. El precio se actualiza automáticamente con cada cambio. Cuando termines, podrás ver tu presupuesto junto con una demostración personalizada.</p>
  <div class="hero-proof"><span>✓ Trato directo</span><span>✓ 30 días de prueba</span><span>✓ Sin permanencia</span></div></div>
  <div class="food-preview" aria-label="Fotografías de ejemplo de la carta Con Acento">
   <div class="photo-main"><img src="https://conacento.onrender.com/assets/1.jpg" alt="Salmón sobre tosta, fotografía de la carta Con Acento" loading="lazy"></div>
@@ -71,8 +71,8 @@ main{max-width:1180px;padding-top:45px}
 <div class="suboption" id="qr-note" hidden><label><input id="qrfree" type="checkbox"> Continúo tras los 30 días de prueba sin interrupción: QR gratis mientras siga suscrito.</label></div>
 <div class="field"><label for="languages">Idiomas adicionales (español incluido)</label><select id="languages"><option value="0">Ninguno · 0 €</option><option value="1">1 idioma · +5 €/mes</option><option value="2">2 idiomas · +10 €/mes</option><option value="3">3 idiomas · +15 €/mes</option><option value="4">4 idiomas · +20 €/mes</option><option value="5">5 idiomas · +25 €/mes</option></select></div><p class="hint">La vista de lista muestra descripción y audio directamente cuando se contratan las tres funciones: detalles, audio y vista dual.</p></fieldset>
 <fieldset class="group"><legend>03 · Costes puntuales (opcionales)</legend><div class="columns"><div class="field"><label for="updates">Actualizaciones adicionales (25 €/solicitud)</label><input id="updates" type="number" min="0" max="999" step="1" value="0"></div><div class="field"><label for="stands">Peanas QR para mesas (15–20 €/unidad)</label><input id="stands" type="number" min="0" max="999" step="1" value="0"></div></div><p class="hint">Cada solicitud de actualización puede incluir varios platos. El precio exacto de las peanas se confirma por separado.</p></fieldset>
-<button type="submit" class="primary calculate-btn">Calcular mi carta →</button></form>
-<aside class="result" aria-live="polite"><div class="eyebrow" style="color:#d7efdf">TU CUOTA MENSUAL ESTIMADA</div><h2>Precio mensual</h2><div class="amount" id="amount">50 € <small>/mes</small></div><p class="subtle">Sin IVA · Extras opcionales · Sin permanencia</p><div id="breakdown"></div><div class="rowline total-extra"><span>Costes puntuales</span><b id="onetime">0 €</b></div><div class="message" id="bonus" hidden></div><div class="actions" id="actions" hidden><a id="preview-link" class="primary" target="_blank" rel="noopener">Abrir demostración personalizada ↗</a><button type="button" id="copy-link" class="secondary">Copiar enlace para el cliente</button></div><p class="notice" id="status">Elige las opciones y pulsa «Calcular» para generar tu demostración.</p><p class="notice">* El acceso QR es gratuito al continuar sin interrupción tras la prueba de 30 días. Si se cancela y se vuelve a contratar, cuesta 5 €/mes. Las peanas físicas se cobran aparte.</p></aside></div><p class="mini">La demostración utiliza platos de ejemplo y reproduce las opciones seleccionadas a efectos ilustrativos. No es una carta definitiva ni un contrato de suscripción.</p>
+<button type="submit" class="primary results-btn">Ver resultados del presupuesto →</button></form>
+<aside class="result" aria-live="polite"><div class="eyebrow" style="color:#d7efdf">TU CUOTA MENSUAL ESTIMADA</div><h2>Precio mensual</h2><div class="amount" id="amount">50 € <small>/mes</small></div><p class="subtle">Sin IVA · Extras opcionales · Sin permanencia</p><div id="breakdown"></div><div class="rowline total-extra"><span>Costes puntuales</span><b id="onetime">0 €</b></div><div class="message" id="bonus" hidden></div><p class="notice" id="status">Precio y desglose actualizados automáticamente. Pulsa «Ver resultados del presupuesto» para abrir tu presupuesto completo con la demostración de la carta.</p><p class="notice">* El acceso QR es gratuito al continuar sin interrupción tras la prueba de 30 días. Si se cancela y se vuelve a contratar, cuesta 5 €/mes. Las peanas físicas se cobran aparte.</p></aside></div><p class="mini">La demostración utiliza platos de ejemplo y reproduce las opciones seleccionadas a efectos ilustrativos. No es una carta definitiva ni un contrato de suscripción.</p>
 </main><footer>Fernando · Cartas Digitales para Restaurantes · Configurador independiente</footer>
 <script>
 (function(){
@@ -80,20 +80,29 @@ main{max-width:1180px;padding-top:45px}
 var $=function(id){return document.getElementById(id)};
 var prices={basica:50,plata:75,oro:100};
 var titles={basica:'Básica',plata:'Plata',oro:'Oro'};
+var previewUrl='';
 function number(id){var n=Number($(id).value);return Number.isFinite(n)?Math.min(999,Math.max(0,Math.floor(n))):0}
 function getConfig(){var p=$('plan').value;if(!Object.prototype.hasOwnProperty.call(prices,p))p='basica';return{p:p,d:$('details').checked,a:$('audio').checked,v:$('views').checked,q:$('qr').checked,c:$('qr').checked&&$('qrfree').checked,l:Math.min(5,number('languages')),u:number('updates'),s:number('stands')}}
 function euro(x){return x.toLocaleString('es-ES')+' €'}
 function setInitial(){var x=new URLSearchParams(location.search);if(prices[x.get('p')])$('plan').value=x.get('p');['d','a','v','q','c'].forEach(function(k){var id={d:'details',a:'audio',v:'views',q:'qr',c:'qrfree'}[k];if(x.has(k))$(id).checked=x.get(k)==='1'});['l','u','s'].forEach(function(k){var id={l:'languages',u:'updates',s:'stands'}[k];if(x.has(k))$(id).value=String(Math.min(k==='l'?5:999,Math.max(0,Number(x.get(k))||0)))});$('qr-note').hidden=!$('qr').checked}
-function calc(ev){if(ev)ev.preventDefault();var z=getConfig();var list=[['Plan '+titles[z.p],prices[z.p]]];if(z.d)list.push(['Detalles de platos',5]);if(z.a)list.push(['Audio',5]);if(z.v)list.push(['Vista dual',5]);if(z.q)list.push(['Acceso QR',z.c?0:5]);if(z.l)list.push([z.l+' idioma(s) adicional(es)',z.l*5]);var total=list.reduce(function(sum,r){return sum+r[1]},0);
+function refreshBudget(){var z=getConfig();var list=[['Plan '+titles[z.p],prices[z.p]]];if(z.d)list.push(['Detalles de platos',5]);if(z.a)list.push(['Audio',5]);if(z.v)list.push(['Vista dual',5]);if(z.q)list.push(['Acceso QR',z.c?0:5]);if(z.l)list.push([z.l+' idioma(s) adicional(es)',z.l*5]);var total=list.reduce(function(sum,r){return sum+r[1]},0);
 $('amount').innerHTML=euro(total)+' <small>/mes</small>';
 $('breakdown').replaceChildren();list.forEach(function(row){var el=document.createElement('div');el.className='rowline';var a=document.createElement('span');a.textContent=row[0];var b=document.createElement('b');b.textContent=row[1]===0?'Gratis':euro(row[1]);el.append(a,b);$('breakdown').append(el)});
 var low=z.u*25+z.s*15;var high=z.u*25+z.s*20;$('onetime').textContent=low===high?euro(low):euro(low)+' – '+euro(high);
 $('bonus').hidden=!(z.d&&z.a&&z.v);$('bonus').textContent='Ventaja conjunta: en vista de lista se muestran la descripción y el audio sin abrir una ficha adicional.';
-var q=new URLSearchParams();Object.entries(z).forEach(function(a){q.set(a[0],typeof a[1]==='boolean'?(a[1]?'1':'0'):String(a[1]))});var link=new URL('../vista-previa/',location.href);link.search=q.toString();$('preview-link').href=link.href;$('actions').hidden=false;$('status').textContent='Configuración calculada. Puedes abrir la demostración o compartir su enlace.';
+var q=new URLSearchParams();Object.entries(z).forEach(function(a){q.set(a[0],typeof a[1]==='boolean'?(a[1]?'1':'0'):String(a[1]))});var link=new URL('../vista-previa/',location.href);link.search=q.toString();previewUrl=link.href;
 }
-$('qr').addEventListener('change',function(){$('qr-note').hidden=!$('qr').checked;if(!$('qr').checked)$('qrfree').checked=false});
-$('config').addEventListener('submit',calc);
-$('copy-link').addEventListener('click',function(){var url=$('preview-link').href;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){$('status').textContent='Enlace copiado';}).catch(function(){$('status').textContent='Copia el enlace del botón «Abrir demostración»';})}else{$('status').textContent='Abre la demostración y copia la dirección desde el navegador';}});
-setInitial();if(location.search)calc();
+$('config').addEventListener('change',function(e){
+ if(e.target.id==='qr'){$('qr-note').hidden=!$('qr').checked;if(!$('qr').checked)$('qrfree').checked=false;}
+ refreshBudget();
+});
+$('config').addEventListener('input',refreshBudget);
+$('config').addEventListener('submit',function(e){
+ e.preventDefault();
+ refreshBudget();
+ window.location.assign(previewUrl);
+});
+setInitial();
+refreshBudget();
 })();
 </script></body></html>
