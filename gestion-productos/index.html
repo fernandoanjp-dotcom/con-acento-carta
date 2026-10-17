@@ -44,26 +44,25 @@ footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-wi
 <div class="cols">
 <div class="field"><label for="restaurant">Restaurante *</label><input id="restaurant" required maxlength="120" placeholder="Nombre del establecimiento"></div>
 <div class="field"><label for="person">Persona de contacto *</label><input id="person" required maxlength="100" placeholder="Nombre de contacto"></div>
-<div class="field"><label for="email">Correo electrónico *</label><input type="email" id="email" required maxlength="150" placeholder="nombre@restaurante.es"></div>
+<div class="field"><label for="email">Correo de contacto (opcional)</label><input type="email" id="email" maxlength="150" placeholder="Para que podamos responderte"></div>
 <div class="field"><label for="phone">Teléfono (opcional)</label><input id="phone" type="tel" maxlength="40" placeholder="+34 …"></div>
 <div class="field wide"><label for="comments">Indicaciones generales</label><textarea id="comments" rows="2" maxlength="1600" placeholder="Detalles que debamos tener en cuenta al tramitar la solicitud"></textarea></div>
 </div></section>
 <section class="section"><h2><span class="step">02</span>Indica los cambios</h2><div id="items"></div><button id="add" type="button" class="btn-add">+ Añadir otra operación</button><p class="helper">Hasta 50 operaciones por solicitud. Cada una puede ser un alta, una modificación o una baja.</p></section>
 </form>
-<footer>Este formulario prepara los cambios y abre la aplicación de correo del cliente, sin servidores intermediarios. El envío se completa cuando el cliente lo confirma en su aplicación de correo. No modifica la carta automáticamente. La publicación se realizará tras revisión. Los alérgenos deben verificarse con el establecimiento antes de mostrarse al público. Las fechas programadas solo se aplican a «Fuera de carta».</footer>
+<footer>Este formulario envía la solicitud al servidor de Cartas Digitales. El envío solo se confirma cuando el proveedor acepta el mensaje. No modifica la carta automáticamente. La publicación se realizará tras revisión. Los alérgenos deben verificarse con el establecimiento antes de mostrarse al público. Las fechas programadas solo se aplican a «Fuera de carta».</footer>
 </div>
 <aside class="sidebar"><h2>Prepara la entrega</h2>
 <div class="counts" id="counts">1 alta · 0 modificaciones · 0 bajas</div>
-<ol><li><strong>Selecciona la operación</strong> para cada producto.</li><li><strong>Completa los datos</strong> y adjunta las fotos disponibles.</li><li><strong>Pulsa Enviar</strong>, revisa tu correo y confirma el envío a Cartas Digitales. Si hay fotos, comparte el ZIP o adjúntalo al mensaje.</li></ol>
-<label class="agree"><input type="checkbox" id="verified"><span>Confirmo que la información está revisada por el restaurante y autorizo compartir los datos de contacto, productos y fotografías por correo con Cartas Digitales.</span></label>
+<ol><li><strong>Selecciona la operación</strong> para cada producto.</li><li><strong>Completa los datos</strong> y adjunta las fotos disponibles.</li><li><strong>Pulsa Enviar</strong> y espera la confirmación del servidor. No necesitas abrir ninguna aplicación de correo.</li></ol>
+<label class="agree"><input type="checkbox" id="verified"><span>Confirmo que la información ha sido revisada por el restaurante y autorizo enviar estos cambios y fotografías a Cartas Digitales.</span></label>
 <div class="field" style="margin:12px 0"><label>Correo de recepción</label><div style="font-weight:800;font-size:13px;overflow-wrap:anywhere">fernandoanjp@gmail.com</div></div><div id="sending-panel" class="send-progress" role="status" aria-live="polite" hidden><div class="row-progress"><span class="spinner" aria-hidden="true"></span><strong id="sending-title">Preparando solicitud</strong></div><p id="send-stage">Revisando los datos y preparando las fotografías…</p></div>
 <button class="button primary" type="button" id="share">Enviar <span aria-hidden="true">↗</span></button>
 <button class="button secondary" type="button" id="download">Descargar ZIP</button>
-<button class="button secondary" type="button" id="gmail">Abrir Gmail web</button>
 <button class="button secondary" type="button" id="draft">Guardar borrador aquí</button>
 <button class="button secondary" type="button" id="restore">Recuperar borrador</button>
 <div id="status" class="status" role="status" aria-live="polite"></div>
-<p class="helper">El envío utiliza la aplicación de correo del dispositivo: no necesitas activar servicios externos. Al pulsar «Enviar», revisa el destinatario y pulsa enviar en tu correo. Cuando haya fotos, puedes compartir el ZIP adjunto desde el móvil o descargarlo para añadirlo manualmente. No consideres enviada la solicitud hasta que confirmes el envío en tu aplicación de correo.</p>
+<p class="helper">El botón «Enviar» transmite los cambios y las fotografías directamente a nuestro servidor para entregarlos a Cartas Digitales. No necesitas tener Gmail ni elegir remitente. El correo de contacto es opcional y solo sirve para poder responderte. Si aparece un error de conexión, no se habrán enviado los datos; podrás descargarlos como respaldo.</p>
 </aside></div>
 </main>
 <template id="template"><article class="item" data-item data-operation="Añadir">
@@ -82,7 +81,7 @@ footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-wi
 <div class="field wide" data-wrap="details"><label>Instrucciones del cambio</label><textarea data-key="details" rows="2" maxlength="1000" placeholder="En una modificación, indica qué campos deben cambiarse. Si el precio o la descripción no cambian, puedes dejarlos vacíos."></textarea></div>
 <div class="field wide" data-wrap="allergens"><label>Información sobre alérgenos</label><select data-key="allergenStatus"><option value="Pendientes de verificar">Pendientes de verificar: no publicar información nueva</option><option value="Revisados por el restaurante">Alérgenos revisados por el restaurante</option><option value="Ninguno declarado por el restaurante">El restaurante declara ninguno de los 14 alérgenos</option><option value="Sin cambios">Sin cambios respecto a la carta existente</option></select><div class="allergens" data-allergen-list>
 <label><input type="checkbox" value="Gluten">Gluten</label><label><input type="checkbox" value="Crustáceos">Crustáceos</label><label><input type="checkbox" value="Huevos">Huevos</label><label><input type="checkbox" value="Pescado">Pescado</label><label><input type="checkbox" value="Cacahuetes">Cacahuetes</label><label><input type="checkbox" value="Soja">Soja</label><label><input type="checkbox" value="Leche">Leche</label><label><input type="checkbox" value="Frutos de cáscara">Frutos de cáscara</label><label><input type="checkbox" value="Apio">Apio</label><label><input type="checkbox" value="Mostaza">Mostaza</label><label><input type="checkbox" value="Sésamo">Sésamo</label><label><input type="checkbox" value="Sulfitos">Sulfitos</label><label><input type="checkbox" value="Altramuces">Altramuces</label><label><input type="checkbox" value="Moluscos">Moluscos</label></div><p class="helper">Solo declara lo que haya sido comprobado. La ausencia marcada debe estar verificada.</p></div>
-<div class="field wide" data-wrap="photo"><label>Fotografía nueva o de sustitución (opcional)</label><div class="photos"><div data-preview class="photobox">Sin foto</div><div><input type="file" data-photo accept="image/jpeg,image/png,image/webp"><p class="helper">JPG, PNG o WEBP · Máximo 12 MB</p></div></div></div>
+<div class="field wide" data-wrap="photo"><label>Fotografía nueva o de sustitución (opcional)</label><div class="photos"><div data-preview class="photobox">Sin foto</div><div><input type="file" data-photo accept="image/jpeg,image/png,image/webp"><p class="helper">JPG, PNG o WEBP · Máximo 7 MB</p></div></div></div>
 </div>
 <div class="schedule" data-schedule hidden><strong style="font-size:12px">Programación de Fuera de carta</strong><div class="cols" style="margin-top:9px">
 <div class="field" data-start-wrap><label>Fecha de publicación (opcional)</label><input type="date" data-key="start"></div>
@@ -93,7 +92,7 @@ footer{padding-top:22px;color:var(--muted);font-size:11px;line-height:1.8;max-wi
 <script>
 (function(){
 'use strict';
-const MAX=50,MAXFILE=12*1024*1024,MAXALL=65*1024*1024,KEY='cartas-digitales-gestion-productos-v2';
+const MAX=50,MAXFILE=7*1024*1024,MAXALL=8*1024*1024,KEY='cartas-digitales-gestion-productos-v2';
 const one=(s,b=document)=>b.querySelector(s),all=(s,b=document)=>Array.from(b.querySelectorAll(s)),items=one('#items'),status=one('#status');
 let sequence=0;
 function say(text,kind=''){status.textContent=text;status.className='status '+kind}
@@ -114,11 +113,11 @@ one('[data-remove]',el).addEventListener('click',()=>{if(all('[data-item]',items
 if(data){const op=all('[data-op]',el).find(x=>x.value===data.operation);if(op)op.checked=true;all('[data-key]',el).forEach(inp=>{if(Object.prototype.hasOwnProperty.call(data,inp.dataset.key))inp.value=data[inp.dataset.key]??''});}
 updateItem(el);
 if(data&&data.allergens&&data.allergenStatus==='Revisados por el restaurante')all('[data-allergen-list] input',el).forEach(c=>c.checked=data.allergens.includes(c.value));refreshCount()}
-function imageChanged(el){const f=one('[data-photo]',el).files[0],prev=one('[data-preview]',el);if(el.dataset.objecturl){URL.revokeObjectURL(el.dataset.objecturl);delete el.dataset.objecturl}prev.replaceChildren();if(!f){prev.textContent='Sin foto';return}if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>MAXFILE){one('[data-photo]',el).value='';prev.textContent='Sin foto';say('Usa una fotografía JPG, PNG o WEBP de hasta 12 MB.','error');return}const url=URL.createObjectURL(f);el.dataset.objecturl=url;const img=document.createElement('img');img.src=url;img.alt='Foto adjunta';prev.append(img);say('Fotografía añadida a la solicitud.','success')}
+function imageChanged(el){const f=one('[data-photo]',el).files[0],prev=one('[data-preview]',el);if(el.dataset.objecturl){URL.revokeObjectURL(el.dataset.objecturl);delete el.dataset.objecturl}prev.replaceChildren();if(!f){prev.textContent='Sin foto';return}if(!['image/jpeg','image/png','image/webp'].includes(f.type)||f.size>MAXFILE){one('[data-photo]',el).value='';prev.textContent='Sin foto';say('Usa una fotografía JPG, PNG o WEBP de hasta 7 MB.','error');return}const url=URL.createObjectURL(f);el.dataset.objecturl=url;const img=document.createElement('img');img.src=url;img.alt='Foto adjunta';prev.append(img);say('Fotografía añadida a la solicitud.','success')}
 function values(){return all('[data-item]',items).map((el,i)=>{const v={numero:i+1,operation:el.dataset.operation};all('[data-key]',el).forEach(input=>v[input.dataset.key]=input.value.trim());v.category=v.category==='Otra'?v.otherCategory:v.category;delete v.otherCategory;v.allergens=all('[data-allergen-list] input:checked',el).map(x=>x.value);if(v.operation==='Eliminar'){delete v.rename;delete v.price;delete v.description;delete v.allergenStatus;delete v.allergens}if(v.category!=='Fuera de carta'){delete v.start;delete v.end}if(v.operation==='Eliminar'){delete v.start}v._file=v.operation!=='Eliminar'?one('[data-photo]',el).files[0]||null:null;return v})}
 function collect(check){const data={formVersion:'2.0',createdAt:new Date().toISOString(),restaurant:one('#restaurant').value.trim(),contact:one('#person').value.trim(),email:one('#email').value.trim(),phone:one('#phone').value.trim(),comments:one('#comments').value.trim(),changes:values(),notice:'Solicitud pendiente de revisión. No publicada automáticamente.'};
 if(!check)return data;
-for(const e of [one('#restaurant'),one('#person'),one('#email')]){if(!e.checkValidity()||!e.value.trim()){say('Completa restaurante, contacto y correo electrónico.','error');e.focus();return null}}
+for(const e of [one('#restaurant'),one('#person')]){if(!e.checkValidity()||!e.value.trim()){say('Completa el restaurante y la persona de contacto.','error');e.focus();return null}}if(!one('#email').checkValidity()){say('El correo de contacto no tiene un formato válido.','error');one('#email').focus();return null}
 if(!one('#verified').checked){say('Confirma la revisión de la información y la autorización de las fotografías.','error');one('#verified').focus();return null}
 let total=0;
 for(let i=0;i<data.changes.length;i++){const p=data.changes[i],el=all('[data-item]',items)[i],focus=key=>one('[data-key="'+key+'"]',el);
@@ -130,7 +129,7 @@ if(p.category==='Fuera de carta'&&p.start&&p.end&&p.end<p.start){say('La fecha d
 if(p.operation!=='Eliminar'&&p.allergenStatus==='Revisados por el restaurante'&&!p.allergens.length){say('Selecciona los alérgenos verificados o marca otra situación en la operación '+(i+1)+'.','error');focus('allergenStatus').focus();return null}
 if(p._file)total+=p._file.size;
 }
-if(total>MAXALL){say('Las fotografías superan 65 MB. Divide la entrega en varias solicitudes.','error');return null}
+if(total>MAXALL){say('Las fotografías superan 8 MB. Reduce su tamaño o divide la entrega en varias solicitudes.','error');return null}
 return data}
 function slug(value){return(value||'restaurante').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,55)||'restaurante'}
 const textenc=new TextEncoder();
@@ -145,98 +144,71 @@ async function build(){const data=collect(true);if(!data)return null;const files
 entries.unshift({name:'solicitud.json',bytes:textenc.encode(JSON.stringify(data,null,2))},{name:'productos.csv',bytes:textenc.encode(csv(data.changes))},{name:'LEEME.txt',bytes:textenc.encode('Cartas Digitales · Solicitud de cambios de productos\n\nEste ZIP contiene altas, modificaciones y bajas solicitadas por el restaurante.\nLos cambios NO se publican automaticamente y requieren revision.\nLas fechas programadas solo son validas para Fuera de carta.\n\nArchivos: solicitud.json, productos.csv y carpeta fotos cuando proceda.\n')});
 const blob=pack(entries),file='solicitud-'+slug(data.restaurant)+'-'+new Date().toISOString().slice(0,10)+'.zip';return {blob,file}}
 function download(b,name){const url=URL.createObjectURL(b),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
+const API='https://fernando-cartas-formulario-api.onrender.com';
 const EMAIL_DEST='fernandoanjp@gmail.com';
-const MAX_MAILTO=11000;
-function emailDetails(data){
-const out=['SOLICITUD DE CAMBIOS EN CARTA DIGITAL','Restaurante: '+data.restaurant,'Persona de contacto: '+data.contact,'Correo de respuesta: '+data.email,'Teléfono: '+(data.phone||'No facilitado'),'Notas: '+(data.comments||'Sin notas'),'','OPERACIONES ('+data.changes.length+')'];
-for(const p of data.changes){out.push('',p.numero+'. '+p.operation.toUpperCase()+' · '+p.category+' · '+p.current);
-if(p.rename)out.push('Nuevo nombre: '+p.rename);
-if(p.price!=null&&p.price!=='')out.push('Precio indicado: '+p.price+' EUR');
-if(p.description)out.push('Descripción: '+p.description);
-if(p.details)out.push('Instrucciones: '+p.details);
-if(p.allergenStatus)out.push('Estado de alérgenos: '+p.allergenStatus);
-if(p.allergens&&p.allergens.length)out.push('Alérgenos declarados: '+p.allergens.join(', '));
-if(p.start)out.push('Inicio: '+p.start);
-if(p.end)out.push('Retirada: '+p.end);
-if(p._file||p.filename)out.push('Fotografía adjunta: debe enviarse con el ZIP o mediante la opción de compartir archivo.')}
-out.push('','Cambios pendientes de revisión; la carta no se modifica automáticamente.');
-return out.join('\n')}
-function subjectFor(data){return 'Solicitud Carta Digital · '+data.restaurant.slice(0,65)}
-function makeEmailBody(data,attachmentNeeded){
-let body=emailDetails(data);
-if(attachmentNeeded&&body.length>4600)body=['SOLICITUD DE CARTA DIGITAL','Restaurante: '+data.restaurant,'Persona: '+data.contact,'Correo: '+data.email,'Contacto: '+(data.phone||'No facilitado'),'Operaciones: '+data.changes.length,'','ADJUNTAR OBLIGATORIAMENTE EL ARCHIVO ZIP DESCARGADO: incluye todos los cambios y las fotografías.','Esta solicitud no debe considerarse enviada sin el archivo adjunto.'].join('\n');
-if(attachmentNeeded)body='\u26a0\ufe0f Adjunta el ZIP de la solicitud que se ha preparado, con todos los datos y fotografías.\n\n'+body;
-return body}
-function openMailto(data,attachmentNeeded){
-const subject=encodeURIComponent(subjectFor(data)),body=encodeURIComponent(makeEmailBody(data,attachmentNeeded));
-const link='mailto:'+EMAIL_DEST+'?subject='+subject+'&body='+body;
-if(link.length>MAX_MAILTO)return false;
-const a=document.createElement('a');a.href=link;a.style.display='none';document.body.appendChild(a);a.click();a.remove();return true
+function setSending(busy,title,detail){
+ const box=one('#sending-panel'),btn=one('#share');
+ box.hidden=!busy;
+ one('#sending-title').textContent=title||'Preparando solicitud…';
+ one('#send-stage').textContent=detail||'Validando la información…';
+ btn.disabled=busy;
+ btn.textContent=busy?'Enviando…':'Enviar ↗';
 }
-function openGmail(data,attachmentNeeded){
-const subject=encodeURIComponent(subjectFor(data)),body=encodeURIComponent(makeEmailBody(data,attachmentNeeded));
-const url='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(EMAIL_DEST)+'&su='+subject+'&body='+body;
-if(url.length>MAX_MAILTO)return false;
-const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove();return true
-}
-function setSending(isSending,title,description){
-const panel=one('#sending-panel'),btn=one('#share');
-panel.hidden=!isSending;
-one('#sending-title').textContent=title||'Preparando solicitud';
-one('#send-stage').textContent=description||'Preparando los datos…';
-btn.disabled=isSending;btn.textContent=isSending?'Preparando envío…':'Enviar ↗';
-}
+function readBase64(blob){return new Promise((resolve,reject)=>{
+ const reader=new FileReader();
+ reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');
+ reader.onerror=()=>reject(new Error('No se pudo leer el ZIP'));
+ reader.readAsDataURL(blob)
+})}
 async function deliver(share){
-if(!share){try{say('Preparando copia de la solicitud…');const result=await build();if(!result)return;download(result.blob,result.file);say('Copia ZIP descargada. No se ha enviado ningún correo.','success')}catch(e){say('No se ha podido preparar el archivo ZIP.','error')}return}
-if(one('#share').disabled)return;
-const data=collect(true);if(!data)return;
-const hasFiles=data.changes.some(p=>p._file);
-const details=emailDetails(data);
-const needsZIP=hasFiles||details.length>4400;
-if(!needsZIP){
-try{
-if(!openMailto(data,false)){
-setSending(false);say('La solicitud contiene demasiados datos para abrir el correo automáticamente. Pulsa «Descargar ZIP» y adjúntalo desde tu correo a '+EMAIL_DEST+'.','error');return
-}
-say('Se ha abierto tu aplicación de correo con el destinatario y todos los cambios. Revisa el mensaje y pulsa «Enviar» allí. La solicitud todavía no se ha enviado desde esta página.','success');
-}catch(e){say('No se ha podido abrir la aplicación de correo. Prueba «Abrir Gmail web».','error')}return;
-}
-try{
-setSending(true,'Preparando archivo de cambios','Reuniendo datos y fotografías para que puedas enviarlos por correo…');
-await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-const result=await build();
-if(!result){setSending(false);return}
-const file=new File([result.blob],result.file,{type:'application/zip'});
-setSending(true,'Archivo preparado','Vamos a abrir las opciones de envío; el destinatario es '+EMAIL_DEST+'.');
-if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
-try{
-await navigator.share({title:subjectFor(data),text:'Enviar esta solicitud al correo '+EMAIL_DEST+'. Adjunta el ZIP y confirma el envío desde tu aplicación de correo.',files:[file]});
-setSending(false);
-say('Has cerrado el menú de compartir. Comprueba que el mensaje con el ZIP se haya enviado realmente a '+EMAIL_DEST+'. El sistema no puede verificar la entrega.','success');
-return
-}catch(err){
-if(err.name==='AbortError'){setSending(false);say('Se ha cancelado el envío. No se han perdido los datos.','error');return}
-}
-}
-download(result.blob,result.file);
-setSending(false);
-let opened=false;
-try{opened=openMailto(data,true)}catch(_){}
-if(opened){say('ZIP descargado. Abre el correo que se ha preparado, ADJUNTA el ZIP descargado y pulsa «Enviar». El archivo no se adjunta solo.','success')}
-else say('ZIP descargado. Abre Gmail, escribe a '+EMAIL_DEST+' y adjunta el ZIP que acabas de descargar. No se ha enviado automáticamente.','error');
-}catch(e){setSending(false);say('No se pudo preparar el envío. Los datos siguen aquí y puedes reintentarlo o guardar el borrador.','error')}
-}
-function deliverGmail(){
-const data=collect(true);if(!data)return;
-const details=emailDetails(data);
-const hasFiles=data.changes.some(p=>p._file);
-if(details.length>4400){say('Demasiada información para abrir un correo con el texto completo. Descarga el ZIP y adjúntalo en Gmail a '+EMAIL_DEST+'.','error');return}
-try{if(openGmail(data,hasFiles))say(hasFiles?'Gmail abierto. Debes adjuntar el ZIP de la solicitud antes de pulsar Enviar. Usa «Descargar ZIP» para obtenerlo.':'Gmail abierto con los datos del formulario. Revisa el mensaje y pulsa Enviar en Gmail.','success');else say('El mensaje es demasiado largo: descarga el ZIP y adjúntalo en Gmail.','error')}
-catch(e){say('No se pudo abrir Gmail web en este navegador. Puedes usar «Enviar» con la aplicación de correo.','error')}
+ if(!share){
+   try{say('Preparando copia ZIP…');const result=await build();if(!result)return;download(result.blob,result.file);say('Copia descargada. No se ha enviado todavía ninguna solicitud.','success')}
+   catch(e){say('No se pudo crear la copia ZIP.','error')}
+   return
+ }
+ if(one('#share').disabled)return;
+ if(!collect(true))return;
+ let progressTimer,controller;
+ try{
+   setSending(true,'Preparando la solicitud','Reuniendo datos y fotografías…');
+   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+   const result=await build();
+   if(!result){setSending(false);return}
+   if(result.blob.size>8*1024*1024){
+      say('El ZIP supera 8 MB. Reduce las fotos o divide los cambios en dos solicitudes. No se ha enviado nada.','error');return
+   }
+   const data=collect(false);
+   const base64=await readBase64(result.blob);
+   if(!base64)throw new Error('No se pudo leer el archivo');
+   setSending(true,'Conectando con Cartas Digitales','Transmitiendo la solicitud al servidor; no cierres esta página.');
+   progressTimer=setTimeout(()=>{one('#sending-title').textContent='Conectando con el servidor';one('#send-stage').textContent='El servidor puede estar iniciándose. Los datos del formulario siguen guardados en esta página.'},15000);
+   controller=new AbortController();
+   const timeout=setTimeout(()=>controller.abort(),100000);
+   let response;
+   try{
+     response=await fetch(API+'/send',{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+         restaurant:data.restaurant,contact:data.contact,contactEmail:data.email,phone:data.phone,
+         count:data.changes.length,filename:result.file,zip_base64:base64,website:''
+       }),signal:controller.signal})
+   }finally{clearTimeout(timeout)}
+   let output={};try{output=await response.json()}catch(_){}
+   if(!response.ok||!output.ok){
+     const message=output.error||'El servidor no ha podido enviar la solicitud';
+     say(message+' No hemos confirmado el envío. Puedes descargar una copia ZIP.','error');
+     return
+   }
+   one('#sending-panel').hidden=false;
+   one('#sending-title').textContent='Solicitud enviada al servicio de correo';
+   one('#send-stage').textContent='Referencia de envío: '+output.id+'. Cartas Digitales revisará tus cambios. El proveedor ha aceptado el mensaje.';
+   say('Solicitud aceptada por el servicio de correo. Referencia: '+output.id+'.','success')
+ }catch(e){
+   if(e.name==='AbortError')say('El servidor ha tardado demasiado en responder. No podemos confirmar el envío; revisa antes de repetirlo para evitar duplicados.','error');
+   else say('Error de conexión. No se ha podido confirmar el envío. Los datos permanecen en la página y puedes descargar el ZIP.','error')
+ }finally{clearTimeout(progressTimer);setSending(false)}
 }
 function save(){try{const data=collect(false);data.changes.forEach(p=>{delete p._file});localStorage.setItem(KEY,JSON.stringify(data));say('Borrador guardado en este navegador. Las fotos deben volver a adjuntarse.','success')}catch(e){say('No se ha podido guardar el borrador en este navegador.','error')}}
 function restore(){try{const raw=localStorage.getItem(KEY);if(!raw){say('No se encontró ningún borrador guardado en este navegador.','error');return}const data=JSON.parse(raw);if(!Array.isArray(data.changes)){say('El borrador no es válido.','error');return}one('#restaurant').value=data.restaurant||'';one('#person').value=data.contact||'';one('#email').value=data.email||'';one('#phone').value=data.phone||'';one('#comments').value=data.comments||'';items.replaceChildren();data.changes.slice(0,MAX).forEach(makeItem);if(!items.children.length)makeItem();one('#verified').checked=false;say('Borrador recuperado. Revisa los datos y vuelve a adjuntar las fotografías.','success')}catch(e){say('No se pudo recuperar el borrador.','error')}}
-one('#add').addEventListener('click',()=>makeItem());one('#download').addEventListener('click',()=>deliver(false));one('#share').addEventListener('click',()=>deliver(true));one('#gmail').addEventListener('click',deliverGmail);one('#draft').addEventListener('click',save);one('#restore').addEventListener('click',restore);
+one('#add').addEventListener('click',()=>makeItem());one('#download').addEventListener('click',()=>deliver(false));one('#share').addEventListener('click',()=>deliver(true));one('#draft').addEventListener('click',save);one('#restore').addEventListener('click',restore);
 makeItem();
 })();
 </script></body></html>
