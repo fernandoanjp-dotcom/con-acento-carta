@@ -433,48 +433,66 @@ header{background:#1a302b}
 
 .hero p{margin-bottom:0}
 
-/* QR e idiomas, uno junto al otro, en la esquina superior derecha del bloque del logo. */
+/* QR e idioma a media escala, pegados a la esquina superior derecha de la portada. */
+.hero-content{position:relative}
 .hero-brand-row{
- display:flex;flex-wrap:nowrap!important;align-items:center;justify-content:space-between;
- gap:8px;min-width:0;padding-right:0!important;margin-right:-10px
+ display:flex;flex-wrap:nowrap!important;align-items:center;
+ gap:6px;margin-right:0!important;padding-right:115px!important;
+ min-width:0
 }
-.hero-brand-row .brand{flex:0 1 auto;min-width:0}
+.hero-brand-row .brand{flex:0 1 auto;min-width:0;max-width:100%}
 .hero-brand-row .head-actions{
- display:flex;flex-direction:row;flex-wrap:nowrap!important;align-items:center;
- justify-content:flex-end!important;gap:5px;flex:0 0 auto;width:auto!important;
- margin-left:auto;min-width:0
+ position:absolute;top:3px;right:-19px;z-index:6;
+ display:flex!important;flex-direction:row;flex-wrap:nowrap!important;
+ align-items:center;justify-content:flex-end!important;
+ width:auto!important;min-width:0;gap:3px;margin:0!important;padding:0
 }
 .hero-brand-row .head-actions .qr-trigger{
- display:inline-flex;align-items:center;justify-content:center;gap:3px;
- min-height:36px;padding:7px 10px;border-radius:999px;white-space:nowrap
+ appearance:none;display:inline-flex;align-items:center;justify-content:center;
+ flex:0 0 27px;width:27px;min-width:27px;height:27px;min-height:27px;
+ padding:0!important;border-radius:999px;line-height:1;font-size:11px;
+ cursor:pointer
 }
+.hero-brand-row .head-actions .qr-word{display:none!important}
 .hero-brand-row .head-actions .language-picker{
- display:flex;align-items:center;flex:0 0 auto;margin:0;
+ display:flex;align-items:center;flex:0 0 auto;
+ margin:0!important;padding:0
 }
 .hero-brand-row .head-actions .language-picker>span{display:none}
 .hero-brand-row .head-actions .language-picker select{
- display:block;max-width:110px;width:110px;min-height:36px;
- padding:7px 8px;border:1px solid #c9b7a7;border-radius:999px;
- background:#fffaf4;color:#3e3029;font:800 11px Arial,sans-serif
+ display:block;box-sizing:border-box;appearance:auto;
+ width:80px;max-width:80px;height:27px;min-height:27px;
+ padding:2px 3px;border:1px solid #c9b7a7;border-radius:999px;
+ background:#fffaf4;color:#3e3029;font:700 9px/1 Arial,sans-serif
 }
-@media(max-width:600px){
- .hero-brand-row{margin-right:-7px;gap:5px}
- .hero-brand-row .head-actions .qr-trigger{width:37px;min-width:37px;min-height:34px;padding:6px}
- .hero-brand-row .head-actions .qr-word{display:none}
- .hero-brand-row .head-actions .language-picker select{width:99px;max-width:99px;min-height:34px;padding:5px;font-size:10px}
+@media(max-width:720px){
+ .hero-brand-row{margin-right:0!important;padding-right:112px!important}
+ .hero-brand-row .head-actions{
+   top:2px;right:-13px;gap:3px;
+   width:auto!important;justify-content:flex-end!important
+ }
+ .hero-brand-row .head-actions .qr-trigger{
+   flex-basis:26px;width:26px;min-width:26px;
+   height:26px;min-height:26px;font-size:11px
+ }
+ .hero-brand-row .head-actions .language-picker select{
+   width:78px;max-width:78px;height:26px;min-height:26px;
+   font-size:9px;padding:2px 3px
+ }
  .hero-brand-row .brand{gap:5px}
- .hero-brand-row .emblem{width:38px;height:42px;flex:0 0 38px}
- .hero-brand-row .client-brand strong{font-size:clamp(17px,5vw,20px)}
- .hero-brand-row .client-brand small{font-size:8px;letter-spacing:.09em}
- .hero-brand-row .brand strong{font-size:clamp(15px,4.7vw,18px)}
- .hero-brand-row .brand small{font-size:8px;letter-spacing:.07em}
+ .hero-brand-row .emblem{width:36px;height:40px;flex:0 0 36px}
+ .hero-brand-row .client-brand strong{font-size:clamp(17px,4.7vw,20px)}
+ .hero-brand-row .client-brand small{font-size:8px;letter-spacing:.08em}
+ .hero-brand-row .brand strong{font-size:clamp(15px,4.2vw,18px)}
+ .hero-brand-row .brand small{font-size:8px;letter-spacing:.06em}
 }
 @media(max-width:355px){
- .hero-brand-row .head-actions .language-picker select{width:89px;max-width:89px}
- .hero-brand-row .head-actions .qr-trigger{width:33px;min-width:33px}
+ .hero-brand-row{padding-right:104px!important}
+ .hero-brand-row .head-actions .language-picker select{width:73px;max-width:73px}
+ .hero-brand-row .head-actions .qr-trigger{width:25px;min-width:25px;flex-basis:25px}
  .hero-brand-row .client-brand strong{font-size:16px}
  .hero-brand-row .brand strong{font-size:15px}
- .hero-brand-row .emblem{width:33px;height:37px;flex-basis:33px}
+ .hero-brand-row .emblem{width:32px;height:36px;flex-basis:32px}
 }
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/demo-completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/demo-completa/"+location.search+location.hash);</script>
