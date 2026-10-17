@@ -548,11 +548,63 @@ function renderTabs(){
  $('tabs').innerHTML=cats.map(c=>`<button type="button" class="tab ${c===activeCat?'active':''}" data-cat="${c}" aria-pressed="${c===activeCat}">${esc(t(c))}</button>`).join('');
  $('tabs').querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{activeCat=b.dataset.cat;renderTabs();renderCatalog();document.getElementById('catalog').scrollIntoView({behavior:'smooth',block:'start'});}));
 }
+/* Preferir una narradora natural del idioma activo si el dispositivo la ofrece.
+   Sin instalar voces: si no hay una voz femenina compatible se mantiene la del sistema. */
+const FEMALE_NARRATOR_NAMES={
+ es:/elvira|helena|luc[ií]a|mar[ií]a|m[oó]nica|dalia|paula|ximena|paloma|isabela|almudena|conchita|google espa[nñ]ol/i,
+ en:/jenny|aria|samantha|serena|victoria|karen|moira|emma|ava|libby|joanna|amy|susan|zira|hazel|natasha/i,
+ ca:/joana|laia|montserrat|ona/i,
+ fr:/denise|julie|am[eé]lie|hortense|c[eé]line|audrey|l[eé]a/i,
+ zh:/xiaoxiao|xiaoyi|xiaoyou|huihui|tingting|yaoyao|lili|xiaomo/i,
+ ar:/salma|zariyah|hoda|layla|fatima|mariam/i,
+ it:/elsa|isabella|bianca|alice|chiara/i,
+ de:/katja|vicki|anika|petra|anna|hed-da/i,
+ pt:/francisca|in[eê]s|camila|helena|maria/i
+};
+let cachedNarratorVoices=[];
+function refreshNarratorVoices(){
+ if(!('speechSynthesis' in window))return [];
+ const voices=window.speechSynthesis.getVoices();
+ if(voices.length)cachedNarratorVoices=voices;
+ return cachedNarratorVoices;
+}
+if('speechSynthesis' in window){
+ refreshNarratorVoices();
+ window.speechSynthesis.addEventListener('voiceschanged',refreshNarratorVoices);
+}
+function findFemaleNarrator(locale){
+ const voices=refreshNarratorVoices();
+ const wanted=String(locale||'es-ES').replace('_','-').toLowerCase();
+ const base=wanted.split('-')[0];
+ const suitable=voices.filter(v=>String(v.lang||'').replace('_','-').toLowerCase().split('-')[0]===base);
+ if(!suitable.length)return null;
+ const matches=FEMALE_NARRATOR_NAMES[base];
+ const score=v=>{
+   const name=String(v.name||'');
+   const lowered=name.toLowerCase(),voiceLang=String(v.lang||'').replace('_','-').toLowerCase();
+   let s=voiceLang===wanted?28:0;
+   if(matches&&matches.test(name))s+=95;
+   if(/female|mujer|femenina|woman/i.test(name))s+=75;
+   if(/natural|neural|premium|enhanced|high.quality|hd.voice/i.test(name))s+=48;
+   if(/google|microsoft|siri|apple/i.test(name))s+=18;
+   if(/online|cloud/i.test(name))s+=12;
+   if(/male|masculina|hombre|man.voice|jorge|pablo|alvaro|[áa]lvaro|raul|ra[uú]l/i.test(lowered))s-=130;
+   return s;
+ };
+ return suitable.slice().sort((a,b)=>score(b)-score(a))[0];
+}
+function configureNarration(utter,locale){
+ utter.lang=locale||'es-ES';
+ const voice=findFemaleNarrator(utter.lang);
+ if(voice)utter.voice=voice;
+ utter.rate=.98;
+ utter.pitch=1.03;
+ return utter;
+}
 function speakDescription(p){
  if(!('speechSynthesis' in window)){alert('La lectura en voz alta no está disponible en este navegador.');return;}
  window.speechSynthesis.cancel();
- const msg=new SpeechSynthesisUtterance(p.name+'. '+p.story+' '+p.desc);
- msg.lang=locales[lang];msg.rate=.95;
+ const msg=configureNarration(new SpeechSynthesisUtterance(p.name+'. '+p.story+' '+p.desc),locales[lang]);
  window.speechSynthesis.speak(msg);
 }
 function renderCatalog(){
