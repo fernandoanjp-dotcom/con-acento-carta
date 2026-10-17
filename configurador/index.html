@@ -39,6 +39,6 @@ var q=new URLSearchParams();Object.entries(z).forEach(function(a){q.set(a[0],typ
 $('qr').addEventListener('change',function(){$('qr-note').hidden=!$('qr').checked;if(!$('qr').checked)$('qrfree').checked=false});
 $('config').addEventListener('submit',calc);
 $('copy-link').addEventListener('click',function(){var url=$('preview-link').href;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){$('status').textContent='Enlace copiado';}).catch(function(){$('status').textContent='Copia el enlace del botón «Abrir demostración»';})}else{$('status').textContent='Abre la demostración y copia la dirección desde el navegador';}});
-setInitial();calc();
+setInitial();if(location.search)calc();
 })();
 </script></body></html>
