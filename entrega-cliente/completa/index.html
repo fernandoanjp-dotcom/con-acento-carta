@@ -444,11 +444,47 @@ header .top-link{color:#f4dfd1}
  .hero-btn{padding:9px 15px;font-size:12px}
 }
 
+
+/* Identidad dentro de la portada: sin segunda franja ni CTA duplicada. */
+.hero-brand-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;margin-bottom:12px}
+.hero-brand-row .brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#f7e8d2;min-width:0}
+.hero-brand-row .brand strong{display:block;font-size:clamp(17px,2.7vw,22px);line-height:1.12;color:inherit}
+.hero-brand-row .brand small{display:block;font-size:9px;line-height:1.3;letter-spacing:.12em;color:#ebcdb7}
+.hero-brand-row .brand-emblem{display:grid!important;width:38px;height:38px;flex:0 0 auto;border:1px solid currentColor;border-radius:50%;place-items:center}
+.hero-brand-row .emblem{display:block;width:47px;height:50px;flex:0 0 auto;padding:3px;border-radius:11px;background:#fff7ed}
+.hero-brand-row .client-brand strong{font:600 clamp(22px,3.5vw,29px)/1 'Playfair Display',Georgia,serif;color:#f7e8d2}
+.hero-brand-row .client-brand small{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#efc3b4}
+.hero-brand-row + .eyebrow{margin-top:2px}
+.page.toolbar{top:0}
+@media(max-width:720px){
+ .hero-brand-row{margin-bottom:9px;flex-wrap:wrap;gap:8px}
+ .hero-brand-row .brand{gap:7px}
+ .hero-brand-row .brand strong{font-size:17px}
+ .hero-brand-row .brand small{font-size:8px}
+ .hero-brand-row .emblem{width:42px;height:45px}
+ .hero-brand-row .client-brand strong{font-size:20px}
+ .page.toolbar{top:0}
+}
+
+/* Mantener idioma y código QR sin barra independiente. */
+.hero-brand-row .head-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.hero-brand-row .qr-trigger{appearance:none;border:0;background:#e0c38e;color:#1e322b;padding:9px 12px;min-height:38px;white-space:nowrap;font-size:11px;font-weight:800;border-radius:999px;cursor:pointer}
+.hero-brand-row .language-picker{display:flex;align-items:center;gap:5px;color:#f6e0c9}
+.hero-brand-row .language-picker select{min-height:38px;background:#f7f2e7;color:#203930;border:1px solid #ddcbbd;border-radius:999px;max-width:125px;padding:8px 10px;font-size:12px}
+@media(max-width:720px){
+ .hero-brand-row .head-actions{gap:5px;flex-wrap:wrap}
+ .hero-brand-row .qr-trigger{padding:8px 9px;min-height:35px}
+ .hero-brand-row .language-picker select{max-width:115px;min-height:35px;padding:7px}
+}
+@media(max-width:410px){
+ .hero-brand-row{align-items:flex-start}
+ .hero-brand-row .head-actions{width:100%;justify-content:flex-start}
+}
 </style>
 <link rel="canonical" href="https://con-acento-carta.onrender.com/entrega-cliente/completa/"><script>if(location.hostname==="fernandoanjp-dotcom.github.io")location.replace("https://con-acento-carta.onrender.com/entrega-cliente/completa/"+location.search+location.hash);</script>
-</head><body><div class="delivery-design-bar"><div class="delivery-design-title">Prueba de lanzamiento · Entrega al cliente</div><nav class="delivery-design-nav" aria-label="Elegir diseño para mostrar al cliente"><a href="../normal/">Diseño normal</a><a href="../premium/">Diseño Premium</a><a href="../completa/" aria-current="page">Premium + extras</a></nav></div><header><div class="page head"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><svg class="emblem" viewBox="0 0 90 96" role="img" aria-label="Mujer con rosas de la identidad de Con'acento"><path fill="#201c1c" d="M45 5C29 5 21 17 21 28c-1 8 1 15-6 23l11 1-8 13 14-5 6-15 15-1 9-16C64 11 55 5 45 5Z"/><path fill="#fff5eb" d="M13 36c3-7 13-12 22-6l4 13-9 8 3 9-9-2-9-8-8 1 7-9Z"/><path fill="none" stroke="#211c1c" stroke-width="2.3" stroke-linecap="round" d="M13 40c8-5 14-2 19 0m-15 6 9 1m-13 11 7 2"/><path fill="#1d1717" d="M9 60q6-3 12 5-8 5-12-5Z"/><path fill="#201c1c" d="M35 7C45-6 58 1 57 8c9-5 18 5 14 12 6 7-1 17-10 20-10-8-16-24-26-33Z"/><g stroke="#fff5e9" fill="none" stroke-width="1.7" stroke-linecap="round"><path d="m41 9 7 7-6 8 5 8m5-21 7 8-5 8 7 8m4-17 5 7-5 6"/></g><g fill="#c1304e" stroke="#7f1530" stroke-width="1.2"><circle cx="65" cy="42" r="13"/><circle cx="53" cy="59" r="14"/><circle cx="66" cy="73" r="12"/></g><g stroke="#ec8b9a" stroke-width="1.9" fill="none"><path d="M59 44q3-9 10-3t-6 10q-6-3 1-8m-17 17q2-10 12-7t-2 12q-8-3 0-9m2 17q8-8 12-1t-7 9q-6-3 0-8"/></g><circle cx="41" cy="67" r="5" stroke="#211b1b" stroke-width="2.7" fill="none"/><circle cx="41" cy="80" r="8" fill="#201a1a"/><circle cx="41" cy="80" r="3" fill="#f8e6df"/></svg><span class="client-brand"><strong>Con'acento</strong><small>Bar de tapas</small></span></a><div class="head-actions"><a href="#carta" class="top-link">Nuestra carta</a><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div></header>
+</head><body><div class="delivery-design-bar"><div class="delivery-design-title">Prueba de lanzamiento · Entrega al cliente</div><nav class="delivery-design-nav" aria-label="Elegir diseño para mostrar al cliente"><a href="../normal/">Diseño normal</a><a href="../premium/">Diseño Premium</a><a href="../completa/" aria-current="page">Premium + extras</a></nav></div>
 <main id="inicio">
-<section class="hero"><div class="hero-content"><span class="eyebrow">Tapas · Buena compañía · Mucho acento</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>El carácter de un bar de tapas: platos para compartir, descubrir y disfrutar.</p><a href="#carta" class="hero-btn">Ver la carta ↓</a></div></section>
+<section class="hero"><div class="hero-content"><div class="hero-brand-row"><a class="brand" href="#inicio" aria-label="Con Acento, volver al inicio"><svg class="emblem" viewBox="0 0 90 96" role="img" aria-label="Mujer con rosas de la identidad de Con'acento"><path fill="#201c1c" d="M45 5C29 5 21 17 21 28c-1 8 1 15-6 23l11 1-8 13 14-5 6-15 15-1 9-16C64 11 55 5 45 5Z"/><path fill="#fff5eb" d="M13 36c3-7 13-12 22-6l4 13-9 8 3 9-9-2-9-8-8 1 7-9Z"/><path fill="none" stroke="#211c1c" stroke-width="2.3" stroke-linecap="round" d="M13 40c8-5 14-2 19 0m-15 6 9 1m-13 11 7 2"/><path fill="#1d1717" d="M9 60q6-3 12 5-8 5-12-5Z"/><path fill="#201c1c" d="M35 7C45-6 58 1 57 8c9-5 18 5 14 12 6 7-1 17-10 20-10-8-16-24-26-33Z"/><g stroke="#fff5e9" fill="none" stroke-width="1.7" stroke-linecap="round"><path d="m41 9 7 7-6 8 5 8m5-21 7 8-5 8 7 8m4-17 5 7-5 6"/></g><g fill="#c1304e" stroke="#7f1530" stroke-width="1.2"><circle cx="65" cy="42" r="13"/><circle cx="53" cy="59" r="14"/><circle cx="66" cy="73" r="12"/></g><g stroke="#ec8b9a" stroke-width="1.9" fill="none"><path d="M59 44q3-9 10-3t-6 10q-6-3 1-8m-17 17q2-10 12-7t-2 12q-8-3 0-9m2 17q8-8 12-1t-7 9q-6-3 0-8"/></g><circle cx="41" cy="67" r="5" stroke="#211b1b" stroke-width="2.7" fill="none"/><circle cx="41" cy="80" r="8" fill="#201a1a"/><circle cx="41" cy="80" r="3" fill="#f8e6df"/></svg><span class="client-brand"><strong>Con'acento</strong><small>Bar de tapas</small></span></a><div class="head-actions"><button type="button" class="qr-trigger" id="qr-open" aria-label="Abrir código QR de esta demostración">▦ Ver QR</button><label class="language-picker"><span>Idioma</span><select id="language" aria-label="Idioma"><option value="es" lang="es">Español</option><option value="en" lang="en">English</option><option value="ca" lang="ca">Català</option><option value="fr" lang="fr">Français</option><option value="zh" lang="zh-Hans">简体中文</option><option value="ar" lang="ar">العربية</option></select></label></div></div><span class="eyebrow">Tapas · Buena compañía · Mucho acento</span><h1 class="serif">Sabores con<br><em>mucho acento.</em></h1><p>El carácter de un bar de tapas: platos para compartir, descubrir y disfrutar.</p><a href="#carta" class="hero-btn">Ver la carta ↓</a></div></section>
 <section class="page toolbar" id="carta" aria-label="Categorías de la carta"><div class="category-tabs" role="group" aria-label="Categorías" id="tabs"></div><div class="dual-view-switch" role="group" aria-label="Vista dual: presentación de platos"><button class="view-choice" type="button" data-view="grid" aria-pressed="true">▦ Cuadrícula</button><button class="view-choice" type="button" data-view="list" aria-pressed="false">☷ Lista</button></div></section>
 <div class="page" id="catalog"></div>
 <section class="page info-allergens" id="alergenos"><div class="info-allergens-inner"><h2>Información sobre alérgenos</h2><p>Si tienes alguna alergia o intolerancia, consulta directamente con el personal del establecimiento antes de consumir. Los ingredientes y las preparaciones pueden variar. La descripción de un plato no sustituye la información de alérgenos facilitada por el restaurante.</p></div></section>
